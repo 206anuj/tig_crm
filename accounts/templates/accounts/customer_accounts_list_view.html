@@ -1,0 +1,331 @@
+
+{% extends 'header.html' %}
+{% load static %}
+
+{% block title %}Account List{% endblock %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{% static 'accounts/css/customer_accounts_list_view.css' %}">
+{% endblock %}
+
+{% block content %}
+  <!-- testing -->
+
+  <div class="recent_navbar_box">
+
+    <div class="recent_navbar_box_upper">
+      <img class="project_icon_logo" src="{% static 'accounts/images/account_icon.png' %}" alt="Image not Found">
+      <label for="">Accounts</label><br>
+      <label style="font-size: larger;" for=""><b>Recently Viewed</b></label>
+      <!-- <a  href="selection_window.html" class="new_project_button" ><b>New</b></a> -->
+
+      <button class="new_project_button" onclick="openPopup_selection_account()"><b>New </b></button>
+
+      <!-- <button href="selection_window.html" class="new_project_button" onclick="openPopup_selection()" ><b>New</b></button> -->
+
+      <input class="recent_search" type="search" name="" id="" placeholder="  Search">
+    </div>
+
+
+  </div>
+
+
+
+
+  <style>
+
+{% comment %} css start {% endcomment %}
+
+*{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.recent_navbar_box {
+  width: 100%;
+  border-radius: 10px;
+  
+}
+
+.project_icon_logo {
+  background-color: #d12222;
+  border-radius: 2px;
+  width: auto;
+  height: 35px;
+  float: left;
+  margin: 5px;
+  margin-right: 10px;
+}
+
+.recent_navbar_box_upper {
+  height: 80px;
+  width: auto;
+  background-color: #e8eaec;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.recent_navbar_box_upper .recent_search{
+  float: right;
+  border-radius: 5px;
+  border: 1px solid gray;
+  width: 20%;
+  margin-right: 1%;
+  padding: 5px;
+}
+
+.recent_search:focus{
+      outline: none; /* Remove default outline */
+      box-shadow: 0 0 10px #d1a2a2;  
+}
+
+.new_project_button{
+  float: right;
+  background-color: white;
+  color: #d12222;
+  border-radius: 5px;
+  padding: 5px 15px;
+  text-decoration: none;
+  border:1px solid #d12222;
+  
+}
+
+.new_project_button:hover{
+background-color: #d12222;
+color: white;
+}
+
+
+/* selection popup form start */
+
+.selection_window_account {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 9999;
+  width: 600px;
+  max-height: 80%;
+  overflow-y: auto;/* Enable vertical scrollbar when content exceeds the maximum height */
+}
+
+.selection_window_account_overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9998;
+}
+
+.cross {
+  color: #aaa;
+  float: right;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.cross:hover,
+.cross:focus {
+  color: #e90909;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.account_information_box  {
+  margin-left: 30%;    
+}
+
+
+
+.selection_window_account .Submit_buttons {
+  background-color: rgb(161, 155, 155);
+  color: white;
+  border-radius: 3px;
+  border: none;
+  padding: 10px 15px;
+  text-decoration: none;
+}
+
+.selection_window_account .Submit_buttons:hover{
+  background-color: rgb(128, 125, 125);
+}
+
+.selection_window_account .Submit_buttons_box {
+  text-align: right;
+}
+
+
+{% comment %} css end {% endcomment %}
+
+.account_page_table,
+    thead,
+    tr,
+    td {
+      border-top: 1px solid gray;
+      border-bottom: 1px solid gray;
+      margin-top: 2%;
+     
+    }
+ 
+    .account_page_table tr:hover {
+      background-color: #f2f2f2;
+    }
+ 
+    .account_page_table .table_headers {
+      width: 400px;
+    }
+ 
+    .account_page_table .table_last_headers{
+      width: 56%;
+    }
+ 
+    .account_page_table a {
+      text-decoration: none;
+    }
+  </style>
+  <div>
+    <table class="account_page_table">
+      <thead class="account_page_tabe_head">
+        <td class=""> S No.</td>
+        <td class="table_headers">&nbsp&nbsp&nbsp <b>Accounts</b></td>
+        <td class="table_headers"><b>Owner</b></td>
+        <td class="table_last_headers"><b>Phone Number</b></td>
+ 
+      </thead>
+      {% for account in accounts %}
+      <tr class="account_page_tabe_row">
+        <td>&nbsp&nbsp&nbsp {{ forloop.counter }}</td>
+        <td><a href="{% url 'accounts:customer_account_detail_view' account.id %}">&nbsp&nbsp&nbsp {{ account.ca_name }}</a></td>
+        <td>{{ account.ca_account_owner }}</td>
+        <td>{{ account.ca_phone_number }}</td>
+      </tr>
+      {% endfor %}
+      {% comment %} <tr>
+        <td>&nbsp&nbsp&nbsp 2</td>
+        <td><a href="">&nbsp&nbsp&nbsp Cognizant</a></td>
+      </tr>
+      <tr>
+        <td>&nbsp&nbsp&nbsp 3</td>
+        <td><a href="">&nbsp&nbsp&nbsp Wipro</a></td>
+      </tr>
+      <tr>
+        <td>&nbsp&nbsp&nbsp 4</td>
+        <td><a href="">&nbsp&nbsp&nbsp TCS</a></td>
+      </tr>
+      <tr>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+      </tr>
+      <tr>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+      </tr>
+      <tr>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+      </tr>
+      <tr>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+      </tr>
+      <tr>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+      </tr>
+      <tr>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+      </tr>
+      <tr>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+      </tr>
+      <tr>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+      </tr>
+      <tr>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+      </tr>
+      <tr>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+      </tr>
+      <tr>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+      </tr>
+      <tr>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+      </tr> {% endcomment %}
+ 
+ 
+    </table>
+  </div>
+
+
+  <div id="selection_window_account" class="selection_window_account">
+    <!-- <a  class="cross" >&times;</a> -->
+    <h3>New Account</h3>
+
+    <hr>
+    <form method="post" action="{% url 'accounts:select_account_type' %}">
+      {% csrf_token %}
+      <h6>Select a record type</h6>
+      <div class="account_information_box">
+
+        <div class="account_information_box_input">
+          <ul>
+            <label><input type="radio" name="account_type" value="customer" checked> Customer</label> <br> <br>
+            <label><input type="radio" name="account_type" value="vendor"> Vendor</label>
+
+          </ul>
+
+        </div>
+
+        <div class="Submit_buttons_box">
+          <a href="{% url 'accounts:customer_accounts_list_view' %}" class="Submit_buttons">Cancel</a>
+          <button type="submit" class="Submit_buttons">Next</button>
+        </div>
+    </form>
+
+  </div>
+
+  <script src="{% static 'accounts/js/customer_accounts_list_view.js' %}"></script>
+  <script src="../../Reusable_components/header/navbar.js"></script>
+
+
+
+  <script>
+    function nextform() {
+      // Check if the customer radio button is selected
+      if (document.getElementById("customer_form").checked) {
+        window.location.href = "C_Accountpop.html";
+    
+      } else {
+        // Handle if employee radio button is selected
+        document.getElementById("vendor_form").checked;{
+         // alert('wait')
+          window.location.href = "project_popup.html";
+        }
+      }
+    }
+    
+    </script>
+
+
+
+
+
+{% endblock %}

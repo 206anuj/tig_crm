@@ -1,0 +1,231 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block title %}Account List{% endblock %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{% static 'accounts/css/customer_accounts_list_view.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="site_header_box_upper site_header_box">
+    <div class="header-col1">
+        <img class="site_logo" src="{% static 'project_site/images/project_icon.png' %}" alt="site-logo" />
+        <div class="project-site-address-link">
+          <p class="sub-header-heading">Project Sites</p>
+            {% comment %} <a href="#" class="a-tag-style-remove">Projects </a>
+            <a href="#" class="a-tag-style-remove" >{{ project_site.ps_name }}</a> {% endcomment %}
+            
+        </div>
+    </div>
+    
+    <div class="header-col2">
+       
+        <input
+      class="site_search"
+      type="search"
+      name=""
+      id=""
+      placeholder="Search"
+    />
+    <a
+      href="{% url 'project_site:project_site_creation_form' %}"
+      class="new_project_site"
+      onclick="openPopup_orders()"
+      ><b>New </b></a
+    >
+    </div>
+    
+  </div>
+
+
+<!-- ---------------- -->
+
+<div>
+  <table class="this_page_table">
+    <thead class="table-head-style">
+        <tr>
+            <th class="table-head-col-style"> S no.</th>
+            <th class="table-head-col-style"> Site Name</th>
+            <th class="table-head-col-style">Country</th>
+            <th class="table-head-col-style">City</th>
+            <th class="table-head-col-style">State</th>
+            <th class="table-head-col-style">Project</th>
+        </tr>
+    </thead>
+    <tbody class="table-body">
+      {% for project_site in project_sites %}
+        <tr class="table-row-style">
+            <td class="body-row-col-style">{{ forloop.counter }}</td>
+            <td class="body-row-col-style"><a class="a-tag-style-remove" href="{% url 'project_site:project_site_detail_view' project_site.id %}">{{ project_site.ps_name }}</a></td>
+            <td class="body-row-col-style">{{ project_site.ps_country }}</td>
+            <td class="body-row-col-style">{{ project_site.ps_city }}</td>
+            <td class="body-row-col-style">{{ project_site.ps_state }}</td>
+            <td class="body-row-col-style"><a class="a-tag-style-remove" href="#">{{ project_site.ps_project }}</a></td>
+        </tr>
+        {% endfor %}
+        {% comment %} <tr class="table-row-style">
+            <td class="body-row-col-style">2</td>
+            <td class="body-row-col-style"><a class="a-tag-style-remove" href="#"></a></td>
+            <td class="body-row-col-style"></td>
+            <td class="body-row-col-style"></td>
+            <td class="body-row-col-style"></td>
+            <td class="body-row-col-style"><a class="a-tag-style-remove" href="#"></a></td>
+        </tr> {% endcomment %}
+    </tbody>
+
+  </table>
+</div>
+
+
+<style>
+  *{
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0%;
+    margin: 0%;
+    box-sizing: border-box;
+}
+
+.site_header_box {
+    /* margin-top: 1rem; */
+    width: 100%;
+    border-top-left-radius: 0.2rem;
+    border-top-right-radius: 0.2rem;
+}
+
+.site_logo {
+    background-color: #d12222;
+    border-radius: 2px;
+    width: auto;
+    height: 35px;
+    float: left;
+    margin: 5px;
+    margin-right: 10px;
+}
+
+.site_header_box_upper {
+    
+    height: auto;
+    width: auto;
+    background-color: #e8eaec;
+    padding-block: 15px;
+    padding-inline: 5px;
+    border-top-left-radius: 0.2rem;
+    border-top-right-radius: 0.2rem;
+}
+
+.site_search{
+    border-radius: 5px;
+    border: 1px solid gray;
+    /* float: right; */
+    width: 50%;
+    height: 60%;
+    margin-right: 1%;
+
+}
+
+ .site_search:focus{
+        outline: none; /* Remove default outline */
+        box-shadow: 0 0 10px #d1a2a2;  
+}
+
+.new_project_site{
+    /* float: right; */
+    background-color: white;
+    color: #d12222;
+    border-radius: 5px;
+    padding: 5px 15px;
+    text-decoration: none;
+    border:1px solid #d12222;
+    height: 60%;
+    
+}
+
+.new_project_site:hover{
+background-color: #d12222;
+color: white;
+}
+
+
+.order_page_table tr:hover {
+  background-color: #f2f2f2;
+}
+
+.order_page_table .project {
+  width: 100%;
+}
+
+.order_page_table a {
+  text-decoration: none;
+}
+
+.a-tag-style-remove{
+    text-decoration: none;
+    color: rgb(3, 0, 187);
+    font-size: medium;
+}
+
+.sub-header-heading{
+    font-weight: 600;
+    font-size: larger;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+}
+
+.site_header_box{
+    display: grid;
+
+    grid-template-columns: 0.75fr 1fr;
+}
+
+.header-col2{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.this_page_table
+{
+  border-block: 1px solid rgba(128, 128, 128, 0.685);
+  width: 100%;
+  border-collapse: collapse;
+
+}
+
+.table-head-style{
+    background-color: #e8eaec;
+    border: 1px solid rgba(128, 128, 128, 0.685);
+    height: 30px;
+}
+.table-head-col-style{
+    border: 1px solid rgba(128, 128, 128, 0.685);
+    text-align: left;
+    padding-left:3px;
+}
+
+.table-head-col-style:hover{
+    background-color: rgba(201, 201, 201, 0.76);
+    color: rgba(0, 0, 0, 0.795);
+}
+
+.table-row-style{
+    height: 0.1rem;
+    border-block: 1px solid rgba(128, 128, 128, 0.685);
+    padding-block: 1px;
+}
+
+.body-row-col-style{
+    padding-left: 3px;
+    padding-top: 0.5%;
+}
+.table-row-style:hover{
+    background-color: rgba(201, 201, 201, 0.171);
+    border-block: 1px groove rgba(182, 181, 181, 0.753);
+    /*height: 0.9rem;*/
+    padding: 0px;
+
+}
+</style>
+
+
+{% endblock %}

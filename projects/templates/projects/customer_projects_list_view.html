@@ -1,0 +1,304 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block title %}Account List{% endblock %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{% static 'accounts/css/customer_accounts_list_view.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="recent_navbar_box">
+
+    <div class="recent_navbar_box_upper">
+      <img class="project_icon_logo" src="{% static 'projects/images/project_icon.png' %}" alt="">
+      <label for="">Projects</label><br>
+      <label style="font-size: larger;" for=""><b>Recently Viewed</b></label>
+      <!-- <a  href="selection_window.html" class="new_project_button" ><b>New</b></a> -->
+
+      <button class="new_project_button" onclick="openPopup_selection_project()"><b>New </b></button>
+
+      <input class="recent_search" type="search" name="" id="" placeholder="  Search">
+    </div>
+
+  </div>
+
+
+  <!-- ---------------- -->
+
+  <style>
+    .account_page_table,
+    thead,
+    tr,
+    td {
+      border-top: 1px solid gray;
+      border-bottom: 1px solid gray;
+      margin-top: 2%;
+
+    }
+
+    .account_page_table tr:hover {
+      background-color: #f2f2f2;
+    }
+
+    .account_page_table .project {
+      width: 100%;
+    }
+
+    .account_page_table a {
+      text-decoration: none;
+    }
+  </style>
+  <div>
+    <table class="account_page_table">
+      <thead class="account_page_tabe_head">
+        <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </td>
+        <td class="project">&nbsp&nbsp&nbsp <b>Projects</b></td>
+      </thead>
+      {% for account in accounts %}
+      <tr class="account_page_tabe_row">
+        <td>&nbsp&nbsp&nbsp {{ forloop.counter }}</td>
+        <td><a href="{% url 'projects:customer_project_detail_view' account.pk %}"> &nbsp&nbsp&nbsp {{ account.cp_name }}</a></td>
+      </tr>
+      {% endfor %}
+      
+      {% comment %}  <tr>
+        <td>&nbsp&nbsp&nbsp 2</td>
+        <td><a href="">&nbsp&nbsp&nbsp Astellas</a></td>
+      </tr>
+     <tr>
+        <td>&nbsp&nbsp&nbsp 3</td>
+        <td><a href="">&nbsp&nbsp&nbsp Diageo</a></td>
+      </tr>
+      <tr>
+        <td>&nbsp&nbsp&nbsp 4</td>
+        <td><a href="">&nbsp&nbsp&nbsp JLL</a></td>
+      </tr>
+      <tr>
+        <td>&nbsp&nbsp&nbsp 5</td>
+        <td><a href="">&nbsp&nbsp&nbsp GlaxoSmithKline</a></td>
+      </tr>
+      <tr>
+        <td>&nbsp&nbsp&nbsp 6</td>
+        <td><a href="">&nbsp&nbsp&nbsp Elders</a></td>
+      </tr>
+      <tr>
+        <td>&nbsp&nbsp&nbsp 7</td>
+        <td><a href="">&nbsp&nbsp&nbsp Leo Pharma</a></td>
+      </tr>
+      <tr>
+        <td>&nbsp&nbsp&nbsp 8</td>
+        <td><a href="">&nbsp&nbsp&nbsp Syneos</a></td>
+      </tr>
+      <tr>
+        <td>&nbsp&nbsp&nbsp 9</td>
+        <td><a href="">&nbsp&nbsp&nbsp Euroclear</a></td>
+      </tr>
+      <tr>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+      </tr>
+      <tr>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+      </tr>
+      <tr>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+      </tr>
+      <tr>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+      </tr>
+      <tr>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+      </tr>
+      <tr>
+        <td>&nbsp</td>
+        <td>&nbsp</td>
+      </tr> {% endcomment %}
+
+
+
+    </table>
+  </div>
+
+  <!-- ---------------- -->
+
+  <div id="selection_window_project" class="selection_window_project">
+    <!-- <a  class="cross" >&times;</a> -->
+    <h3>New Project</h3>
+
+    <hr>
+    <form action="/submit" method="post">
+      <h6>Select a record type</h6>
+      <div class="account_information_box">
+
+        <div class="account_information_box_input">
+          <ul>
+            <input  type="radio" id="name" name="name" checked>
+            <label for="">Customer</label><br><br>
+
+            <input type="radio" id="name" name="name">
+            <label for="">Indirect Expense</label><br><br>
+
+            <input type="radio" id="name" name="name">
+            <label for="">Vendor</label>
+          </ul>
+
+        </div>
+
+
+
+        <div class="Submit_buttons_box">
+          <!-- <button  class="Submit_buttons" >Next</button> -->
+          <a href="customer_project_list_view.html" class="Submit_buttons">Cancel</a>
+          <a href="{% url "projects:customer_project_creation_form" %}" class="Submit_buttons">Next</a>
+
+        </div>
+    </form>
+
+  </div>
+
+  <style>
+    *{
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    
+    .recent_navbar_box {
+        width: 100%;
+        /* border: 1px solid red; */
+        border-radius: 10px;
+        
+    }
+    
+    .project_icon_logo {
+        background-color: rgb(231, 40, 40);
+        border-radius: 2px;
+        width: auto;
+        height: 35px;
+        float: left;
+        margin: 5px;
+        margin-right: 10px;
+    }
+    
+    .recent_navbar_box_upper {
+        height: 80px;
+        width: auto;
+        background-color: #e8eaec;
+        padding: 5px;
+        border-radius: 10px;
+    }
+    
+    .recent_navbar_box_upper .recent_search{
+        float: right;
+        border-radius: 5px;
+        border: 1px solid gray;
+        width: 20%;
+        margin-right: 1%;
+        padding: 5px;
+    }
+    
+    .recent_search:focus{
+        outline: none; /* Remove default outline */
+        box-shadow: 0 0 10px #d1a2a2;  
+    }
+    
+    .new_project_button{
+        float: right;
+        background-color: white;
+        color: #d12222;
+        border-radius: 5px;
+        padding: 5px 15px;
+        text-decoration: none;
+        border:1px solid #d12222;
+        
+    }
+    
+    .new_project_button:hover{
+    background-color: #d12222;
+    color: white;
+    }
+    
+    
+    /* ---------------testing */
+    
+    .selection_window_project {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #ffffff;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        z-index: 9999;
+        width: 600px;
+        max-height: 80%;
+        overflow-y: auto;/* Enable vertical scrollbar when content exceeds the maximum height */
+    }
+    
+    .selection_window_project_overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+    }
+    
+    .cross {
+        color: #aaa;
+        float: right;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    
+    .cross:hover,
+    .cross:focus {
+        color: #e90909;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    
+    .account_information_box  {
+        margin-left: 30%;    
+    }
+    
+    
+    
+    .selection_window_project .Submit_buttons {
+        background-color: rgb(161, 155, 155);
+        color: white;
+        border-radius: 3px;
+        border: none;
+        padding: 10px 15px;
+        text-decoration: none;
+    }
+    
+    .selection_window_project .Submit_buttons:hover{
+        background-color: rgb(128, 125, 125);
+    }
+    
+    
+    
+    .selection_window_project .Submit_buttons_box {
+        text-align: right;
+    }
+        
+  </style>
+
+
+  <script src="{% static "projects/js/customer_projects_list_view.js" %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
+{% endblock %}

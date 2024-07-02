@@ -1,0 +1,172 @@
+<!-- customer_project_form.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Project Form</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        #suggestions-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            border: 1px solid #ccc;
+            max-height: 150px;
+            overflow-y: auto;
+            position: absolute;
+            z-index: 1000;
+            background-color: white;
+            width: 100%;
+        }
+        #suggestions-list li {
+            padding: 8px;
+            cursor: pointer;
+        }
+        #suggestions-list li:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Submit Customer Project Details</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div>
+            <label for="{{ form.cp_name.id_for_label }}">Project Name:</label>
+            {{ form.cp_name }}
+            {{ form.cp_name.errors }}
+        </div>
+        <div>
+            
+            <label for="customer-account-input">Customer/Vendor:</label>
+            <input type="text" id="customer-account-input" placeholder="Type customer account name">
+            <ul id="suggestions-list"></ul>
+            {% comment %} {{ form.cp_customer_vendor }}
+            {{ form.cp_customer_vendor.errors }} {% endcomment %}
+        </div>
+        <div>
+            <label for="{{ form.cp_start_date.id_for_label }}">Start Date:</label>
+            {{ form.cp_start_date }}
+            {{ form.cp_start_date.errors }}
+        </div>
+        <div>
+            <label for="{{ form.cp_end_date.id_for_label }}">End Date:</label>
+            {{ form.cp_end_date }}
+            {{ form.cp_end_date.errors }}
+        </div>
+        <div>
+            <label for="{{ form.cp_tig_entity.id_for_label }}">TIG Entity:</label>
+            {{ form.cp_tig_entity }}
+            {{ form.cp_tig_entity.errors }}
+        </div>
+        <div>
+            <label for="{{ form.cp_region.id_for_label }}">Region:</label>
+            {{ form.cp_region }}
+            {{ form.cp_region.errors }}
+        </div>
+        <div>
+            <label for="{{ form.cp_status.id_for_label }}">Status:</label>
+            {{ form.cp_status }}
+            {{ form.cp_status.errors }}
+        </div>
+        <div>
+            <label for="{{ form.cp_end_customer.id_for_label }}">End Customer:</label>
+            {{ form.cp_end_customer }}
+            {{ form.cp_end_customer.errors }}
+        </div>
+        <div>
+            <label for="{{ form.cp_type.id_for_label }}">Type:</label>
+            {{ form.cp_type }}
+            {{ form.cp_type.errors }}
+        </div>
+        <div>
+            <label for="{{ form.cp_payment_terms.id_for_label }}">Payment Terms:</label>
+            {{ form.cp_payment_terms }}
+            {{ form.cp_payment_terms.errors }}
+        </div>
+        <div>
+            <label for="{{ form.cp_cancelled_ticket_billable.id_for_label }}">Cancelled Ticket Billable:</label>
+            {{ form.cp_cancelled_ticket_billable }}
+            {{ form.cp_cancelled_ticket_billable.errors }}
+        </div>
+        <div>
+            <label for="{{ form.cp_cancelled_ticket_mutiplier_1.id_for_label }}">Cancelled Ticket Multiplier 1:</label>
+            {{ form.cp_cancelled_ticket_mutiplier_1 }}
+            {{ form.cp_cancelled_ticket_mutiplier_1.errors }}
+        </div>
+        <div>
+            <label for="{{ form.cp_billing_frequency.id_for_label }}">Billing Frequency:</label>
+            {{ form.cp_billing_frequency }}
+            {{ form.cp_billing_frequency.errors }}
+        </div>
+        <div>
+            <label for="{{ form.cp_cancellation_window_1.id_for_label }}">Cancellation Window 1:</label>
+            {{ form.cp_cancellation_window_1 }}
+            {{ form.cp_cancellation_window_1.errors }}
+        </div>
+        <div>
+            <label for="{{ form.cp_cancellation_window_2.id_for_label }}">Cancellation Window 2:</label>
+            {{ form.cp_cancellation_window_2 }}
+            {{ form.cp_cancellation_window_2.errors }}
+        </div>
+        <div>
+            <label for="{{ form.cp_cancelled_ticket_mutiplier_2.id_for_label }}">Cancelled Ticket Multiplier 2:</label>
+            {{ form.cp_cancelled_ticket_mutiplier_2 }}
+            {{ form.cp_cancelled_ticket_mutiplier_2.errors }}
+        </div>
+        <div>
+            <label for="{{ form.cp_terms_and_conditions.id_for_label }}">Terms and Conditions:</label>
+            {{ form.cp_terms_and_conditions }}
+            {{ form.cp_terms_and_conditions.errors }}
+        </div>
+        <div>
+            <label for="{{ form.cp_owner.id_for_label }}">Owner:</label>
+            {{ form.cp_owner }}
+            {{ form.cp_owner.errors }}
+        </div>
+        <div>
+            <label for="{{ form.cp_last_billing_date.id_for_label }}">Last Billing Date:</label>
+            {{ form.cp_last_billing_date }}
+            {{ form.cp_last_billing_date.errors }}
+        </div>
+        <div>
+            <label for="{{ form.cp_record_type.id_for_label }}">Record Type:</label>
+            {{ form.cp_record_type }}
+            {{ form.cp_record_type.errors }}
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+<script>
+    $(document).ready(function(){
+        $('#customer-account-input').on('keyup', function(){
+            var query = $(this).val();
+            if (query.length >= 3) {
+                $.ajax({
+                    url: '{% url "projects:customer_account_suggestions" %}',
+                    data: {'query': query},
+                    dataType: 'json',
+                    success: function(data) {
+                        var suggestions = data.suggestions;
+                        $('#suggestions-list').empty();
+                        for (var i = 0; i < suggestions.length; i++) {
+                            var suggestion = suggestions[i];
+                            $('#suggestions-list').append('<li data-account-id="' + suggestion.account_id + '">' + suggestion.account_name + '</li>');
+                        }
+                        $('#suggestions-list li').on('click', function() {
+                            var selectedAccount = $(this).text();
+                            $('#customer-account-input').val(selectedAccount);
+                            $('#suggestions-list').empty();
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX Error:', status, error);
+                    }
+                });
+            } else {
+                $('#suggestions-list').empty();
+            }
+        });
+    });
+</script>

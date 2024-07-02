@@ -1,0 +1,539 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block title %}Account List{% endblock %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{% static 'accounts/css/customer_accounts_list_view.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="navbox_top">
+    <img class="logo" src="../images/logo.png" loading="lazy" alt="logo" />
+    <a href=""
+      ><img
+        class="user_profile"
+        src="../images/user_profile.png"
+        alt="user-logo"
+        loading="lazy"
+    /></a>
+
+    <div class="navbar_search_box">
+      <input
+        class="search_box"
+        type="text"
+        placeholder="&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Search"
+      />
+    </div>
+  </div>
+  <!-- --------------------------Site form - 3rd layer------------------------------- -->
+
+  <div id="popup" class="popup">
+    <div class="popup-block">
+      <img
+        class="img-logo"
+        src="../images/logo.png"
+        alt="logo"
+        loading="lazy"
+      />
+      <div class="popup-heading">New Project Sites</div>
+    </div>
+
+    <div class="req-info">
+      <span class="text-danger">* </span>= Required
+      Information
+    </div>
+    <!-- -------------------------- Form Begin -------------------------------------- -->
+    <form method="post">
+      {% csrf_token %}  
+      <div class="block-name">&nbsp Information</div>
+
+      <div class="info-block">
+        <div class="sub-block">
+          <label for="id_ps_name"
+            ><span class="text-danger">*</span>Name</label
+          >
+          <input
+            type="text"
+            id="id_ps_name"
+            name="ps_name"
+            placeholder="Site name"
+            class="input-height"
+            aria-label="Site name"
+          />
+        </div>
+        <div class="sub-block">
+          <label for="id_ps_project"
+            ><span class="text-danger">*</span>Project</label
+          >
+          <div class="">
+            <input
+              type="search"
+              id="id_ps_project"
+              Name="ps_project"
+              class="search-type input_felid_border width-100"
+              placeholder="Search projects..."
+              aria-label="Project name"
+            />
+            <!-- <i class="fas fa-search icon-overlay"></i> -->
+          </div>
+        </div>
+
+        <!-- ---------If ID of dayselect get changed then It should be changed in JS file also ---------------------- -->
+        <div class="sub-block">
+          <label for="daysSelect"
+            ><span class="text-danger">*</span>Working Days</label
+          >
+          <div class="">
+            <select id="daysSelect" multiple class="width-100 multiple-select-style">
+              <option class="selectday-option" value="monday">Monday</option>
+              <option class="selectday-option" value="tuesday">
+                Tuesday
+              </option>
+              <option class="selectday-option" value="wednesday">
+                Wednesday
+              </option>
+              <option class="selectday-option" value="thursday">
+                Thursday
+              </option>
+              <option class="selectday-option" value="friday">Friday</option>
+              <option class="selectday-option" value="saturday">
+                Saturday
+              </option>
+              <option class="selectday-option" value="sunday">Sunday</option>
+            </select>
+            <div class="">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="selectAll"
+              />
+              <label class="form-check-label" for="selectAll">
+                Select All
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-block4">
+          <label for="business-start-time" class="width-100"
+            ><span class="text-danger">*</span>Business Start Time</label
+          >
+          <input
+            type="time"
+            id="business-start-time"
+            name="business-start-time"
+            class="input-height"
+          />
+          <label for="business-end-time" class="width-100"
+            ><span class="text-danger">*</span>Business End Time</label
+          >
+          <input
+            type="time"
+            id="business-end-time"
+            name="business-end-time"
+            class="input-height"
+          />
+        </div>
+      </div>
+
+      <div class="block-name">&nbsp Site Address Information</div>
+
+      <div class="site-add-info">
+        <div class="sub-block">
+          <label for="site-address" class="width-100"
+            ><span class="text-danger">*</span>Address</label
+          >
+          <textarea class="textarea" id="site-address" rows="3"></textarea>
+        </div>
+        <div class="sub-block">
+          <label for="site-classification" class="width-100"
+            ><span class="text-danger">*</span>Site Classification</label
+          >
+          <select
+            class="site-class-style"
+            id="site-classification"
+            aria-label="Site Type"
+          >
+            <option selected>-- None --</option>
+            <option value="metro">Metro</option>
+            <option value="rural">Rural</option>
+            <option value="regional">Regional</option>
+          </select>
+        </div>
+        <div class="sub-block">
+          <label for="country" class="width-100">Country</label>
+          <select
+            class="form-select country"
+            id="country"
+            aria-label="country"
+            onchange=" loadStates() "
+          >
+            <option selected>-- Select Country --</option>
+          </select>
+        </div>
+        <div class="sub-block">
+          <label for="state" class="width-100">State</label>
+          <select class="form-select state" id="state" aria-label="state">
+            <option selected>-- Select State --</option>
+          </select>
+        </div>
+
+        <div class="sub-block">
+          <label for="city" class="width-100">City</label>
+          <input
+            type="text"
+            id="city"
+            class="input-height"
+            placeholder="Enter City"
+            aria-label="City"
+          />
+        </div>
+        <div class="sub-block">
+          <label for="zip-code" class="width-100">Zip-code</label>
+          <input
+            type="text"
+            id="zip-code"
+            class="input-height"
+            placeholder="Zip Code"
+            aria-label="Zip Code"
+          />
+        </div>
+      </div>
+
+   
+
+      <br />
+
+      <div class="Submit_buttons_box">
+        <button type="submit" class="Submit_buttons">Save</button>
+        <!-- <button class="Submit_buttons" onclick="closePopup_selection_account()">Cancel</button> -->
+        <a href="site_list_view.html" class="Submit_buttons">Cancel</a>
+      </div>
+    </form>
+  </div>
+  <!-- ----------------------------Overlay - 2nd layer-------------------------------- -->
+  <div id="overlay" class="overlay"></div>
+
+
+<style>
+    .info-block {
+        display: grid;
+        /* grid-template-rows: 0.5fr 1.5fr;
+        grid-template-columns: 1fr 1fr; */
+        row-gap: 1rem;
+        column-gap: 1rem;
+        color: black;
+        min-width: none;
+    }
+    .sub-block{
+        display: grid;
+        /* grid-template-columns: 1fr 1.5fr; */
+    }
+    
+    .sub-block4{
+        display: grid;
+        /* grid-template-columns: 1fr 1.5fr;
+        grid-template-rows: 1fr 1fr; */
+        row-gap: 1rem;
+    }
+    
+    .site-add-info{
+        display: grid;
+        /* grid-template-rows: 1.5fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr; */
+        row-gap: 1rem;
+        column-gap: 1rem;
+        color: black;
+        min-width: none;
+    }
+    
+    .other-info-block {
+        display: grid;
+        /* grid-template-columns: 1fr 1fr; */
+        row-gap: 1rem;
+        column-gap: 1rem;
+        color: black;
+    }
+    
+    @media( min-width: 856px ){
+        .info-block {
+       
+            grid-template-rows: 0.5fr 1.5fr;
+            grid-template-columns: 1fr 1fr;
+    
+        }
+        .sub-block{
+    
+            grid-template-columns: 1fr 1.5fr;
+        }
+        
+        .sub-block4{
+           
+            grid-template-columns: 1fr 1.5fr;
+            grid-template-rows: 1fr 1fr;
+        }
+        
+        .site-add-info{
+            grid-template-rows: 1.5fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr;
+        }
+    
+        .other-info-block {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+    
+    .popup input:focus {
+        outline: none; /* Remove default outline */
+        border: 1px solid grey;
+        box-shadow: 0 0 10px #d1a2a2;
+    
+    }
+    
+    .popup select:focus {
+        outline: none; /* Remove default outline */
+        border: 1px solid grey;
+        box-shadow: 0 0 10px #d1a2a2;
+    }
+    
+    .popup .textarea:focus {
+        outline: none; /* Remove default outline */
+        border: 1px solid grey;
+        box-shadow: 0 0 10px #d1a2a2;
+    }
+    
+    .textarea{
+        height: 5rem;
+        border-radius: 5px;
+        border: 1px solid grey;
+    }
+    
+    /* for search icon */
+    
+    /* .icon-overlay-container {
+        position: relative;
+      }
+    .icon-overlay {
+        position: absolute;
+        top: 20%;
+        transform: translateY(-50%);
+        z-index: 1;
+        transition: opacity 0.2s ease;
+        -webkit-transition: opacity 0.3s ease;
+        -moz-transition: opacity 0.2s ease;
+        -ms-transition: opacity 0.2s ease;
+        -o-transition: opacity 0.2s ease;
+        -webkit-transition: opacity 0.2s ease;
+    }
+    
+    .icon-overlay{
+        right: 10px;
+        align-items: center;
+        padding-top: 8%;
+    }
+      
+      .icon-overlay-container .search-project:focus + .icon-overlay {
+        opacity: 0; /* Hide the icon when input is in focus 
+      }*/
+    
+    .width-100{
+        width: 100%;
+    }
+    
+    .text-danger{
+        color: red;
+    }
+    .search-project{
+        width: 100%;
+        height: 2.5rem;
+       border: 1p0x solid grey;
+        
+    }
+    
+    .selectday-option{
+        padding: 0.3rem 0.4rem;
+    }
+    
+    .input-height{
+        height: 2.5rem;
+        border-radius: 5px;
+        border: 1px solid grey;
+    }
+    
+    .site-class-style{
+        height: 2.5rem;
+        border-radius: 5px;
+        border: 1px solid grey;
+    }
+    
+    .form-select{
+        height: 2.5rem;
+        border-radius: 5px;
+        border: 1px solid grey;
+    }
+    
+    #created-by {
+        border: none;
+        pointer-events: none;
+    }
+    
+    #last-modified-by{
+        border: none;
+        pointer-events: none;
+    }
+    
+    .disable-label{
+        pointer-events: none;
+    }
+    
+    
+    .multiple-select-style{
+        padding: 0.4rem;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+        border: 1px solid grey;
+    }
+    
+    .search-type{
+        width: 100%;
+        height: 2.5rem;
+        border: 1px solid rgba(128, 128, 128, 0.87);
+    }
+
+    .popup {
+        display: block;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #ffffff;
+        padding: 0px 20px 0px 20px;
+        border: 1px solid #ccc;
+        z-index: 100;
+        width: 70% ;
+        max-height: 80%;
+        overflow-y: auto;
+    }
+    .overlay {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 90;
+    }
+    
+    .req-info{
+        margin: 1rem;
+        text-align: right;
+        font-size: 1rem;
+    }
+    
+    .block-name{
+        background-color: rgb(223, 216, 216);
+        font-size: large;
+        margin-block: 0.9rem;
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+        -webkit-border-radius: 0.25rem;
+        -moz-border-radius: 0.25rem;
+        -ms-border-radius: 0.25rem;
+        -o-border-radius: 0.25rem;
+    }
+    
+    /* from heading */
+    .popup-block{
+        position: sticky;
+        top: 0;
+        background: white;
+        padding: 1rem 0;
+        border-bottom: 0.06rem solid #ccc;
+        height: 3rem;
+    }
+    
+    .popup-heading{
+        text-align: center;
+        margin-top: 1rem;
+        height: 1.5rem;
+        font-size: 1.5rem;
+        font-weight: 100;
+    }
+    
+    .option-style{
+        border: none;
+        padding-left: 0.5rem;
+    }
+    .select-style{
+        width: 230px;
+        height: auto;
+        margin-top: 1rem;
+        scrollbar-width: none;
+        padding: 0px;
+    
+    }
+    
+    .working-day-style{
+        margin: 0%;
+    }
+    
+    .popup .Submit_buttons {
+        background-color: rgb(10, 91, 138);
+        color: white;
+        border-radius: 3px;
+        border: none;
+        padding: 10px 15px;
+        text-decoration: none;
+        
+    }
+    
+    .popup .Submit_buttons:hover{
+        background-color: rgb(4, 72, 108);
+        
+    }
+    
+    
+    
+    .popup .Submit_buttons_box {
+        text-align: center;
+            position: sticky;
+            bottom: 0;
+            background: white;
+            padding: 15px 0px;
+            border-top: 1px solid #ccc;
+        
+    }
+    
+    .img-logo{
+        /* height: 4rem; */
+        /* width: auto; */
+        height: 40px;
+        margin-top: 0.5%;
+        margin-left: 0.5%;
+        float: left;
+        position: fixed;
+        position: sticky;
+    }
+    .input_felid_border{
+        border: 1px solid rgba(128, 128, 128, 0.89);
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+    }
+</style>
+
+  <!-- jQuery (required for Bootstrap) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+  <script src="js/site_creation_forml.js"></script>
+
+{% endblock %}

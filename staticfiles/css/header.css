@@ -1,0 +1,138 @@
+
+/* NAVIGATION BAR CODE START */
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbox_top {  
+    
+    background-color: whitesmoke;
+    /* border: 2px solid red; */
+    width: 100% ;
+    position: fixed;
+    padding: 5px;
+    list-style-type: none;
+    /* display: block; */
+    height: auto;
+    /* test code */
+    justify-content: center;
+    align-items: center; 
+}
+
+ .navbox_top .nav_item{
+    font-size: small;
+}
+
+.navbar_search_box {
+
+    text-align: center;
+    /* display: flex; */
+    /* justify-content: center; */
+
+    .search_box{
+        width: 500px;
+        height: 25px;
+        border-radius: 5px;
+        position: relative;
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid gray;
+        
+        
+    }
+}
+
+.search_box:focus {
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 10px #d1a2a2;
+
+}
+
+.search_icon_navbar{
+    position: absolute;
+    z-index: 2;
+    height: 20px;
+    /* margin-top: 0.3%; */
+    margin-left: 1%;
+    margin-block: 0.5%;
+    float: right;
+    align-self: auto;
+
+}
+
+.navbox_top ul li {
+    display: inline;
+    
+}
+ .navbox_top ul {
+    margin-bottom: 0px;
+    text-align: center;
+ }
+
+.logo{
+    height: 60px;
+    width: auto;
+    margin-top: 0.5%;
+    margin-left: 0.5%;
+    float: left;
+    }
+
+    .logo:hover{
+        transition: 0.6s ease;
+        transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        -moz-transform: scale(1.1);
+        -ms-transform: scale(1.1);
+        -o-transform: scale(1.1);
+}
+
+    .navbox_top ul li a{
+    text-decoration: none;
+    padding: 10px 15px;
+    font-size: medium;
+    color: black;
+    text-align: center;
+    white-space: nowrap;
+    margin: auto;
+    
+}
+
+.navbox_top ul li a:hover {
+    background-color: rgb(238, 229, 229);
+    color: rgb(12, 12, 12); 
+    /* border-top: 4px solid #d12222; */
+    transition: 0.3s ease;
+    
+
+}
+
+.navbox_top ul li a.active{
+    background-color: rgb(238, 229, 229);
+    color: rgb(12, 12, 12); 
+    /* border-top: 4px solid #d12222; */
+    /* box-shadow: 0px 0px 5px 0px; */
+    background-color: #d12222 ;
+    color: white;
+    border-radius: 10px;
+
+}
+
+.user_profile{
+    float: right;
+    width: auto;
+    height: 60px;
+}
+
+.user_profile:hover{
+    transition: 0.6s ease;
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+}
+
+
+/* NAVIGATION BAR CODE END */
+
+

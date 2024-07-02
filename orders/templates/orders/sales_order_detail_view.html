@@ -1,0 +1,418 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block title %}Account List{% endblock %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{% static 'accounts/css/customer_accounts_list_view.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="background-image_SF">
+
+  
+  <div class="below_navbar_box">
+
+    <div class="below_navbar_box_upper disp-flex">
+        <div class="disp-flex">
+            <img class="account_icon_logo" src="{% static 'orders/images/sales_order_icon.png' %}" alt="">
+            <div>
+                <label for="">TIG Orders</label><br>
+                <label for=""><b>{{ sales_order.so_po_number }}5</b></label>
+            </div>
+        </div>
+        <div class="edit-button-style">
+            <a href="{% url 'orders:sales_order_edit_form' sales_order.pk %}" class="edit_project_site"> Edit </a>
+        </div>
+
+    </div>
+
+    <div class="below_navbar_box_lower">
+        <!-- <ul>
+            <li>Customer/Vendor </li>
+            <li>PO Amount </li>
+            <li>PO Amount Utilized </li>
+            <li>PO Balance</li>
+        </ul> -->
+
+        <ul class="below_navbar_box_lower_items" > 
+            <div> <li>Customer/Vendor <br> {{ sales_order.so_customer_vendor }} </li></div>
+            <div> <li>PO Amount <br> $ {{ sales_order.so_po_amount }} </li> </div>
+            <div> <li>Owner <br>  </li></div> 
+            <div><li>Project Start Date <br> {{ sales_order.so_po_start_date }} </li></div> 
+         </ul>
+
+    </div>
+
+</div>
+
+ <!-- ------------------- -->
+
+
+ <style>
+    .orders_saved_form span{
+        float: right;
+    }
+    .orders_saved_form input ,textarea{
+        border: none;
+        background-color: transparent ;
+    }
+
+    .below_navbar_box_lower_items{
+        display: flex;
+        gap: 30px;
+    }
+   
+
+</style>
+<!-- ------- -->
+
+<!-- ------------------- -->
+<div class="orders_saved_form">
+
+   <div class="accordian">
+        
+    <h3><ion-icon class="accordion_icon" name="chevron-down-outline"></ion-icon> <b>Information</b></h3><br>
+    <div class="orders_saved_form_c1 accordian_sub">
+
+        <div class="orders_saved_form_c1_b1">
+            <label for="">PO Number<span><input class="form_input_data" value="{{ sales_order.so_po_number }}" type="text" name="" id="" disabled></span></label><br><br>
+            <label for="">Customer/Vendor<span><input class="form_input_data" value="{{ sales_order.so_customer_vendor }}" type="text" name="" id="" disabled></span></label><br><br>
+            {% comment %} <label for="">Payment Terms<span><input class="form_input_data" value="{{ sales_order.so_customer_vendor }}" type="text" name="" id="" disabled></span></label><br><br> {% endcomment %}
+            {% comment %} <label for="">Billing Frequency<span><input class="form_input_data" value="Monthly" type="text" name="" id="" disabled></span></label><br><br> {% endcomment %}
+        </div>
+
+        <div class="orders_saved_form_c1_b2">
+            <label for="">PO Status<span><input class="form_input_data" value="{{ sales_order.so_po_status }}" type="text" name="" id="" disabled></span></label><br><br>
+            <label for="">Project<span><input class="form_input_data" value="{{ sales_order.so_project }}" type="text" name="" id="" disabled></span></label><br><br>
+            <label for="">TIG Entity<span><input class="form_input_data" value="{{ sales_order.so_tig_entity }}" type="text" name="" id="" disabled></span></label><br><br>
+
+        </div>
+
+    </div>
+
+   </div>
+
+    
+    <div class="accordian">
+        <h3> <ion-icon class="accordion_icon" name="chevron-down-outline"></ion-icon> <b>PO Details</h3></b><br>
+    <div class="orders_saved_form_c2 accordian_sub">
+        <div class="orders_saved_form_c2_b1">
+
+            <label for="">PO Start Date<span><input class="form_input_data" value="{{ sales_order.so_po_start_date }}" type="text" name="" id="" disabled></span></label><br><br>
+            <label for="">Currency<span><input class="form_input_data" value="{{ sales_order.so_currency }}" type="text" name="" id="" disabled></span></label><br><br>
+            <label for="">PO Amount Utilized<span><input class="form_input_data" value="${{ sales_order.so_po_amount_utilised }}" type="text" name="" id="" disabled></span></label><br><br>
+            <label for="">Tax Included<span><input class="form_input_data" value="{{ sales_order.so_tax_included }}" type="text" name="" id="" disabled></span></label><br><br>
+
+
+        </div>
+
+        <div class="orders_saved_form_c2_b2">
+
+            <label for="">PO End Date <span><input class="form_input_data" value="{{ sales_order.so_po_end_date }}" type="text" name="" id="" disabled></span></label><br><br>
+            <label for="">PO Amount<span><input class="form_input_data" value="${{ sales_order.so_po_amount }}" type="text" name="" id="" disabled></span></label><br><br>
+            <label for="">PO Balance<span><input class="form_input_data" value="${{ sales_order.so_po_balance }}" type="text" name="" id="" disabled></span></label><br><br>
+
+        </div>
+    </div>
+    </div>
+
+    <div class="accordian">
+    <h3> <ion-icon class="accordion_icon" name="chevron-down-outline"></ion-icon> <b>Address Details</b></h3><br>
+    <div class="orders_saved_form_c3 accordian_sub">
+
+        <div class="orders_saved_form_c3_b1">
+            <label for="">Bill to Address<textarea name="" id="" disabled> {{ sales_order.so_bill_to_address }} </textarea></label><br><br>
+        
+        </div>
+
+        <div class="orders_saved_form_c3_b2">
+            <label for="">Ship to Address<textarea name="" id="" disabled> {{ sales_order.so_ship_to_address }} </textarea></label><br><br>
+            
+        </div>
+    </div>
+    </div>
+
+    <div class="accordian">
+    <h3> <ion-icon class="accordion_icon" name="chevron-down-outline"></ion-icon> <b>System Information</b></h3><br>
+    <div class="orders_saved_form_c3 accordian_sub">
+
+        <div class="orders_saved_form_c3_b1">
+            <label for="">Created By<span><input class="form_input_data" value="" type="text" name="" id="" disabled></span></label><br><br>
+            <label for="">Record Type:<span><input class="form_input_data" value="{{ sales_order.so_record_type }}" type="text" name="" id="" disabled></span></label>
+            
+        
+        </div>
+
+        <div class="orders_saved_form_c3_b2">
+            <label for="">Last Modified By <span><input class="form_input_data" value="" type="text" name="" id="" disabled></span></label>
+            
+            
+        
+            
+        </div>
+    </div>
+    </div>
+
+
+
+</div>
+
+</div>
+
+<script src="orders.js"></script>
+<script src="collapse.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
+
+
+<style>
+  *{
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
+
+.below_navbar_box {
+    width: 100%;
+    /* border: 1px solid red; */
+    border-radius: 10px;
+}
+
+.account_icon_logo {
+    /* background-color: #d12222; */
+    border-radius: 5px;
+    width: auto;
+    height: 30px;
+    float: left;
+    margin: 5px;
+    margin-right: 10px;
+}
+
+.below_navbar_box_upper {
+    height: 12%;
+    width: auto;
+    background-color: #e8eaec;
+    padding: 5px;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    margin-top: 1rem;
+}
+
+.orders_saved_form h3{
+    font-size: larger;
+    }
+
+.below_navbar_box_lower {
+    height: 50px;
+    background-color: white;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+
+}
+
+
+.below_navbar_box_lower ul {
+    margin-top: 0px;
+    padding: 5px 5px 5px 7px;
+    font-size: small;
+}
+
+.below_navbar_box_lower ul li {
+    text-decoration: none;
+    display: inline;
+    margin-right: 50px;
+}
+
+/* form data */
+
+.orders_saved_form {
+    height: 100%;
+    width: 99%;
+    background-color: rgb(252, 249, 249);
+    overflow: hidden;
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+    padding: 10px;
+    margin-left: 0.5%;
+    
+}
+
+.orders_saved_form label{
+    padding-bottom: 5px;
+}
+
+
+.orders_saved_form_c1 {
+    display: flex;
+    justify-content: left;
+    
+}
+
+
+.orders_saved_form_c1_b1 label {
+    border-bottom: 1px solid gray;
+    display: inline-block;
+    width: 90vh;
+    /* padding: 5px; */
+    
+}
+
+.orders_saved_form_c1_b2 {
+    margin-left: 10%;
+}
+
+.orders_saved_form_c1_b2 label {
+    border-bottom: 1px solid gray;
+    display: inline-block;
+    width: 90vh;
+    /* padding: 5px; */
+}
+
+/* Container 2*/
+
+.orders_saved_form_c2 {
+    display: flex;
+}
+
+
+.orders_saved_form_c2_b1 label {
+    border-bottom: 1px solid gray;
+    display: inline-block;
+    width: 90vh;
+    /* padding: 5px; */
+}
+
+.orders_saved_form_c2_b2 {
+    margin-left: 10%;
+}
+
+.orders_saved_form_c2_b2 label {
+    border-bottom: 1px solid gray;
+    display: inline-block;
+    width: 90vh;
+    /* padding: 5px; */
+}
+
+/*container 3*/
+
+.orders_saved_form_c3 {
+    display: flex;
+}
+
+
+.orders_saved_form_c3_b1 label {
+    border-bottom: 1px solid gray;
+    display: inline-block;
+    width: 90vh;
+    /* padding: 5px; */
+}
+
+.orders_saved_form_c3_b2 {
+    margin-left: 10%;
+}
+
+.orders_saved_form_c3_b2 label {
+    border-bottom: 1px solid gray;
+    display: inline-block;
+    width: 90vh;
+    /* padding: 5px; */
+}
+
+/*headings*/
+
+.orders_saved_form h3{
+    background-color: #e8eaec;
+    padding: 6px;
+    border-radius: 7px;
+
+}
+
+@media only screen and (max-width: 600px) {
+    /* Styles for screens up to 600px wide */
+  }
+  
+  /* For medium-sized screens */
+  @media only screen and (min-width: 601px) and (max-width: 1024px) {
+    /* Styles for screens between 601px and 1024px wide */
+  }
+  
+  /* For larger screens */
+  @media only screen and (min-width: 1025px) {
+    /* Styles for screens wider than 1024px */
+  }
+
+
+  /* testing */
+
+  .background-image_SF {
+    /* Set the background image */
+    background-image: url('../images/SF_bg.png'); /* Replace 'path/to/your/image.jpg' with the path to your image file */
+    z-index: -20;
+    
+    /* Specify background properties */
+    background-size: cover; /* Cover the entire container */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    
+
+  }
+  
+
+  .orders_saved_form span {
+    float: right;
+    margin-right: 20%;
+}
+.orders_saved_form input ,textarea{
+    border: none;
+    background-color: transparent ;
+}
+
+textarea{
+    width: 350px;
+    float: right;
+}
+
+.disp-flex{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+ 
+ 
+ 
+.site_logo {
+    background-color: #d12222;
+    border-radius: 2px;
+    width: auto;
+    height: 35px;
+    float: left;
+    margin: 5px;
+    margin-right: 10px;
+}
+ 
+ 
+.edit_project_site{
+    /* float: right; */
+    background-color: white;
+    color: #d12222;
+    border-radius: 5px;
+    padding: 5px 15px;
+    text-decoration: none;
+    border:1px solid #d12222;
+    height: 60%;
+   
+}
+ 
+.edit_project_site:hover{
+background-color: #d12222;
+color: white;
+}
+</style>
+
+{% endblock %}

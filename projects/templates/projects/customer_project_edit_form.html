@@ -1,0 +1,583 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block title %}Account List{% endblock %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{% static 'accounts/css/customer_accounts_list_view.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+    <!-- Display form errors -->
+    {% if form.errors %}
+        <div class="error-messages">
+            <ul>
+                {% for field in form %}
+                    {% if field.errors %}
+                        <li>{{ field.label }}: {{ field.errors|striptags }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+<div id="popup2" class="popup2">
+    <!-- <a class="cross" href="">&times;</a> -->
+    <div class="popup_heading">
+        <img class="form_logo" src="{% static "projects/images/logo.png" %}" alt="">
+        <h2> Edit Project: Customer</h2>
+    </div><br>
+
+    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div> <h3>&nbsp <b> Information </b></h3></div>
+        <div class="popup2_c1">
+           
+
+            <div class="popup2_c1_b1">
+                
+            <label for="id_cp_name">Project Name</label>
+            <input type="text" id="id_cp_name" name="cp_name" value="{{ account.cp_name }}" required><br>
+
+
+            <label for="id_cp_customer_vendor">Customer/Vendor:</label>
+            <input type="text" id="id_cp_customer_vendor" name="cp_customer_vendor" value="{{ account.cp_customer_vendor }}" required>
+            <input type="hidden" id="id_cp_customer_vendor_uuid" name="cp_customer_vendor_uuid" value="{{ account.cp_customer_vendor_uuid }}"> <!-- Hidden input to store UUID -->
+            <h1> This {{ account.so_customer_vendor_uuid }}</h1>
+            
+            <ul id="suggestions-list"></ul><br>
+                {% comment %} <label for="id_cp_customer_vendor">Customer/Vendor</label>
+                <select id="id_cp_customer_vendor" name="cp_customer_vendor" required>
+                {% for choice in form.cp_customer_vendor.field.choices %}
+                    <option value="{{ choice.0 }}" {% if choice.0 == form.cp_customer_vendor.value %} selected {% endif %}>{{ choice.1 }}</option>
+                {% endfor %}
+                </select> <br> {% endcomment %}
+
+                <label for="id_cp_start_date">Project Start Date</label>
+                <input type="date" id="id_cp_start_date" name="cp_start_date" value="{{ account.cp_start_date|date:'Y-m-d' }}" required><br>
+
+                <label for="id_cp_tig_entity">TIG Entity Name</label>
+                <select type="text" name="cp_tig_entity" id="id_cp_tig_entity" required>
+                {% for choice in form.cp_tig_entity.field.choices %}
+                    <option value="{{ choice.0 }}" {% if choice.0 == form.cp_tig_entity.value %} selected {% endif %}>{{ choice.1 }}</option>
+                {% endfor %}
+                </select>
+                    <br>
+
+                <label for="id_cp_region">Region</label>
+                <select id="id_cp_region" name="cp_region">
+                    {% for choice in form.cp_region.field.choices %}
+                    <option value="{{ choice.0 }}" {% if choice.0 == form.cp_region.value %} selected {% endif %}>{{ choice.1 }}</option>
+                {% endfor %}
+                </select> <br>
+            </div>
+
+            <div class="popup2_c1_b2">
+                <label class="right_text" for="id_cp_status">Project Status</label>
+                <select type="text" name="cp_status" id="id_cp_status"> 
+                    {% for choice in form.cp_status.field.choices %}
+                    <option value="{{ choice.0 }}" {% if choice.0 == form.cp_status.value %} selected {% endif %}>{{ choice.1 }}</option>
+                {% endfor %}
+                </select> <br>
+
+
+            <label for="id_cp_end_customer">End Customer</label>
+            <input type="text" id="id_cp_end_customer" name="cp_end_customer" value="{{ account.cp_end_customer }}" >
+            <input type="hidden" id="id_cp_end_customer_uuid" name="cp_end_customer_uuid" value="{{ account.cp_end_customer_uuid }}"> <!-- Hidden input to store UUID -->
+            <ul id="end-customer-suggestions-list"></ul><br>
+                {% comment %} <label for="id_cp_end_customer">End Customer</label>
+                <select type="text" name="cp_end_customer" id="id_cp_end_customer" required>
+                {% for choice in form.cp_end_customer.field.choices %}
+                    <option value="{{ choice.0 }}" {% if choice.0 == form.cp_status.value %} selected {% endif %}>{{ choice.1 }}</option>
+                {% endfor %}
+                </select>  <br> {% endcomment %}
+
+                <label for="id_cp_end_date">Project End Date</label>
+                <input type="date" name="cp_end_date" id="id_cp_end_date" value="{{ account.cp_end_date|date:'Y-m-d' }}" required><br>
+
+
+                <label for="id_cp_type">Type of Project</label>
+                <select id="id_cp_type" name="cp_type">
+                {% for choice in form.cp_type.field.choices %}
+                    <option value="{{ choice.0 }}" {% if choice.0 == form.cp_type.value %} selected {% endif %}>{{ choice.1 }}</option>
+                {% endfor %}
+                </select> <br>
+            </div><br>
+        </div><br>
+
+
+
+        <div><h3>&nbsp <b>Billing Information</b></h3></div>   
+        <div class="popup2_c2">
+          
+            <div class="popup2_c2_b1">
+                <label for="id_cp_payment_terms">Payment Terms</label>
+                <select id="id_cp_payment_terms" name="cp_payment_terms">
+                {% for choice in form.cp_payment_terms.field.choices %}
+                    <option value="{{ choice.0 }}" {% if choice.0 == form.cp_payment_terms.value %} selected {% endif %}>{{ choice.1 }}</option>
+                {% endfor %}
+                </select> <br>
+
+                <label for="id_cp_cancelled_ticket_billable">Cancelled Tickets Billable?</label>
+                <select id="id_cp_cancelled_ticket_billable" name="cp_cancelled_ticket_billable">
+                {% for choice in form.cp_cancelled_ticket_billable.field.choices %}
+                    <option value="{{ choice.0 }}" {% if choice.0 == form.cp_cancelled_ticket_billable.value %} selected {% endif %}>{{ choice.1 }}</option>
+                {% endfor %}
+                </select> <br>
+
+                <label for="id_cp_cancelled_ticket_mutiplier_1">Cancelled Ticket Multiplier 1</label>
+                <input type="text" name="cp_cancelled_ticket_mutiplier_1" id="id_cp_cancelled_ticket_mutiplier_1" value="{{ account.cp_cancelled_ticket_mutiplier_1 }}" ><br>
+                {% comment %} <label for="">Cancelled Ticket Multiplier 1</label>
+                <select id="" name="">
+                    <option value="option1">--None--</option>
+                    <option value="option2">100%</option>
+                    <option value="option3">50%</option>
+                </select> <br> {% endcomment %}
+            </div>
+
+            <div class="popup2_c2_b2">
+
+                <label for="id_cp_billing_frequency">Billing Frequency </label>
+                <select id="id_cp_billing_frequency" name="cp_billing_frequency">
+                    {% for choice in form.cp_billing_frequency.field.choices %}
+                        <option value="{{ choice.0 }}" {% if choice.0 == form.cp_billing_frequency.value %} selected {% endif %}>{{ choice.1 }}</option>
+                    {% endfor %}
+                    </select><br>
+
+                <label for="id_cp_cancellation_window_1">Cancellation Window 1 </label>
+                <input type="text" name="cp_cancellation_window_1" id="id_cp_cancellation_window_1" value="{{ account.cp_cancellation_window_1 }}"><br>
+
+                {% comment %} <label for="id_cp_cancellation_window_1">Cancellation Window 1</label>
+                <select id="id_cp_cancellation_window_1" name="cp_cancellation_window_1">
+                    <option value="option1">--None--</option>
+                    <option value="option2">24</option>
+                    <option value="option3">12</option>
+                </select> <br> {% endcomment %}
+
+                <label for="id_cp_cancellation_window_2">Cancellation Window 2 </label>
+                <input type="text" name="cp_cancellation_window_2" id="id_cp_cancellation_window_2" value="{{ account.cp_cancellation_window_2 }}"><br>
+
+                {% comment %} <label for="">Cancellation Window 2</label>
+                <select id="" name="">
+                    <option value="option1">--None--</option>
+                    <option value="option2">12</option>
+                    <option value="option3">24</option>
+                </select> <br> {% endcomment %}
+
+                <label for="id_cp_cancelled_ticket_mutiplier_2">Cancelled Ticket Multiplier 2</label>
+                <input type="text" name="cp_cancelled_ticket_mutiplier_2" id="id_cp_cancelled_ticket_mutiplier_2" value="{{ account.cp_cancelled_ticket_mutiplier_2 }}"><br>
+
+                {% comment %} <label for="">Cancelled Ticket Multiplier 2</label>
+                <select id="" name="">
+                    <option value="option1">--None--</option>
+                    <option value="option2">100%</option>
+                    <option value="option3">50%</option>
+                </select> <br> {% endcomment %}
+
+
+            </div><br>
+
+
+        </div><br>
+
+        <div> <h3>&nbsp <b> Terms And Conditions </b></h3></div>
+        <div class="popup2_c3">
+            <div class="popup2_c3_clone">
+                <label for="id_cp_terms_and_conditions">Terms and conditions </label>
+                <textarea id="id_cp_terms_and_conditions" name="cp_terms_and_conditions" cols="80" rows="5" value="{{ account.cp_terms_and_conditions }}"></textarea>
+            </div>
+
+        </div> <br>
+
+        <div> <h3>&nbsp <b>System Information </b></h3></div>
+        <div class="popup2_c3">
+           
+
+            <div class="popup2_c3_b1">
+                <label for="id_cp_owner">Owner</label>
+                <input type="text" id="id_cp_owner" name="cp_owner" value="{{ account.cp_owner }}">
+
+
+            </div>
+
+            <div class="popup2_c3_b2">
+                <label for="id_cp_last_billing_date">Last Billing Date</label>
+                <input type="date" name="cp_last_billing_date" id="id_cp_last_billing_date" value="{{ account.cp_last_billing_date|date:'Y-m-d' }}"><br>
+
+                <label for="id_cp_record_type">Record Type</label>
+                <input type="text" name="cp_record_type" id="id_cp_record_type" value="Customer" readonly>               
+
+
+            </div>
+        </div><br><br>
+        
+
+        <div class="Submit_buttons_box">
+            <!-- <input class="Submit_buttons" type="submit" value="Save"> -->
+            <!-- <button class="Submit_buttons" onclick="closePopup_project()">Cancel</button> -->
+            <button class="Submit_buttons">Save</button>
+            <a href="{% url 'projects:customer_project_list_view' %}" class="Submit_buttons">Cancel</a> 
+        </div>
+    </form>
+
+</div>
+
+<div id="overlay2" class="overlay2"></div>
+
+
+<style>
+    <style>
+        #suggestions-list {
+            list-style-type: space-counter;
+            padding: 0;
+            margin: 0;
+            border: 1px solid #ccc;
+            max-height: 150px;
+            overflow-y: auto;
+            position: absolute;
+            z-index: 1000;
+            background-color: white;
+            width: 100%;
+        }
+        #suggestions-list li {
+            padding: 4px;
+            cursor: pointer;
+        }
+        #suggestions-list li:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+
+</style>
+<style>
+    *{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: small;
+    }
+    
+    
+    .popup2 {
+        display: block;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #ffffff;
+        padding: 0px 20px 0px 20px;
+        border: 1px solid #ccc;
+        border-radius: 0px ;
+        z-index: 9999;
+        width: 50% ;
+        max-height: 80%;
+        overflow-y: auto;
+        /* Enable vertical scrollbar when content exceeds the maximum height */
+    }
+    
+    .overlay2 {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+    }
+    
+    .form_logo{
+        height: 40px;
+        width: auto;
+        margin-top: 0.5%;
+        margin-left: 0.5%;
+        float: left;
+        }
+    
+    /* from heading */
+    .popup2_heading{
+        position: sticky;
+        top: 0;
+        background: white;
+        padding: 10px 0;
+        border-bottom: 1px solid #ccc;
+    }
+    
+    .popup2 input:focus {
+        outline: none; /* Remove default outline */
+        box-shadow: 0 0 10px #d1a2a2;
+    
+    }
+    
+    /* form bottom heading */
+    
+    .form_logo{
+        height: 40px;
+        width: auto;
+        margin-top: 0.5%;
+        margin-left: 0.5%;
+        float: left;
+        }
+    
+    .popup2 label {
+        display: inline-block;
+        padding: 10px;
+    }
+    
+    .popup2 h2 {
+        text-align: center;
+    }
+    
+    .popup2 h3 {
+        background-color: #e8eaec;
+        font-size: large;
+        padding: 5px;
+        border-radius: 5px;
+    }
+    
+    .popup2 .Submit_buttons {
+        background-color: rgb(10, 91, 138);
+        color: white;
+        border-radius: 3px;
+        border: none;
+        padding: 10px 15px;
+        text-decoration: none;
+        
+    }
+    
+    .popup2 .Submit_buttons:hover{
+        background-color: rgb(4, 72, 108);
+        
+    }
+    
+    
+    
+    .popup2 .Submit_buttons_box {
+        text-align: center;
+            position: sticky;
+            bottom: 0;
+            background: white;
+            padding: 15px 0px;
+            border-top: 1px solid #ccc;
+        
+    }
+    
+    
+    
+    /* -------- */
+    
+    
+    .popup2 input{
+        width: 100px;
+    }
+    
+    
+    .popup2_c1 {
+        display: flex;
+        justify-content: left;
+        
+    }
+    
+    
+    .popup2_c1_b1 label {
+        display: inline-block;
+        width: 150px;
+        /* padding: 5px; */
+        
+    }
+    
+    .popup2_c1_b2 {
+        margin-left: 10%;
+    }
+    
+    .popup2_c1_b2 label {
+        display: inline-block;
+        width: 150px;
+        /* padding: 5px; */
+    }
+    
+    /* Container 2*/
+    
+    .popup2_c2 {
+        display: flex;
+        justify-content: left;
+    }
+    
+    
+    .popup2_c2_b1 label {
+        display: inline-block;
+        width: 150px;
+        /* padding: 5px; */
+    }
+    
+    .popup2_c2_b2 {
+        margin-left: 10%;
+    }
+    
+    .popup2_c2_b2 label {
+        display: inline-block;
+        width: 150px;
+        /* padding: 5px; */
+    }
+    
+    /*container 3*/
+    
+    .popup2_c3 {
+        display: flex;
+        justify-content: left;
+    }
+    
+    .popup2_c3_clone {
+        display: flex;
+        justify-content: left;
+        flex-direction: column;
+    }
+    
+    .popup2_c3_clone textarea{
+        border: 1px solid rgba(128, 128, 128, 0.87);
+        outline: none;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+    }
+    
+    .popup2_c3_b1 label {
+        display: inline-block;
+        width: 150px;
+        /* padding: 5px; */
+    }
+    
+    .popup2_c3_b2 {
+        margin-left: 10%;
+    }
+    
+    .popup2_c3_b2 label {
+        display: inline-block;
+        width: 150px;
+        /* padding: 5px; */
+    }
+    
+    
+    /* --------- */
+    
+    
+    
+    .popup2 input,
+    option,
+    select  {
+        width: 200px;
+        padding: 6px 15px;
+        border-radius: 5px;
+        border: 1px solid rgb(166, 165, 165);
+    }
+    
+    
+    
+    .cross {
+        color: #aaa;
+        float: right;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    
+    .cross:hover,
+    .cross:focus {
+        color: #e90909;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    
+    .New_account_button{
+        float: right;
+        margin-top: 100px;
+        padding: 15px;
+        border-radius: 20px;
+        background-color:#d12222 ;
+        color: white;
+        border: none;
+    
+    }
+    
+    .New_account_button:hover {
+        transition: 0.6s ease;
+        /* transform: rotate(360deg); */
+        font-size: x-large;
+        
+    }
+    
+    /* testing -------------------------------------------------------------- */
+    
+</style>
+
+<script>
+    $(document).ready(function(){
+        // Function to handle suggestions and selection for a given input field
+        function setupAutocomplete(inputFieldId, suggestionsListId, hiddenFieldId, ajaxUrl) {
+            $(inputFieldId).on('input', function(){
+                var query = $(this).val();
+                if (query.length >= 3) {
+                    $.ajax({
+                        url: ajaxUrl,
+                        data: {'query': query},
+                        dataType: 'json',
+                        success: function(data) {
+                            var suggestions = data.suggestions;
+                            $(suggestionsListId).empty();
+                            for (var i = 0; i < suggestions.length; i++) {
+                                var suggestion = suggestions[i];
+                                $(suggestionsListId).append('<li data-account-id="' + suggestion.account_id + '">' + suggestion.account_name + '</li>');
+                            }
+                            $(suggestionsListId + ' li').on('click', function() {
+                                var selectedAccountId = $(this).data('account-id');
+                                var selectedAccountName = $(this).text();
+                                $(inputFieldId).val(selectedAccountName); // Set the display name
+                                $(hiddenFieldId).val(selectedAccountId); // Store the UUID in hidden input
+                                $(suggestionsListId).empty();
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('AJAX Error:', status, error);
+                        }
+                    });
+                } else {
+                    $(suggestionsListId).empty();
+                }
+            });
+        }
+
+        // Apply autocomplete for cp_customer_vendor
+        setupAutocomplete('#id_cp_customer_vendor', '#suggestions-list', '#id_cp_customer_vendor_uuid', '{% url "projects:customer_account_suggestions" %}');
+
+        // Apply autocomplete for cp_end_customer
+        setupAutocomplete('#id_cp_end_customer', '#end-customer-suggestions-list', '#id_cp_end_customer_uuid', '{% url "projects:customer_account_suggestions" %}');
+
+        // Form submission handling
+        $('#customerProjectForm').on('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Submit the form using Ajax
+            $.ajax({
+                url: $(this).attr('action'),
+                type: $(this).attr('method'),
+                data: $(this).serialize(), // Serialize form data including CSRF token
+                success: function(response) {
+                    console.log('Form submitted successfully');
+                    // Optionally handle success response, e.g., redirect
+                },
+                error: function(xhr, status, error) {
+                    console.error('Form submission error:', status, error);
+                    // Optionally handle error response
+                }
+            });
+        });
+    });
+</script>
+
+
+
+{% endblock %}

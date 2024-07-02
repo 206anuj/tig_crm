@@ -1,0 +1,384 @@
+
+{% extends "header.html" %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="below_navbar_box">
+
+    <div class="this-page-header">
+        <div class="site_header_box">
+          <div class="header-col1">
+            <img class="site_logo" src="{% static 'accounts/images/account_icon.png' %}" alt="account-logo" />
+            <div>
+              <p class="sub-header-heading">Accounts</p>
+              <p class="site-name-style">{{ customer_account.ca_name }}</p>
+            </div>
+          </div>
+ 
+          {% comment %} <form action="{% url 'accounts:customer_account_edit_form' customer_account.pk %}" method="get">
+            <button type="submit" class="edit-button-style" class="btn btn-primary"  class="edit-button-style"><b>Edit</b></button>
+        </form> {% endcomment %}
+<div class="edit-button-style">
+            <a href="{% url 'accounts:customer_account_edit_form' customer_account.pk %}" class="btn btn-primary"><b>Edit</b></a>
+          </div> 
+        </div>
+      </div>
+
+    <div class="below_navbar_box_lower">
+        <ul class="below_navbar_box_lower_items" > 
+           <div> <li>Phone <br> {{ customer_account.ca_phone_number }} </li></div>
+           <div> <li>Website <br> tig.com </li> </div>
+           <div> <li>Record Type <br> {{ customer_account.ca_record_type }} </li></div>
+           <div><li>Status <br>  </li></div> 
+            <div><li>Account Owner <br> {{ customer_account.ca_account_owner }} </li></div>
+            <!-- <div><Li>Type of Partner <br> NA</Li></div> -->
+        </ul>
+
+    </div>
+
+</div>
+
+
+
+<div class="saved_form">
+
+
+    <h3><b>Account Information</b></h3><br>
+    <div class="saved_form_c1">
+
+        <div class="saved_form_c1_b1">
+            <label for="">Account Name <span><input class="form_input_data" value="{{ customer_account.ca_name }}" type="text" name="" id="" disabled></span></label><br><br>
+
+            <label for="">Phone <span><input class="form_input_data" value="{{ customer_account.ca_phone_number }}" type="text" name="" id="" disabled></span></label><br><br>
+        </div>
+
+        <div class="saved_form_c1_b2">
+            <label class="" for="">Account Record Type: <span><input class="form_input_data" value="{{ customer_account.ca_record_type }}" type="text" name="" id="" disabled></span></label><br><br>
+
+            <label for="">Account Owner <span><input class="form_input_data" value="{{ customer_account.ca_account_owner }}" type="text" name="" id="" disabled></span></label>
+
+        </div>
+
+    </div>
+
+
+    <h3><b>Account Other Information</b></h3><br>
+    <div class="saved_form_c2">
+        <div class="saved_form_c2_b1">
+
+            <label for="">Type <span><input class="form_input_data" value="{{ customer_account.ca_type }}" type="text" name="" id="" disabled></span></label><br><br>
+            <label for="">Industry <span><input class="form_input_data" value="{{ customer_account.ca_industray }}" type="text" name="" id="" disabled></span></label><br><br>
+            <label for="">Payment Terms <span><input class="form_input_data" value="{{ customer_account.ca_payment_terms }}" type="text" name="" id="" disabled></span></label><br><br>
+            <label for="">Customer Code <span><input class="form_input_data" value="{{ customer_account.ca_customer_code }}" type="text" name="" id="" disabled></span> </label><br><br>
+
+
+        </div>
+
+        <div class="saved_form_c2_b2">
+            <label for="">Description <span><input class="form_input_data" value="{{ customer_account.ca_description }}" type="text" name="" id="" disabled></span></label><br><br>
+
+            <label for="">GP <span><input class="form_input_data" value="" type="text" name="" id="" disabled></span> </label><br><br>
+            <label for="">GP%<span><input class="form_input_data" value="" type="text" name="" id="" disabled></span> </label><br><br>
+
+        </div>
+    </div>
+
+
+
+
+    <h3><b>Address Information</b></h3><br>
+    <div class="saved_form_c3">
+
+        <div class="saved_form_c3_b1">
+            <label for="">Billing Address <span><input class="form_input_data" value="{{ customer_account.ca_billing_address }}" type="text" name="" id="" disabled></span></label><br><br>
+            <label for="">Billing Country <span><input class="form_input_data" value="{{ customer_account.ca_billing_country }}" type="text" name="" id="" disabled></span></label><br><br>
+            <label for="">Billing Street <span><input class="form_input_data" value="{{ customer_account.ca_billing_street }}" type="text" name="" id="" disabled></span></label><br><br>
+            <label for="">Billing City <span><input class="form_input_data" value="{{ customer_account.ca_billing_city }}" type="text" name="" id="" disabled></span></label><br><br>
+            <label for="">Billing Zip/Postal Code <span><input class="form_input_data" value="{{ customer_account.ca_billing_pin_code }}" type="text" name="" id="" disabled></span></label><br><br>
+            <label for="">Billing State/Province <span><input class="form_input_data" value="{{ customer_account.ca_billing_state }}" type="text" name="" id="" disabled></span></label><br><br>
+
+        </div>
+
+        <div class="saved_form_c3_b2">
+            <label for="">Shipping Address <span><input class="form_input_data" value="{{ customer_account.ca_shipping_address }}" type="text" name="" id="" disabled></span></label><br><br>
+            <label for="">Shipping Country <span><input class="form_input_data" value="{{ customer_account.ca_shipping_country }}" type="text" name="" id="" disabled></span></label><br><br>
+            <label for="">Shipping Street <span><input class="form_input_data" value="{{ customer_account.ca_shipping_street }}" type="text" name="" id="" disabled></span></label><br><br>
+            <label for="">Shipping City <span><input class="form_input_data" value="{{ customer_account.ca_shipping_city }}" type="text" name="" id="" disabled></span></label><br><br>
+            <label for="">Shipping State/Province <span><input class="form_input_data" value="{{ customer_account.ca_shipping_pin_code }}" type="text" name="" id="" disabled></span></label><br><br>
+            <label for="">Shipping Zip/Postal Code <span><input class="form_input_data" value="{{ customer_account.ca_shipping_state }}" type="text" name="" id="" disabled></span></label><br><br>
+
+
+        </div>
+    </div>
+
+</div>
+
+<style>
+    *{
+        font-family: Arial, Helvetica, sans-serif;
+       
+    }
+
+    .site_header_box {
+        border-radius: 0.4rem;
+        height: auto;
+        background-color: #e8eaec;
+        padding: 5px;
+        margin: 0.5rem;
+        -webkit-border-radius: 0.4rem;
+        -moz-border-radius: 0.4rem;
+        -ms-border-radius: 0.4rem;
+        -o-border-radius: 0.4rem;
+        display: grid;
+        grid-template-columns: 1.5fr 0.2fr;
+    }
+     
+    .site_logo {
+        background-color: #d12222;
+        border-radius: 2px;
+        width: auto;
+        height: 35px;
+        float: left;
+        margin: 5px;
+        margin-right: 10px;
+    }
+     
+    .sub-header-heading{
+       
+        font-weight: 600;
+        font-size: larger;
+        margin: 0px;
+    }
+     
+    .site-name-style{
+        font-weight: 500;
+        font-size: medium;
+    }
+     
+    .edit-button-style{
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        margin-right: 20%;
+    }
+     
+    .edit_project_site{
+        /* float: right; */
+        background-color: white;
+        color: #d12222;
+        border-radius: 5px;
+        padding: 5px 15px;
+        text-decoration: none;
+        border:1px solid #d12222;
+        height: 60%;
+       
+    }
+     
+    .edit_project_site:hover{
+    background-color: #d12222;
+    color: white;
+    }
+     
+    .below_navbar_box {
+        width: 100%;
+        height: auto;
+        /* border: 1px solid red; */
+        border-radius: 10px;
+    }
+     
+    .account_icon_logo {
+        background-color: #d12222;
+        border-radius: 5px;
+        width: auto;
+        height: 30px;
+        float: left;
+        margin: 5px;
+        margin-right: 10px;
+    }
+     
+    .below_navbar_box_upper {
+        {% comment %} height: 50%; {% endcomment %}
+        width: auto;
+        background-color: #e8eaec;
+        padding: 5px;
+        margin-left: 0.5%;
+        margin-right: 0.5%;
+    }
+     
+    .saved_form h3{
+        font-size: larger;
+        }
+     
+    .below_navbar_box_lower {
+        height: 50px;
+        background-color: white;
+        margin-left: 0.5%;
+        margin-right: 0.5%;
+     
+    }
+     
+     
+    .below_navbar_box_lower ul {
+        margin-top: 0px;
+        padding: 5px 5px 5px 7px;
+        font-size: small;
+    }
+     
+    .below_navbar_box_lower_items{
+        display: flex;
+        gap: 30px;
+    }
+     
+    .below_navbar_box_lower ul li {
+        text-decoration: none;
+        display: inline;
+        margin-right: 50px;
+    }
+     
+    /* form data */
+     
+    .saved_form {
+        height: 100%;
+        width: 1000px;
+        background-color: rgb(252, 249, 249);
+        overflow: hidden;
+        margin-top: 0.5%;
+        margin-bottom: 0.5%;
+        padding: 10px;
+        margin-left: 0.5%;
+       
+    }
+     
+    .saved_form label{
+        padding-bottom: 5px;
+    }
+     
+     
+    .saved_form_c1 {
+        display: flex;
+        justify-content: left;
+       
+    }
+     
+     
+    .saved_form_c1_b1 label {
+        border-bottom: 1px solid gray;
+        display: inline-block;
+        width: 400px;
+        /* padding: 5px; */
+       
+    }
+     
+    .saved_form_c1_b2 {
+        margin-left: 10%;
+    }
+     
+    .saved_form_c1_b2 label {
+        border-bottom: 1px solid gray;
+        display: inline-block;
+        width: 400px;
+        /* padding: 5px; */
+    }
+     
+    /* Container 2*/
+     
+    .saved_form_c2 {
+        display: flex;
+    }
+     
+     
+    .saved_form_c2_b1 label {
+        border-bottom: 1px solid gray;
+        display: inline-block;
+        width: 400px;
+        /* padding: 5px; */
+    }
+     
+    .saved_form_c2_b2 {
+        margin-left: 10%;
+    }
+     
+    .saved_form_c2_b2 label {
+        border-bottom: 1px solid gray;
+        display: inline-block;
+        width: 400px;
+        /* padding: 5px; */
+    }
+     
+    /*container 3*/
+     
+    .saved_form_c3 {
+        display: flex;
+    }
+     
+     
+    .saved_form_c3_b1 label {
+        border-bottom: 1px solid gray;
+        display: inline-block;
+        width: 400px;
+        /* padding: 5px; */
+    }
+     
+    .saved_form_c3_b2 {
+        margin-left: 10%;
+    }
+     
+    .saved_form_c3_b2 label {
+        border-bottom: 1px solid gray;
+        display: inline-block;
+        width: 400px;
+        /* padding: 5px; */
+    }
+     
+    /*headings*/
+     
+    .saved_form h3{
+        background-color: #e8eaec;
+        padding: 6px;
+        border-radius: 7px;
+     
+    }
+     
+    @media only screen and (max-width: 600px) {
+        /* Styles for screens up to 600px wide */
+      }
+     
+      /* For medium-sized screens */
+      @media only screen and (min-width: 601px) and (max-width: 1024px) {
+        /* Styles for screens between 601px and 1024px wide */
+      }
+     
+      /* For larger screens */
+      @media only screen and (min-width: 1025px) {
+        /* Styles for screens wider than 1024px */
+      }
+     
+     
+      /* testing */
+     
+      .background-image_SF {
+        /* Set the background image */
+        background-image: url('../images/SF_bg.png'); /* Replace 'path/to/your/image.jpg' with the path to your image file */
+        z-index: -20;
+       
+        /* Specify background properties */
+        background-size: cover; /* Cover the entire container */
+        background-position: center; /* Center the image */
+        background-repeat: no-repeat; /* Do not repeat the image */
+       
+     
+      }
+     
+      .saved_form span{
+        float: right;
+    }
+    .saved_form input{
+        border: none;
+        background-color: transparent ;
+    }
+</style>
+
+
+{% endblock %}

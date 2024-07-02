@@ -1,0 +1,260 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block title %}Account List{% endblock %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{% static 'accounts/css/customer_accounts_list_view.css' %}">
+{% endblock %}
+
+{% block content %}
+
+  <div class="recent_navbar_box">
+
+    <div class="recent_navbar_box_upper">
+      <img class="project_icon_logo" src="{% static 'orders/images/sales_order_icon.png' %}" alt="">
+      <label for="">TIG Orders</label><br>
+      <label style="font-size: larger;" for=""><b>Recent Orders</b></label>
+      <!-- <a  href="selection_window.html" class="new_project_button" ><b>New</b></a> -->
+
+      <button class="new_orders_button" onclick="openPopup_selection_order()"><b>New </b></button>
+
+      <!-- <button href="selection_window.html" class="new_project_button" onclick="openPopup_selection()" ><b>New</b></button> -->
+
+
+
+      <input class="recent_search" type="search" name="" id="" placeholder="  Search">
+    </div>
+
+
+  </div>
+
+  <div>
+    <table class="order_page_table">
+      <thead class="order_page_tabe_head">
+        <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp S.No.</td>
+        <td class="project">&nbsp&nbsp&nbsp <b>Orders</b></td>
+      </thead>
+  
+      {% for order in sales_order %}
+      <tr class="order_page_tabe_row">
+        <td>&nbsp&nbsp&nbsp {{ forloop.counter }}</td>
+        <td><a href="{% url 'orders:sales_order_detail_view' order.id %}"> &nbsp&nbsp&nbsp {{ order.so_po_number }}</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+  <!-- --------------- -->
+
+  <div id="selection_window_order" class="selection_window_order">
+    <!-- <a  class="cross" >&times;</a> -->
+    <h3>New Order</h3>
+
+    <hr>
+    <form method="post">
+      <h6>Select a record type</h6>
+      <div class="order_information_box">
+
+        <div class="order_information_box_input">
+          <ul>
+            <input type="radio" id="customer_form" name="name" checked>
+            <label for="">Sales Order</label><br><br>
+
+            <input type="radio" id="vendor_form" name="name">
+            <label for="">Purchase Order</label>
+          </ul>
+
+        </div>
+
+        
+
+        <div class="Submit_buttons_box">
+          <!-- <button  class="Submit_buttons" >Next</button> -->
+          <a href="order_list_view.html" class="Submit_buttons">Cancel</a>
+          <a href="{% url 'orders:sales_order_creation_form' %}"  class="Submit_buttons">Next</a>
+
+          <!-- <button type="button" class="Submit_buttons" onclick="nextform()">Next </button> -->
+
+
+        </div>
+    </form>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+    <script src="{% static 'orders/js/orders.js' %}"></script>
+
+<style>
+  *{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.recent_navbar_box {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 1rem;
+}
+
+.project_icon_logo {
+    /* background-color: #d12222; */
+    border-radius: 2px;
+    width: auto;
+    height: 35px;
+    float: left;
+    margin: 5px;
+    margin-right: 10px;
+}
+
+.recent_navbar_box_upper {
+    height: 80px;
+    width: auto;
+    background-color: #e8eaec;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.recent_navbar_box_upper .recent_search{
+    float: right;
+    border-radius: 5px;
+    border: 1px solid gray;
+    width: 20%;
+    margin-right: 1%;
+    padding: 5px;
+}
+
+ .recent_search:focus{
+        outline: none; /* Remove default outline */
+        box-shadow: 0 0 10px #d1a2a2;  
+}
+
+.new_orders_button{
+    float: right;
+    background-color: white;
+    color: #d12222;
+    border-radius: 5px;
+    padding: 5px 15px;
+    text-decoration: none;
+    border:1px solid #d12222;
+    
+}
+
+.new_orders_button:hover{
+background-color: #d12222;
+color: white;
+}
+
+
+/* selection popup form start */
+
+
+
+/* .cross {
+    color: #aaa;
+    float: right;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.cross:hover,
+.cross:focus {
+    color: #e90909;
+    text-decoration: none;
+    cursor: pointer;
+} */
+
+.selection_window_order {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    z-index: 9999;
+    width: 600px;
+    max-height: 80%;
+    overflow-y: auto;/* Enable vertical scrollbar when content exceeds the maximum height */
+}
+
+.selection_window_order_overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+}
+
+.cross {
+    color: #aaa;
+    float: right;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.cross:hover,
+.cross:focus {
+    color: #e90909;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.order_information_box  {
+    margin-left: 30%;    
+}
+
+
+
+.selection_window_order .Submit_buttons {
+    background-color: rgb(161, 155, 155);
+    color: white;
+    border-radius: 3px;
+    border: none;
+    padding: 10px 15px;
+    text-decoration: none;
+}
+
+.selection_window_order .Submit_buttons:hover{
+    background-color: rgb(128, 125, 125);
+}
+
+.selection_window_order .Submit_buttons_box {
+    text-align: right;
+}
+
+.order_page_table {
+  border-block: 1px solid gray;
+  border-collapse: collapse;
+  margin-top: 2%;
+
+}
+
+.order_page_table tr{
+    border-block: 1px solid gray;
+  border-collapse: collapse;
+}
+
+.order_page_table tr:hover {
+  background-color: #f2f2f2;
+}
+
+.order_page_table .project {
+  width: 100%;
+}
+
+.order_page_table a {
+  text-decoration: none;
+}
+</style>
+
+  {% endblock %}

@@ -1,0 +1,242 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
+    
+}
+
+
+.popup {
+    display: block;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 0px 20px 0px 20px;
+    border: 1px solid #ccc;
+    border-radius: 0px ;
+    z-index: 9999;
+    width: 50%;
+    max-height: 80%;
+    overflow-y: auto;
+    /* Enable vertical scrollbar when content exceeds the maximum height */
+}
+
+.overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+}
+
+/* from heading */
+.popup_heading{
+    position: sticky;
+    top: 0;
+    background: white;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.popup input:focus {
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 10px #d1a2a2;
+
+}
+
+/* form bottom heading */
+
+
+.form_logo{
+    height: 40px;
+    width: auto;
+    margin-top: 0.5%;
+    margin-left: 0.5%;
+    float: left;
+    }
+
+   
+
+.popup label {
+    display: inline-block;
+    padding: 10px;
+}
+
+.popup h2 {
+    text-align: center;
+}
+
+.popup h3 {
+    background-color: #e8eaec;
+    font-size: large;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.popup .Submit_buttons {
+    background-color: rgb(10, 91, 138);
+    color: white;
+    border-radius: 3px;
+    border: none;
+    padding: 10px 15px;
+    text-decoration: none;
+    
+}
+
+.popup .Submit_buttons:hover{
+    background-color: rgb(4, 72, 108);
+    
+}
+
+
+
+.popup .Submit_buttons_box {
+    text-align: center;
+        position: sticky;
+        bottom: 0;
+        background: white;
+        padding: 15px 0px;
+        border-top: 1px solid #ccc;
+    
+}
+
+
+
+/* -------- */
+
+
+.popup input{
+    width: 100px;
+}
+
+
+.popup_c1 {
+    display: flex;
+    justify-content: left;
+    
+}
+
+
+.popup_c1_b1 label {
+    display: inline-block;
+    width: 150px;
+    /* padding: 5px; */
+    
+}
+
+.popup_c1_b2 {
+    margin-left: 10%;
+}
+
+.popup_c1_b2 label {
+    display: inline-block;
+    width: 150px;
+    /* padding: 5px; */
+}
+
+/* Container 2*/
+
+.popup_c2 {
+    display: flex;
+    justify-content: left;
+}
+
+
+.popup_c2_b1 label {
+    display: inline-block;
+    width: 150px;
+    /* padding: 5px; */
+}
+
+.popup_c2_b2 {
+    margin-left: 10%;
+}
+
+.popup_c2_b2 label {
+    display: inline-block;
+    width: 150px;
+    /* padding: 5px; */
+}
+
+/*container 3*/
+
+.popup_c3 {
+    display: flex;
+    justify-content: left;
+}
+
+
+.popup_c3_b1 label {
+    display: inline-block;
+    width: 150px;
+    /* padding: 5px; */
+}
+
+.popup_c3_b2 {
+    margin-left: 10%;
+}
+
+.popup_c3_b2 label {
+    display: inline-block;
+    width: 150px;
+    /* padding: 5px; */
+}
+
+/* --------- */
+
+
+
+.popup input,
+option,
+select  {
+    width: 200px;
+    padding: 6px 15px;
+    border-radius: 5px;
+    border: 1px solid rgb(166, 165, 165);
+}
+
+
+
+.cross {
+    color: #aaa;
+    float: right;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.cross:hover,
+.cross:focus {
+    color: #e90909;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.New_account_button{
+    float: right;
+    margin-top: 100px;
+    padding: 15px;
+    border-radius: 20px;
+    background-color:#d12222 ;
+    color: white;
+    border: none;
+
+}
+
+.New_account_button:hover {
+    transition: 0.6s ease;
+    /* transform: rotate(360deg); */
+    font-size: x-large;
+    
+}
+
+/* testing -------------------------------------------------------------- */
+
+
+
+

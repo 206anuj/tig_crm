@@ -1,0 +1,425 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block title %}Account List{% endblock %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{% static 'accounts/css/customer_accounts_list_view.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+<div class="background-image_SF">
+    <div class="this-page-header">
+      <div class="site_header_box">
+        <div class="header-col1">
+          <img class="site_logo" src="{% static 'project_site/images/project_icon.png' %}" alt="site-logo" />
+          <div>
+            <p class="sub-header-heading">Project Sites</p>
+            <p class="site-name-style">{{ project_site.ps_name }}</p>
+          </div>
+        </div>
+
+        <div class="edit-button-style">
+          <a href="#" class="edit_project_site"
+            ><b>Edit </b></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ------------------- -->
+
+    <div class="saved_form">
+      <div class="block-header-style"><b>Information</b></div>
+      <br />
+      <div class="site-add-info">
+        <div class="sub-block">
+          <label for="site-Name" class="width-100 disable-label">Name</label>
+          <input
+            type="text"
+            id="site-Name"
+            class="input-height disable-input"
+            aria-label="site-Name"
+            value="{{ project_site.ps_name }}"
+          />
+        </div>
+        <div class="sub-block">
+          <label for="project" class="width-100 disable-label"
+            >Project</label
+          >
+          <input
+            type="text"
+            id="project"
+            class="input-height disable-input"
+            aria-label="Project"
+            value="{{ project_site.ps_project }}"
+          />
+        </div>
+        <div class="sub-block">
+            <label for="Working-Days" class="width-100 disable-label">Working-Days</label>
+            <input
+              type="text"
+              id="Working-Days"
+              class="input-height disable-input"
+              aria-label="Working-Days"
+              value="{{ project_site.ps_working_days }}"
+            />
+          </div>
+        <div class="sub-block">
+          <label for="Work-start-time" class="width-100 disable-label">Work-start-time</label>
+          <input
+            type="text"
+            id="Work-start-time"
+            class="input-height disable-input"
+            aria-label="Work-start-time"
+            value="{{ project_site.ps_business_start_time }}"
+          />
+        </div>
+
+        <div class="sub-block">
+          <label for="Work-end-time" class="width-100 disable-label">Work-end-time</label>
+          <input
+            type="text"
+            id="Work-end-time"
+            class="input-height disable-input"
+            aria-label="Work-end-time"
+            value="{{ project_site.ps_business_end_time }}"
+          />
+        </div>
+        
+      </div> 
+      <br>
+
+<!-- site address information -->
+      <div class="block-header-style"><b>Site Address Information</b></div>
+      <br />
+      <div class="site-add-info">
+        <div class="sub-block">
+          <label for="site-address" class="width-100 disable-label">Address</label>
+          <input
+            type="text"
+            id="site-Address"
+            class="input-height disable-input"
+            aria-label="site-Address"
+            value="{{ project_site.ps_address }}"
+          />
+        </div>
+        <div class="sub-block">
+          <label for="site-classification" class="width-100 disable-label"
+            >Site Classification</label
+          >
+          <input
+            type="text"
+            id="site-classification"
+            class="input-height disable-input"
+            aria-label="site-classification"
+            value="{{ project_site.ps_ZIP_site_classification }}"
+          />
+        </div>
+        <div class="sub-block">
+          <label for="country" class="width-100 disable-label">Country</label>
+          <input
+            type="text"
+            id="country"
+            class="input-height disable-input"
+            aria-label="country"
+            value="{{ project_site.ps_country }}"
+          />
+        </div>
+        <div class="sub-block">
+          <label for="state" class="width-100 disable-label">State</label>
+          <input
+            type="text"
+            id="state"
+            class="input-height disable-input"
+            aria-label="State"
+            value="{{ project_site.ps_state }}"
+          />
+        </div>
+
+        <div class="sub-block">
+          <label for="city" class="width-100 disable-label">City</label>
+          <input
+            type="text"
+            id="city"
+            class="input-height disable-input"
+            value="Dummy-City"
+            aria-label="{{ project_site.ps_city }}"
+          />
+        </div>
+        <div class="sub-block">
+          <label for="zip-code" class="width-100 disable-label">Zip-code</label>
+          <input
+            type="text"
+            id="zip-code"
+            class="input-height disable-input"
+            aria-label="Zip Code"
+            value="{{ project_site.ps_ZIP_postal_Code }}"
+          />
+        </div>
+      </div> 
+
+      <br>
+
+      <div class="block-header-style"><b>Other Information</b></div>
+      <br />
+      <div class="other-info-block">
+        <div class="sub-block">
+          <label for="created-by" class="width-100 disable-label"
+            >Created by :</label
+          >
+          <input
+            type="text"
+            id="created-by"
+            class="input-height disable-input"
+            value=""
+          />
+        </div>
+        <div class="sub-block">
+          <label for="last-modified-by" class="width-100 disable-label"
+            >Last Modified by :</label
+          >
+          <input
+            type="text"
+            id="last-modified-by"
+            class="input-height disable-input"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<style>
+    *{
+        font-family: Arial, Helvetica, sans-serif;
+        padding: 0%;
+        margin: 0%;
+        box-sizing: border-box;
+        
+    }
+    
+    .background-image_SF {
+        background-image: url("../../images/SF_bg.png"); 
+        z-index: -20;
+        width: 100%;
+        height: 100vh;
+        background-size:cover; 
+        background-position: center;
+        background-clip: border-box;
+        background-repeat: repeat-x;
+        overflow: hidden;
+    
+      }
+    
+    .site_header_box {
+        border-radius: 0.4rem;
+        height: auto;
+        background-color: #e8eaec;
+        padding: 5px;
+        margin: 0.5rem;
+        -webkit-border-radius: 0.4rem;
+        -moz-border-radius: 0.4rem;
+        -ms-border-radius: 0.4rem;
+        -o-border-radius: 0.4rem;
+        display: grid;
+        grid-template-columns: 1.5fr 0.2fr;
+    }
+    
+    
+    
+    .site_logo {
+        background-color: #d12222;
+        border-radius: 2px;
+        width: auto;
+        height: 35px;
+        float: left;
+        margin: 5px;
+        margin-right: 10px;
+    }
+    
+    .sub-header-heading{
+        font-weight: 100;
+        font-size: small;
+        padding-top: 0.2rem;
+        padding-bottom: 0.2rem;
+    }
+    
+    .site-name-style{
+        font-weight: 600;
+        font-size: larger;
+        padding-top: 0.2rem;
+        padding-bottom: 0.2rem;
+    }
+    
+    .edit_project_site{
+        /* float: right; */
+        background-color: white;
+        color: #d12222;
+        border-radius: 5px;
+        padding: 5px 15px;
+        text-decoration: none;
+        border:1px solid #d12222;
+        height: 60%;
+        
+    }
+    
+    .edit_project_site:hover{
+    background-color: #d12222;
+    color: white;
+    }
+    
+    .edit-button-style{
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        margin-right: 20%;
+    }
+    
+    /* form data */
+    .saved_form {
+        height: auto;
+        width: 99%;
+        background-color: rgb(252, 249, 249);
+        overflow: scroll;
+        margin-top: 0.5%;
+        margin-bottom: 0.5%;
+        overflow-x: auto;
+        padding: 10px;
+        margin-left: 0.5%;
+        border-radius: 0.2rem;
+        -webkit-border-radius: 0.2rem;
+        -moz-border-radius: 0.2rem;
+        -ms-border-radius: 0.2rem;
+        -o-border-radius: 0.2rem;
+    }
+    
+    /* block header */
+    
+    .block-header-style{
+        background-color: #e8eaec;
+        padding: 6px;
+        border-radius: 7px;
+        font-size: larger;
+        width: 100%;
+    
+    }
+    
+    /* Information block */
+    
+    .info-block {
+        display: grid;
+        /* grid-template-rows: 0.5fr 1.5fr;
+        grid-template-columns: 1fr 1fr; */
+        row-gap: 1rem;
+        column-gap: 1rem;
+        color: black;
+    }
+    
+    .sub-block4{
+        display: grid;
+        /* grid-template-columns: 1fr 1.5fr;
+        grid-template-rows: 1fr 1fr; */
+        row-gap: 1rem;
+        border-bottom: 2px solid grey;
+    }
+    
+    /* Site Address information */
+    
+    .site-add-info{
+        display: grid;
+        /* grid-template-rows: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr; */
+        row-gap: 1rem;
+        column-gap: 1rem;
+        color: black;
+    }
+    
+    /* other information block */
+    
+    .other-info-block {
+        display: grid;
+        /* grid-template-columns: 1fr 1fr; */
+        row-gap: 1rem;
+        column-gap: 1rem;
+        color: black;
+    }
+    .sub-block{
+        display: grid;
+        /* grid-template-columns: 1fr 1.5fr; */
+        border-bottom: 1px solid grey;
+    }
+    
+    .disable-input {
+        border: none;
+        pointer-events: none;
+        color: rgb(92, 90, 90);
+    }
+    
+    
+    .disable-label{
+        pointer-events: none;
+        padding-top: 0.5rem;
+    }
+    
+      
+    .saved_form label{
+        padding-bottom: 5px;
+    }
+    .saved_form span{
+        float: right;
+    }
+    .saved_form input{
+        border: none;
+        background-color: transparent ;
+    }
+    
+     @media( min-width: 906px ){ */
+        .info-block {
+       
+            grid-template-rows: 0.5fr 1.5fr;
+            grid-template-columns: 1fr 1fr;
+    
+        }
+        .sub-block{
+    
+            grid-template-columns: 1fr 1.5fr;
+        }
+        
+        .sub-block4{
+           
+            grid-template-columns: 1fr 1.5fr;
+            grid-template-rows: 1fr 1fr;
+        }
+        
+        .site-add-info{
+            grid-template-rows: 1.5fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr;
+        }
+    
+        .other-info-block {
+            grid-template-columns: 1fr 1fr;
+        }
+    } 
+    
+    .new_project_button{
+        float: right;
+        background-color: white;
+        color: #d12222;
+        border-radius: 5px;
+        padding: 5px 15px;
+        text-decoration: none;
+        border:1px solid #d12222;
+        
+    }
+    
+    .new_project_button:hover{
+    background-color: #d12222;
+    color: white;
+    }
+    
+</style>
+
+{% endblock %}

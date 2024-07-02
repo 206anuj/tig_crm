@@ -1,0 +1,519 @@
+
+{% extends 'header.html' %}
+{% load static %}
+
+{% block title %}Account List{% endblock %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{% static 'accounts/css/customer_accounts_list_view.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+    <!-- Display form errors -->
+    {% if form.errors %}
+        <div class="error-messages">
+            <ul>
+                {% for field in form %}
+                    {% if field.errors %}
+                        <li>{{ field.label }}: {{ field.errors|striptags }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    
+
+    <div id="orders_popup_form" class="orders_popup_form">
+        <!-- <a class="cross" href="">&times;</a> -->
+  
+        <div class="orders_popup_heading">
+          <img class="form_logo" src="{% static 'orders/images/sales_order_icon.png' %}" alt="">
+          <h2>Update Sales Order</h2>
+        </div>
+        <br />
+  
+        <form method="post">
+          {% csrf_token %}
+          <div>
+            <h3>&nbsp <b>Information</b> </h3>
+  
+          </div>
+          <div class="orders_popup_form_c1">
+            <div class="orders_popup_form_c1_b1">
+              <label for="id_so_po_number">PO Number</label>
+              <input type="text" id="id_so_po_number" name="so_po_number" value="{{ account.so_po_number }}" /><br>
+  
+              <label for="id_so_customer_vendor">Customer/Vendor:</label>
+              <input type="text" id="id_so_customer_vendor" name="so_customer_vendor" value="{{ account.so_customer_vendor }}" placeholder="Type customer account name">
+              <input type="hidden" id="id_so_customer_vendor_uuid" name="so_customer_vendor_uuid" value="{{ account.so_customer_vendor_uuid }}">
+              <ul id="suggestions-list"></ul><br>
+          
+
+            </div>
+  
+            <div class="orders_popup_form_c1_b2">
+
+              <label for="id_so_po_status">PO Status</label>
+              <select type="text" name="so_po_status" id="id_so_po_status" required>
+              {% for choice in form.so_po_status.field.choices %}
+                  <option value="{{ choice.0 }}" {% if choice.0 == form.so_po_status.value %} selected {% endif %}>{{ choice.1 }}</option>
+              {% endfor %}
+              </select> <br>
+
+              <label for="id_so_tig_entity">Tig Entity</label>
+              <select type="text" name="so_tig_entity" id="id_so_tig_entity" required>
+              {% for choice in form.so_tig_entity.field.choices %}
+                  <option value="{{ choice.0 }}" {% if choice.0 == form.so_tig_entity.value %} selected {% endif %}>{{ choice.1 }}</option>
+              {% endfor %}
+              </select> <br>
+  
+              <label for="id_so_project">Project:</label>
+              <input type="text" id="id_so_project" name="so_project" value="{{ account.so_project }}" placeholder="Type end customer name">
+              <input type="hidden" id="id_so_project_uuid" name="so_project_uuid" value="{{ account.so_project_uuid }}">
+              <ul id="end-customer-suggestions-list"></ul><br><br>
+  
+  
+            </div>
+          </div>
+          <br />
+     
+  
+          <h3>&nbsp <b>PO Details </b></h3>
+  
+          <div class="orders_popup_form_c2">
+            <div class="orders_popup_form_c2_b1">
+              <label for="id_so_po_start_date">PO Start Date</label>
+              <input type="date" name="so_po_start_date" id="id_so_po_start_date" value="{{ account.so_po_start_date|date:'Y-m-d' }}" required><br>
+         
+  
+              <label for="id_so_currency">Currency</label>
+              <select type="text" name="so_currency" id="id_so_currency" required>
+              {% for choice in form.so_currency.field.choices %}
+                  <option value="{{ choice.0 }}" {% if choice.0 == form.so_currency.value %} selected {% endif %}>{{ choice.1 }}</option>
+              {% endfor %}
+              </select>
+              <br />
+  
+              <label for="id_so_po_amount_utilised">PO Amount Utilized</label>
+              <input type="text" name="so_po_amount_utilised" id="id_so_po_amount_utilised" value="{{ account.so_po_amount_utilised }}"><br>
+  
+              <label for="id_so_tax_included">Tax Included</label>
+              <select type="text" name="so_tax_included" id="id_so_tax_included" required>
+              {% for choice in form.so_tax_included.field.choices %}
+                  <option value="{{ choice.0 }}" {% if choice.0 == form.so_tax_included.value %} selected {% endif %}>{{ choice.1 }}</option>
+              {% endfor %}
+              </select><br>
+  
+            </div>
+  
+            <div class="orders_popup_form_c2_b2">
+              <label for="id_so_po_end_date">PO End Date </label>
+              <input type="date" name="so_po_end_date" id="id_so_po_end_date" value="{{ account.so_po_end_date|date:'Y-m-d' }}"/><br />
+  
+              <label for="id_so_po_amount">PO Amount</label>
+              <input type="text" name="so_po_amount" id="id_so_po_amount" value="{{ account.so_po_amount }}"/><br />
+  
+              <label for="id_so_po_balance">PO Balance</label>
+              <input type="text" name="so_po_balance" id="id_so_po_balance" value="{{ account.so_po_balance }}"/><br />
+            </div>
+          </div>
+          <br />
+  
+          <h3>&nbsp <b>Address Details </b></h3>
+          <div class="orders_popup_form_c3">
+            <div class="orders_popup_form_c3_b1">
+              <label for="id_so_bill_to_address">Bill to Address</label>
+              <textarea name="so_bill_to_address" id="id_so_bill_to_address">{{ account.so_bill_to_address }}</textarea>
+  
+            </div>
+  
+            <div class="orders_popup_form_c3_b2">
+              <label for="id_so_ship_to_address">Ship to Address</label>
+              <textarea name="so_ship_to_address" id="id_so_ship_to_address">{{ account.so_ship_to_address }}</textarea>
+  
+            </div>
+          </div>
+          <br />
+  
+          <div>
+            <h3>&nbsp <b>System Information </b></h3>
+          </div>
+          <div class="orders_popup_form_c4">
+            <div class="orders_popup_form_c4_b1">
+              <label for="">Created By</label>
+              <input type="text" id="name" name="name" /><br />
+
+              <label for="id_so_record_type">Record Type</label>
+              <input type="text" id="id_so_record_type" name="so_record_type" value="Sales Order"/><br />
+              
+            </div>
+
+            <div class="orders_popup_form_c4_b2">
+              <label for="id_last_modified_by">Last Modified By</label>
+              <input type="text" id="id_last_modified_by" name="last_modified_by" value=""/><br/>
+  
+            </div>
+          </div>
+          <br />
+  
+          <div class="Submit_buttons_box">
+            <button class="Submit_buttons">Save</button>
+            <!-- <button class="Submit_buttons" onclick="closePopup_selection_account()">Cancel</button> -->
+            <a href="{% url 'orders:sales_order_list_view' %}" class="Submit_buttons">Cancel</a>
+          </div>
+        </form>
+      </div>
+         
+  
+      <div id="overlay_orders" class="overlay_orders"></div>
+  
+      <script src="orders.js"></script>
+      
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"
+      ></script>
+      <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+        crossorigin="anonymous"
+      />
+
+
+<style>
+  *{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
+    
+}
+
+
+.orders_popup_form {
+    display: block;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 0px 20px 0px 20px;
+    border: 1px solid #ccc;
+    border-radius: 0px ;
+    z-index: 9999;
+    width: 70%;
+    max-height: 80%;
+    overflow-y: auto;
+    /* Enable vertical scrollbar when content exceeds the maximum height */
+}
+
+.overlay_orders {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+}
+
+/* from heading */
+.orders_popup_heading{
+    position: sticky;
+    top: 0;
+    background: white;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.orders_popup_form input:focus {
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 10px #d1a2a2;
+
+}
+
+/* form bottom heading */
+
+
+.form_logo{
+    height: 40px;
+    width: auto;
+    margin-top: 0.5%;
+    margin-left: 0.5%;
+    float: left;
+    }
+
+   
+
+.orders_popup_form label {
+    display: inline-block;
+    padding: 10px;
+}
+
+.orders_popup_form h2 {
+    text-align: center;
+}
+
+.orders_popup_form h3 {
+    background-color: #e8eaec;
+    font-size: large;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.orders_popup_form .Submit_buttons {
+    background-color: rgb(10, 91, 138);
+    color: white;
+    border-radius: 3px;
+    border: none;
+    padding: 10px 15px;
+    text-decoration: none;
+    
+}
+
+.orders_popup_form .Submit_buttons:hover{
+    background-color: rgb(4, 72, 108);
+    
+}
+
+
+
+.orders_popup_form .Submit_buttons_box {
+    text-align: center;
+        position: sticky;
+        bottom: 0;
+        background: white;
+        padding: 15px 0px;
+        border-top: 1px solid #ccc;
+    
+}
+
+
+
+/* -------- */
+
+
+.orders_popup_form input{
+    width: 100px;
+}
+
+
+.orders_popup_form_c1 {
+    display: flex;
+    justify-content: left;
+    
+}
+
+
+.orders_popup_form_c1_b1 label {
+    display: inline-block;
+    width: 150px;
+    /* padding: 5px; */
+    
+}
+
+.orders_popup_form_c1_b2 {
+    margin-left: 10%;
+}
+
+.orders_popup_form_c1_b2 label {
+    display: inline-block;
+    width: 150px;
+    /* padding: 5px; */
+}
+
+/* Container 2*/
+
+.orders_popup_form_c2 {
+    display: flex;
+    justify-content: left;
+}
+
+
+.orders_popup_form_c2_b1 label {
+    display: inline-block;
+    width: 150px;
+    /* padding: 5px; */
+}
+
+.orders_popup_form_c2_b2 {
+    margin-left: 10%;
+}
+
+.orders_popup_form_c2_b2 label {
+    display: inline-block;
+    width: 150px;
+    /* padding: 5px; */
+}
+
+/*container 3*/
+
+.orders_popup_form_c3 {
+    display: flex;
+    justify-content: left;
+}
+
+
+.orders_popup_form_c3_b1 label {
+    display: inline-block;
+    width: 150px;
+    /* padding: 5px; */
+}
+
+.orders_popup_form_c3_b2 {
+    margin-left: 10%;
+}
+
+.orders_popup_form_c3_b2 label {
+    display: inline-block;
+    width: 150px;
+    /* padding: 5px; */
+}
+
+/* container 4 */
+
+.orders_popup_form_c4 {
+    display: flex;
+    justify-content: left;
+}
+
+
+.orders_popup_form_c4_b1 label {
+    display: inline-block;
+    width: 150px;
+    /* padding: 5px; */
+}
+
+.orders_popup_form_c4_b2 {
+    margin-left: 10%;
+}
+
+.orders_popup_form_c4_b2 label {
+    display: inline-block;
+    width: 150px;
+    /* padding: 5px; */
+}
+
+/* --------- */
+
+
+
+.orders_popup_form input,
+option,
+select ,textarea {
+    width: 200px;
+    padding: 6px 15px;
+    border-radius: 5px;
+    border: 1px solid rgb(166, 165, 165);
+}
+
+
+
+.cross {
+    color: #aaa;
+    float: right;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.cross:hover,
+.cross:focus {
+    color: #e90909;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.New_account_button{
+    float: right;
+    margin-top: 100px;
+    padding: 15px;
+    border-radius: 20px;
+    background-color:#d12222 ;
+    color: white;
+    border: none;
+
+}
+
+.New_account_button:hover {
+    transition: 0.6s ease;
+    /* transform: rotate(360deg); */
+    font-size: x-large;
+    
+}
+
+/* testing -------------------------------------------------------------- */
+
+</style>
+
+<script>
+$(document).ready(function(){
+    // Function to handle suggestions and selection for a given input field
+    function setupAutocomplete(inputFieldId, suggestionsListId, hiddenFieldId, ajaxUrl) {
+        $(inputFieldId).on('input', function(){
+            var query = $(this).val();
+            if (query.length >= 3) {
+                $.ajax({
+                    url: ajaxUrl,
+                    data: {'query': query},
+                    dataType: 'json',
+                    success: function(data) {
+                        var suggestions = data.suggestions;
+                        $(suggestionsListId).empty();
+                        for (var i = 0; i < suggestions.length; i++) {
+                            var suggestion = suggestions[i];
+                            $(suggestionsListId).append('<li data-account-id="' + suggestion.account_id + '">' + suggestion.account_name + '</li>');
+                        }
+                        $(suggestionsListId + ' li').on('click', function() {
+                            var selectedAccountId = $(this).data('account-id');
+                            var selectedAccountName = $(this).text();
+                            $(inputFieldId).val(selectedAccountName); // Set the display name
+                            $(hiddenFieldId).val(selectedAccountId); // Store the UUID in hidden input
+                            $(suggestionsListId).empty();
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX Error:', status, error);
+                    }
+                });
+            } else {
+                $(suggestionsListId).empty();
+            }
+        });
+    }
+
+    // Apply autocomplete for so_customer_vendor
+    setupAutocomplete('#id_so_customer_vendor', '#suggestions-list', '#id_so_customer_vendor_uuid', '{% url "orders:customer_account_suggestions" %}');
+
+    // Apply autocomplete for so_project
+    setupAutocomplete('#id_so_project', '#end-customer-suggestions-list', '#id_so_project_uuid', '{% url "orders:customer_project_suggestions" %}');
+
+    // Form submission handling
+    $('#salesOrderForm').on('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Submit the form using Ajax
+        $.ajax({
+            url: $(this).attr('action'),
+            type: $(this).attr('method'),
+            data: $(this).serialize(), // Serialize form data including CSRF token
+            success: function(response) {
+                console.log('Form submitted successfully');
+                // Optionally handle success response, e.g., redirect
+            },
+            error: function(xhr, status, error) {
+                console.error('Form submission error:', status, error);
+                // Optionally handle error response
+            }
+        });
+    });
+});
+</script>
+
+
+{% endblock %}
