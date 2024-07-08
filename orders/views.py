@@ -89,7 +89,6 @@ def customer_project_suggestions(request):
 def sales_order_edit_form(request, pk):
     if pk:
         account = get_object_or_404(SalesOrder, pk=pk)
-        
     else:
         account = None
 
@@ -100,42 +99,42 @@ def sales_order_edit_form(request, pk):
         form = SalesOrderForm(request.POST, instance=account)
         print(f"This is {request.POST.get('so_po_number')}")
 
-        
         if form.is_valid():
             account_name = form.cleaned_data.get('so_po_number')
-            print(f"account name: {account_name}")
+            print(f"Account name: {account_name}")
 
-            selected_account_id_for_customer_vendor = request.POST.get('so_customer_vendor_uuid', None)
-            selected_account_id_for_project = request.POST.get('so_project_uuid', None)
+            selected_account_id_for_customer_vendor = form.cleaned_data.get('so_customer_vendor_uuid')
+            selected_account_id_for_project = form.cleaned_data.get('so_project_uuid')
 
-            print(f"selected_account_id_for_customer_vendor {selected_account_id_for_customer_vendor}")
-            
+            print(f"Selected account ID for customer/vendor: {selected_account_id_for_customer_vendor}")
+            print(f"Selected account ID for project: {selected_account_id_for_project}")
+
             if SalesOrder.objects.filter(so_po_number=account_name).exclude(pk=pk).exists():
                 form.add_error('so_po_number', 'This Sales Order already exists.')
             else:
                 account = form.save(commit=False)
-                account.cp_customer_vendor_id = selected_account_id_for_customer_vendor
-                account.cp_project_id = selected_account_id_for_project
+                account.cp_customer_vendor_uuid = selected_account_id_for_customer_vendor
+                account.cp_customer_vendor = CustomerAccount.objects.get(id=selected_account_id_for_customer_vendor)
+                account.cp_project_uuid = selected_account_id_for_project
+                account.cp_project = CustomerProject.objects.get(id=selected_account_id_for_project)
                 account.save()
 
                 if pk:
                     messages.success(request, 'Sales Order updated successfully.')
                 else:
                     messages.success(request, 'Sales Order created successfully.')
-                
+
                 return redirect('orders:sales_order_list_view')
         else:
             print(form.errors)
     else:
-        print(account.so_customer_vendor)
-        so_customer_vendor_uuid = CustomerAccount.objects.filter(ca_name=account.so_customer_vendor).values_list('pk', flat=True).first()
-        print(so_customer_vendor_uuid)
-        so_end_customer_uuid = CustomerProject.objects.filter(cp_name=account.so_project).values_list('pk', flat=True).first()
-        print(so_end_customer_uuid)
-        print(account)
-        account.cp_customer_vendor_uuid = so_customer_vendor_uuid
-        account.cp_end_customer_uuid = so_end_customer_uuid
-        form = SalesOrderForm(instance=account)
+        if account:
+            so_customer_vendor_uuid = CustomerAccount.objects.filter(ca_name=account.so_customer_vendor).values_list('pk', flat=True).first()
+            so_project_uuid = CustomerProject.objects.filter(cp_name=account.so_project).values_list('pk', flat=True).first()
+            account.so_customer_vendor_uuid = so_customer_vendor_uuid
+            account.so_project_uuid = so_project_uuid
+            form = SalesOrderForm(instance=account)
+        else:
+            form = SalesOrderForm()
 
     return render(request, 'orders/sales_order_edit_form.html', {'form': form, 'account': account})
-

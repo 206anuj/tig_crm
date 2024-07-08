@@ -1,19 +1,26 @@
 from django.db import models
 import uuid
+from multiselectfield import MultiSelectField
 
 from cities_light.models import Country, Region
 from projects.models import CustomerProject
 
 class ProjectSite(models.Model):
 
+    PROJECT_SITE_CLASSIFICATION_CHOICES = [
+        ('Metro','Metro'),
+        ('Rural','Rural'),
+        ('Regional','Regional'),
+    ]
+
     PROJECT_SITE_WORKING_DAYS_CHOICES = [
-        ('Sunday','Sunday'),
-        ('Monday','Monday'),
-        ('Tuesday','Tuesday'),
-        ('Wednesday','Wednesday'),
-        ('Thrusday','Thrusday'),
-        ('Friday','Friday'),
-        ('Satursay','Satursay'),
+        ('Monday', 'Monday'),
+        ('Tuesday', 'Tuesday'),
+        ('Wednesday', 'Wednesday'),
+        ('Thursday', 'Thursday'),
+        ('Friday', 'Friday'),
+        ('Saturday', 'Saturday'),
+        ('Sunday', 'Sunday'),
     ]
    
     PROJECT_SITE_BUSINESS_START_TIME = [
@@ -267,7 +274,7 @@ class ProjectSite(models.Model):
     # Site Information
     ps_name = models.CharField(max_length=255,)
     ps_site_coordinator = models.CharField(max_length=255 , blank=True)
-    ps_working_days = models.CharField(max_length=255, blank=True, choices=PROJECT_SITE_WORKING_DAYS_CHOICES)
+    ps_working_days = MultiSelectField(choices=PROJECT_SITE_WORKING_DAYS_CHOICES, max_choices=7, max_length=1024, blank=True)
     ps_project = models.ForeignKey(CustomerProject, on_delete=models.CASCADE, related_name='ps_project') #this project will be selected from suggestions of Customer Project
     ps_business_start_time = models.CharField(max_length=255, blank=True, choices=PROJECT_SITE_BUSINESS_START_TIME)
     ps_business_end_time = models.CharField(max_length=255, blank=True, choices=PROJECT_SITE_BUSINESS_END_TIME)
@@ -279,7 +286,7 @@ class ProjectSite(models.Model):
     ps_state = models.ForeignKey(Region, on_delete=models.SET_NULL, null=True, related_name='ps_state') # this data comes from Country
     ps_country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, related_name='ps_country')# this data comes from State
     ps_ZIP_postal_Code = models.CharField(max_length=64, blank=True)
-    ps_ZIP_site_classification = models.CharField(max_length=64, blank=True)
+    ps_ZIP_site_classification = models.CharField(max_length=64, blank=True, choices=PROJECT_SITE_CLASSIFICATION_CHOICES)
     ps_ZIP_site_code = models.CharField(max_length=64, blank=True)
     ps_ZIP_gps_coordinates = models.CharField(max_length=64, blank=True)
    
@@ -292,6 +299,14 @@ class ProjectSite(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     # created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='%(class)s_created_by')
     # updated_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='%(class)s_updated_by')
+
+    def save_working_days(self, days_list):
+        # Convert list of days to comma-separated string
+        self.ps_working_days = ','.join(days_list)
+
+    def get_working_days(self):
+        # Convert comma-separated string to list of days
+        return self.ps_working_days.split(',') if self.ps_working_days else []
 
     def __str__(self):
         return self.ps_name

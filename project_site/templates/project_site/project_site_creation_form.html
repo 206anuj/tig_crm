@@ -9,31 +9,27 @@
 
 {% block content %}
 
-<div class="navbox_top">
-    <img class="logo" src="../images/logo.png" loading="lazy" alt="logo" />
-    <a href=""
-      ><img
-        class="user_profile"
-        src="../images/user_profile.png"
-        alt="user-logo"
-        loading="lazy"
-    /></a>
 
-    <div class="navbar_search_box">
-      <input
-        class="search_box"
-        type="text"
-        placeholder="&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Search"
-      />
-    </div>
-  </div>
+    <!-- Display form errors -->
+    {% if form.errors %}
+        <div class="error-messages">
+            <ul>
+                {% for field in form %}
+                    {% if field.errors %}
+                        <li>{{ field.label }}: {{ field.errors|striptags }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
   <!-- --------------------------Site form - 3rd layer------------------------------- -->
 
   <div id="popup" class="popup">
     <div class="popup-block">
       <img
         class="img-logo"
-        src="../images/logo.png"
+        src="{% static "project_site/images/logo.png" %}"
         alt="logo"
         loading="lazy"
       />
@@ -46,172 +42,98 @@
     </div>
     <!-- -------------------------- Form Begin -------------------------------------- -->
     <form method="post">
-      {% csrf_token %}  
+      {% csrf_token %}
       <div class="block-name">&nbsp Information</div>
-
+  
       <div class="info-block">
-        <div class="sub-block">
-          <label for="id_ps_name"
-            ><span class="text-danger">*</span>Name</label
-          >
-          <input
-            type="text"
-            id="id_ps_name"
-            name="ps_name"
-            placeholder="Site name"
-            class="input-height"
-            aria-label="Site name"
-          />
-        </div>
-        <div class="sub-block">
-          <label for="id_ps_project"
-            ><span class="text-danger">*</span>Project</label
-          >
-          <div class="">
-            <input
-              type="search"
-              id="id_ps_project"
-              Name="ps_project"
-              class="search-type input_felid_border width-100"
-              placeholder="Search projects..."
-              aria-label="Project name"
-            />
-            <!-- <i class="fas fa-search icon-overlay"></i> -->
+          <div class="sub-block">
+              <label for="id_ps_name"><span class="text-danger">*</span>Name</label>
+              <input type="text" id="id_ps_name" name="ps_name" placeholder="Site name" class="input-height" aria-label="Site name"/>
           </div>
-        </div>
-
-        <!-- ---------If ID of dayselect get changed then It should be changed in JS file also ---------------------- -->
-        <div class="sub-block">
-          <label for="daysSelect"
-            ><span class="text-danger">*</span>Working Days</label
-          >
-          <div class="">
-            <select id="daysSelect" multiple class="width-100 multiple-select-style">
-              <option class="selectday-option" value="monday">Monday</option>
-              <option class="selectday-option" value="tuesday">
-                Tuesday
-              </option>
-              <option class="selectday-option" value="wednesday">
-                Wednesday
-              </option>
-              <option class="selectday-option" value="thursday">
-                Thursday
-              </option>
-              <option class="selectday-option" value="friday">Friday</option>
-              <option class="selectday-option" value="saturday">
-                Saturday
-              </option>
-              <option class="selectday-option" value="sunday">Sunday</option>
-            </select>
-            <div class="">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                id="selectAll"
-              />
-              <label class="form-check-label" for="selectAll">
-                Select All
-              </label>
-            </div>
+          <div class="sub-block">
+              <label for="id_ps_project"><span class="text-danger">*</span>Project</label>
+              <div class="">
+                  <input type="search" id="id_ps_project" name="ps_project" class="search-type input_felid_border width-100" placeholder="Search projects..." aria-label="Project name"/>
+                  <input type="hidden" id="id_ps_project_uuid" name="ps_project_uuid"/> <!-- Hidden input to store UUID -->
+                  <ul id="suggestions-list"></ul><br>
+              </div>
           </div>
-        </div>
-
-        <div class="sub-block4">
-          <label for="business-start-time" class="width-100"
-            ><span class="text-danger">*</span>Business Start Time</label
-          >
-          <input
-            type="time"
-            id="business-start-time"
-            name="business-start-time"
-            class="input-height"
-          />
-          <label for="business-end-time" class="width-100"
-            ><span class="text-danger">*</span>Business End Time</label
-          >
-          <input
-            type="time"
-            id="business-end-time"
-            name="business-end-time"
-            class="input-height"
-          />
-        </div>
+          <div class="sub-block">
+              <label for="id_ps_working_days"><span class="text-danger">*</span>Working Days</label>
+              <div class="">
+                  <select id="id_ps_working_days" name="ps_working_days" multiple class="width-100 multiple-select-style">
+                      {% for choice in form.ps_working_days.field.choices %}
+                      <option class="selectday-option" value="{{ choice.0 }}" {% if choice.0 == form.ps_working_days.value %} selected {% endif %}>{{ choice.1 }}</option>
+                      {% endfor %}
+                  </select>
+                  <div class="">
+                      <input class="form-check-input" type="checkbox" id="selectAll"/>
+                      <label class="form-check-label" for="selectAll">Select All</label>
+                  </div>
+              </div>
+          </div>
+          <div class="sub-block4">
+              <label for="id_ps_business_start_time" class="width-100"><span class="text-danger">*</span>Business Start Time</label>
+              <select id="id_ps_business_start_time" name="ps_business_start_time" class="form-select width-100 multiple-select-style">
+                  {% for choice in form.ps_business_start_time.field.choices %}
+                  <option class="select-style" value="{{ choice.0 }}" {% if choice.0 == form.ps_business_start_time.value %} selected {% endif %}>{{ choice.1 }}</option>
+                  {% endfor %}
+              </select>
+              <label for="id_ps_business_end_time" class="width-100"><span class="text-danger">*</span>Business End Time</label>
+              <select id="id_ps_business_end_time" name="ps_business_end_time" class="form-select width-100 multiple-select-style">
+                  {% for choice in form.ps_business_end_time.field.choices %}
+                  <option class="select-style" value="{{ choice.0 }}" {% if choice.0 == form.ps_business_end_time.value %} selected {% endif %}>{{ choice.1 }}</option>
+                  {% endfor %}
+              </select>
+          </div>
       </div>
-
+  
       <div class="block-name">&nbsp Site Address Information</div>
-
       <div class="site-add-info">
-        <div class="sub-block">
-          <label for="site-address" class="width-100"
-            ><span class="text-danger">*</span>Address</label
-          >
-          <textarea class="textarea" id="site-address" rows="3"></textarea>
-        </div>
-        <div class="sub-block">
-          <label for="site-classification" class="width-100"
-            ><span class="text-danger">*</span>Site Classification</label
-          >
-          <select
-            class="site-class-style"
-            id="site-classification"
-            aria-label="Site Type"
-          >
-            <option selected>-- None --</option>
-            <option value="metro">Metro</option>
-            <option value="rural">Rural</option>
-            <option value="regional">Regional</option>
-          </select>
-        </div>
-        <div class="sub-block">
-          <label for="country" class="width-100">Country</label>
-          <select
-            class="form-select country"
-            id="country"
-            aria-label="country"
-            onchange=" loadStates() "
-          >
-            <option selected>-- Select Country --</option>
-          </select>
-        </div>
-        <div class="sub-block">
-          <label for="state" class="width-100">State</label>
-          <select class="form-select state" id="state" aria-label="state">
-            <option selected>-- Select State --</option>
-          </select>
-        </div>
-
-        <div class="sub-block">
-          <label for="city" class="width-100">City</label>
-          <input
-            type="text"
-            id="city"
-            class="input-height"
-            placeholder="Enter City"
-            aria-label="City"
-          />
-        </div>
-        <div class="sub-block">
-          <label for="zip-code" class="width-100">Zip-code</label>
-          <input
-            type="text"
-            id="zip-code"
-            class="input-height"
-            placeholder="Zip Code"
-            aria-label="Zip Code"
-          />
-        </div>
+          <div class="sub-block">
+              <label for="id_ps_address" class="width-100"><span class="text-danger">*</span>Address</label>
+              <textarea class="textarea" id="id_ps_address" name="ps_address" rows="3"></textarea>
+          </div>
+          <div class="sub-block">
+              <label for="id_ps_ZIP_site_classification" class="width-100"><span class="text-danger">*</span>Site Classification</label>
+              <select id="id_ps_ZIP_site_classification" name="ps_ZIP_site_classification" class="site-class-style width-100 multiple-select-style">
+                  {% for choice in form.ps_ZIP_site_classification.field.choices %}
+                  <option class="select-style" value="{{ choice.0 }}" {% if choice.0 == form.ps_ZIP_site_classification.value %} selected {% endif %}>{{ choice.1 }}</option>
+                  {% endfor %}
+              </select>
+          </div>
+          <div class="sub-block">
+              <label for="id_ps_country" class="width-100">Country</label>
+              <select class="form-select country" id="id_ps_country" name="ps_country" aria-label="country">
+                  {% for choice in form.ps_country.field.choices %}
+                  <option value="{{ choice.0 }}" {% if choice.0 == form.ps_country.value %} selected {% endif %}>{{ choice.1 }}</option>
+                  {% endfor %}
+              </select>
+          </div>
+          <div class="sub-block">
+              <label for="id_ps_state" class="width-100">State</label>
+              <select class="form-select state" id="id_ps_state" name="ps_state" aria-label="state">
+                  {% for choice in form.ps_state.field.choices %}
+                  <option value="{{ choice.0 }}" {% if choice.0 == form.ps_state.value %} selected {% endif %}>{{ choice.1 }}</option>
+                  {% endfor %}
+              </select>
+          </div>
+          <div class="sub-block">
+              <label for="id_ps_city" class="width-100">City</label>
+              <input type="text" id="id_ps_city" name="ps_city" class="input-height" placeholder="Enter City" aria-label="City"/>
+          </div>
+          <div class="sub-block">
+              <label for="id_ps_ZIP_postal_Code" class="width-100">Zip-code</label>
+              <input type="text" id="id_ps_ZIP_postal_Code" name="ps_ZIP_postal_Code" class="input-height" placeholder="Zip Code" aria-label="Zip Code"/>
+          </div>
       </div>
-
-   
-
+  
       <br />
-
       <div class="Submit_buttons_box">
-        <button type="submit" class="Submit_buttons">Save</button>
-        <!-- <button class="Submit_buttons" onclick="closePopup_selection_account()">Cancel</button> -->
-        <a href="site_list_view.html" class="Submit_buttons">Cancel</a>
+          <button type="submit" class="Submit_buttons">Save</button>
+          <a href="{% url 'project_site:project_site_list_view' %}" class="Submit_buttons">Cancel</a>
       </div>
-    </form>
+  </form>
   </div>
   <!-- ----------------------------Overlay - 2nd layer-------------------------------- -->
   <div id="overlay" class="overlay"></div>
@@ -475,8 +397,7 @@
         height: auto;
         margin-top: 1rem;
         scrollbar-width: none;
-        padding: 0px;
-    
+        padding: 0px;  
     }
     
     .working-day-style{
@@ -497,8 +418,6 @@
         background-color: rgb(4, 72, 108);
         
     }
-    
-    
     
     .popup .Submit_buttons_box {
         text-align: center;
@@ -535,5 +454,134 @@
 
 
   <script src="js/site_creation_forml.js"></script>
+
+<script>
+  const selectAllCheckbox = document.getElementById('selectAll');
+  const daysSelect = document.getElementById('id_ps_working_days');
+  const daysOptions = daysSelect.querySelectorAll('option');
+
+  selectAllCheckbox.addEventListener('change', function() {
+    if (this.checked) {
+      daysOptions.forEach(option => {
+        option.selected = true;
+      });
+    } else {
+      daysOptions.forEach(option => {
+        option.selected = false;
+      });
+    }
+  });
+
+  daysSelect.addEventListener('change', function() {
+    const allSelected = [...daysOptions].every(option => option.selected);
+    selectAllCheckbox.checked = allSelected;
+  });
+
+</script>
+
+
+<script>
+  $(document).ready(function(){
+      // Function to handle suggestions and selection for a given input field
+      function setupAutocomplete(inputFieldId, suggestionsListId, hiddenFieldId, ajaxUrl) {
+          $(inputFieldId).on('input', function(){
+              var query = $(this).val();
+              if (query.length >= 3) {
+                  $.ajax({
+                      url: ajaxUrl,
+                      data: {'query': query},
+                      dataType: 'json',
+                      success: function(data) {
+                          var suggestions = data.suggestions;
+                          $(suggestionsListId).empty();
+                          for (var i = 0; i < suggestions.length; i++) {
+                              var suggestion = suggestions[i];
+                              $(suggestionsListId).append('<li data-account-id="' + suggestion.account_id + '">' + suggestion.account_name + '</li>');
+                          }
+                          $(suggestionsListId + ' li').on('click', function() {
+                              var selectedAccountId = $(this).data('account-id');
+                              var selectedAccountName = $(this).text();
+                              $(inputFieldId).val(selectedAccountName); // Set the display name
+                              $(hiddenFieldId).val(selectedAccountId); // Store the UUID in hidden input
+                              $(suggestionsListId).empty();
+                          });
+                      },
+                      error: function(xhr, status, error) {
+                          console.error('AJAX Error:', status, error);
+                      }
+                  });
+              } else {
+                  $(suggestionsListId).empty();
+              }
+          });
+      }
+  
+      // Apply autocomplete for ps_project
+      setupAutocomplete('#id_ps_project', '#suggestions-list', '#id_ps_project_uuid', '{% url "project_site:customer_project_suggestions" %}');
+  
+      // Form submission handling
+      $('#ProjectSiteForm').on('submit', function(event) {
+          event.preventDefault(); // Prevent default form submission
+  
+          // Submit the form using Ajax
+          $.ajax({
+              url: $(this).attr('action'),
+              type: $(this).attr('method'),
+              data: $(this).serialize(), // Serialize form data including CSRF token
+              success: function(response) {
+                  console.log('Form submitted successfully');
+                  // Optionally handle success response, e.g., redirect
+              },
+              error: function(xhr, status, error) {
+                  console.error('Form submission error:', status, error);
+                  // Optionally handle error response
+              }
+          });
+      });
+  });
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+        // Functionality for billing country change
+        $('#id_ps_country').change(function() {
+            var countryId = $(this).val();
+            $.ajax({
+                url: '{% url "accounts:get_states_by_country" %}',  // Correct URL path
+                data: {
+                    'country_id': countryId
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $('#id_ps_state').empty(); // Clear previous options
+                    $('#id_ps_state').append('<option value="">Select State</option>'); // Add a default option
+                    $.each(data, function(index, state) {
+                        $('#id_ps_state').append('<option value="' + state.id + '">' + state.name + '</option>');
+                    });
+                }
+            });
+        });
+  
+        // Functionality for shipping country change
+        $('#id_ps_country').change(function() {
+            var countryId = $(this).val();
+            $.ajax({
+                url: '{% url "accounts:get_states_by_country" %}',  // Correct URL path
+                data: {
+                    'country_id': countryId
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $('#id_ps_state').empty(); // Clear previous options
+                    $('#id_ps_state').append('<option value="">Select State</option>'); // Add a default option
+                    $.each(data, function(index, state) {
+                        $('#id_ps_state').append('<option value="' + state.id + '">' + state.name + '</option>');
+                    });
+                }
+            });
+        });
+    });
+  </script>
 
 {% endblock %}

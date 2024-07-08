@@ -1,12 +1,10 @@
-
 {% extends "header.html" %}
 {% load static %}
-
+ 
 {% block content %}
-
-
+ 
 <div class="below_navbar_box">
-
+ 
     <div class="this-page-header">
         <div class="site_header_box">
           <div class="header-col1">
@@ -22,75 +20,75 @@
         </form> {% endcomment %}
 <div class="edit-button-style">
             <a href="{% url 'accounts:customer_account_edit_form' customer_account.pk %}" class="btn btn-primary"><b>Edit</b></a>
-          </div> 
+          </div>
         </div>
       </div>
-
+ 
     <div class="below_navbar_box_lower">
-        <ul class="below_navbar_box_lower_items" > 
+        <ul class="below_navbar_box_lower_items" >
            <div> <li>Phone <br> {{ customer_account.ca_phone_number }} </li></div>
            <div> <li>Website <br> tig.com </li> </div>
            <div> <li>Record Type <br> {{ customer_account.ca_record_type }} </li></div>
-           <div><li>Status <br>  </li></div> 
+           <div><li>Status <br>  </li></div>
             <div><li>Account Owner <br> {{ customer_account.ca_account_owner }} </li></div>
             <!-- <div><Li>Type of Partner <br> NA</Li></div> -->
         </ul>
-
+ 
     </div>
-
+ 
 </div>
-
-
-
+ 
+ 
+ 
 <div class="saved_form">
-
-
+ 
+ 
     <h3><b>Account Information</b></h3><br>
     <div class="saved_form_c1">
-
+ 
         <div class="saved_form_c1_b1">
             <label for="">Account Name <span><input class="form_input_data" value="{{ customer_account.ca_name }}" type="text" name="" id="" disabled></span></label><br><br>
-
+ 
             <label for="">Phone <span><input class="form_input_data" value="{{ customer_account.ca_phone_number }}" type="text" name="" id="" disabled></span></label><br><br>
         </div>
-
+ 
         <div class="saved_form_c1_b2">
             <label class="" for="">Account Record Type: <span><input class="form_input_data" value="{{ customer_account.ca_record_type }}" type="text" name="" id="" disabled></span></label><br><br>
-
+ 
             <label for="">Account Owner <span><input class="form_input_data" value="{{ customer_account.ca_account_owner }}" type="text" name="" id="" disabled></span></label>
-
+ 
         </div>
-
+ 
     </div>
-
-
+ 
+ 
     <h3><b>Account Other Information</b></h3><br>
     <div class="saved_form_c2">
         <div class="saved_form_c2_b1">
-
+ 
             <label for="">Type <span><input class="form_input_data" value="{{ customer_account.ca_type }}" type="text" name="" id="" disabled></span></label><br><br>
             <label for="">Industry <span><input class="form_input_data" value="{{ customer_account.ca_industray }}" type="text" name="" id="" disabled></span></label><br><br>
             <label for="">Payment Terms <span><input class="form_input_data" value="{{ customer_account.ca_payment_terms }}" type="text" name="" id="" disabled></span></label><br><br>
             <label for="">Customer Code <span><input class="form_input_data" value="{{ customer_account.ca_customer_code }}" type="text" name="" id="" disabled></span> </label><br><br>
-
-
+ 
+ 
         </div>
-
+ 
         <div class="saved_form_c2_b2">
             <label for="">Description <span><input class="form_input_data" value="{{ customer_account.ca_description }}" type="text" name="" id="" disabled></span></label><br><br>
-
+ 
             <label for="">GP <span><input class="form_input_data" value="" type="text" name="" id="" disabled></span> </label><br><br>
             <label for="">GP%<span><input class="form_input_data" value="" type="text" name="" id="" disabled></span> </label><br><br>
-
+ 
         </div>
     </div>
-
-
-
-
+ 
+ 
+ 
+ 
     <h3><b>Address Information</b></h3><br>
     <div class="saved_form_c3">
-
+ 
         <div class="saved_form_c3_b1">
             <label for="">Billing Address <span><input class="form_input_data" value="{{ customer_account.ca_billing_address }}" type="text" name="" id="" disabled></span></label><br><br>
             <label for="">Billing Country <span><input class="form_input_data" value="{{ customer_account.ca_billing_country }}" type="text" name="" id="" disabled></span></label><br><br>
@@ -98,9 +96,9 @@
             <label for="">Billing City <span><input class="form_input_data" value="{{ customer_account.ca_billing_city }}" type="text" name="" id="" disabled></span></label><br><br>
             <label for="">Billing Zip/Postal Code <span><input class="form_input_data" value="{{ customer_account.ca_billing_pin_code }}" type="text" name="" id="" disabled></span></label><br><br>
             <label for="">Billing State/Province <span><input class="form_input_data" value="{{ customer_account.ca_billing_state }}" type="text" name="" id="" disabled></span></label><br><br>
-
+ 
         </div>
-
+ 
         <div class="saved_form_c3_b2">
             <label for="">Shipping Address <span><input class="form_input_data" value="{{ customer_account.ca_shipping_address }}" type="text" name="" id="" disabled></span></label><br><br>
             <label for="">Shipping Country <span><input class="form_input_data" value="{{ customer_account.ca_shipping_country }}" type="text" name="" id="" disabled></span></label><br><br>
@@ -108,19 +106,19 @@
             <label for="">Shipping City <span><input class="form_input_data" value="{{ customer_account.ca_shipping_city }}" type="text" name="" id="" disabled></span></label><br><br>
             <label for="">Shipping State/Province <span><input class="form_input_data" value="{{ customer_account.ca_shipping_pin_code }}" type="text" name="" id="" disabled></span></label><br><br>
             <label for="">Shipping Zip/Postal Code <span><input class="form_input_data" value="{{ customer_account.ca_shipping_state }}" type="text" name="" id="" disabled></span></label><br><br>
-
-
+ 
+ 
         </div>
     </div>
-
+ 
 </div>
-
+ 
 <style>
     *{
         font-family: Arial, Helvetica, sans-serif;
        
     }
-
+ 
     .site_header_box {
         border-radius: 0.4rem;
         height: auto;
@@ -241,7 +239,7 @@
      
     .saved_form {
         height: 100%;
-        width: 1000px;
+        width: 99%;
         background-color: rgb(252, 249, 249);
         overflow: hidden;
         margin-top: 0.5%;
@@ -266,19 +264,19 @@
     .saved_form_c1_b1 label {
         border-bottom: 1px solid gray;
         display: inline-block;
-        width: 400px;
+        width: 99vh;
         /* padding: 5px; */
        
     }
      
     .saved_form_c1_b2 {
-        margin-left: 10%;
+        margin-left: 5%;
     }
      
     .saved_form_c1_b2 label {
         border-bottom: 1px solid gray;
         display: inline-block;
-        width: 400px;
+        width: 99vh;
         /* padding: 5px; */
     }
      
@@ -292,18 +290,18 @@
     .saved_form_c2_b1 label {
         border-bottom: 1px solid gray;
         display: inline-block;
-        width: 400px;
+        width: 99vh;
         /* padding: 5px; */
     }
      
     .saved_form_c2_b2 {
-        margin-left: 10%;
+        margin-left: 5%;
     }
      
     .saved_form_c2_b2 label {
         border-bottom: 1px solid gray;
         display: inline-block;
-        width: 400px;
+        width: 99vh;
         /* padding: 5px; */
     }
      
@@ -317,18 +315,18 @@
     .saved_form_c3_b1 label {
         border-bottom: 1px solid gray;
         display: inline-block;
-        width: 400px;
+        width: 99vh;
         /* padding: 5px; */
     }
      
     .saved_form_c3_b2 {
-        margin-left: 10%;
+        margin-left: 5%;
     }
      
     .saved_form_c3_b2 label {
         border-bottom: 1px solid gray;
         display: inline-block;
-        width: 400px;
+        width: 99vh;
         /* padding: 5px; */
     }
      
@@ -360,7 +358,7 @@
      
       .background-image_SF {
         /* Set the background image */
-        background-image: url('../images/SF_bg.png'); /* Replace 'path/to/your/image.jpg' with the path to your image file */
+        background-image: url('{% static 'accounts/images/SF_bg.png' %}'); /* Replace 'path/to/your/image.jpg' with the path to your image file */
         z-index: -20;
        
         /* Specify background properties */
@@ -373,12 +371,13 @@
      
       .saved_form span{
         float: right;
+        margin-right: 20%;
     }
     .saved_form input{
         border: none;
         background-color: transparent ;
     }
 </style>
-
-
+ 
+ 
 {% endblock %}
