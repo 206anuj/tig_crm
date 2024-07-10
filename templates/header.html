@@ -57,7 +57,22 @@
     {% endblock %}
 </main>
 
-</body>
 
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var currentLocation = window.location.href; // Get the current URL
+  var navbarItems = document.querySelectorAll('.nav_item');
+ 
+  navbarItems.forEach(function(item) {
+    // Check if the current item's href matches the current URL or is a substring of it
+    if (currentLocation.includes(item.href)) {
+      item.classList.add('active'); // Add a class to mark it as active
+    }
+  });
+});
+</script>  
+
+</body>
 </html>
 

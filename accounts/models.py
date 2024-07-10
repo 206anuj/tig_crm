@@ -66,7 +66,7 @@ class CustomerAccount(models.Model):
 
     # Account Information
     ca_name = models.CharField(max_length=255)
-    ca_record_type = models.CharField(max_length=255)
+    record_type = models.CharField(max_length=255)
     ca_phone_number = models.CharField(max_length=11, blank=True)
     ca_account_owner = models.CharField(max_length=255, blank=True)
 
@@ -433,17 +433,17 @@ class VendorAccount(models.Model):
     
     # Account Information
     va_name = models.CharField(max_length=255) # required=True
-    va_phone_no = models.CharField(max_length=255, blank=True)
-    va_parent_acc = models.CharField(max_length=255, blank=True) #this will come from VendorAccount
-    va_record_type = models.CharField(max_length=255,blank=True)
+    va_phone_number = models.CharField(max_length=255, blank=True)
+    va_parent_account = models.CharField(max_length=255, blank=True) #this will come from VendorAccount
+    record_type = models.CharField(max_length=255,blank=True)
     va_company_group = models.CharField(max_length=255, blank=True)
-    va_phone_number = models.CharField(max_length=11, blank=True)
+    va_primary_contact_number = models.CharField(max_length=11, blank=True)
     va_account_owner = models.CharField(max_length=255, blank=True)
     va_status = models.CharField(max_length=255, choices=VENDOR_ACCOUNT_STATUS_CHOICES, blank=True)
 
     # Account Other Info
-    va_type= models.CharField(max_length=255, choices=VENDOR_ACCOUNT_TYPE_CHOICES) # required=True
-    va_partner_type= models.CharField(max_length=255, choices=VENDOR_ACCOUNT_PARTNER_TYPE_CHOICES) # required=True
+    va_type = models.CharField(max_length=255, choices=VENDOR_ACCOUNT_TYPE_CHOICES) # required=True
+    va_partner_type = models.CharField(max_length=255, choices=VENDOR_ACCOUNT_PARTNER_TYPE_CHOICES) # required=True
     va_expense_type = models.CharField(max_length=255, choices=VENDOR_ACCOUNT_EXPENSE_TYPE_CHOICES) # required=True
     va_industry = models.CharField(max_length=255, choices=VENDOR_ACCOUNT_INDUSTRY_CHOICES, blank=True)
 
@@ -478,14 +478,14 @@ class VendorAccount(models.Model):
     va_statutory_details = models.CharField(max_length=255, blank=True)
     va_service_registration_no = models.CharField(max_length=255, blank=True)
     va_tax_identifcation_no = models.CharField(max_length=255, blank=True)
-    va_bank_accept_usd = models.CharField(max_length=255, blank=True) #checkbox
-    va_bank_accept_euro = models.CharField(max_length=255, blank=True) #checkbox
+    va_bank_accept_usd = models.BooleanField(default=False) #checkbox
+    va_bank_accept_euro = models.BooleanField(default=False) #checkbox
 
     # Employees & Call Support Activity
-    va_company_24x7_support = models.CharField(max_length=255, blank=True) #checkbox
+    va_company_24x7_support = models.BooleanField(default=False) #checkbox
     va_no_call_support_permonth = models.CharField(max_length=255, blank=True)
     va_communication_method = models.CharField(max_length=255, blank=True)
-    va_multilingual_helpdesk = models.CharField(max_length=255, blank=True) #checkbox
+    va_multilingual_helpdesk = models.BooleanField(default=False) #checkbox
     va_company_web_access = models.CharField(max_length=255, blank=True)
     va_english_speaking_engineers = models.CharField(max_length=255, blank=True)
     va_english_speaking_engineers_tig = models.CharField(max_length=255, blank=True)

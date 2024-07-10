@@ -59,13 +59,20 @@
               </div>
           </div>
           <div class="sub-block">
-              <label for="id_ps_working_days"><span class="text-danger">*</span>Working Days</label>
+            <label for="id_ps_working_days"><span class="text-danger">*</span>Working Days</label>
+            <div class="">
+                <select id="id_ps_working_days" name="ps_working_days" multiple class="width-100 multiple-select-style">
+                    {% for choice in form.ps_working_days.field.choices %}
+                    <option class="selectday-option" value="{{ choice.0 }}" {% if choice.0 in form.ps_working_days.value %} selected {% endif %}>{{ choice.1 }}</option>
+                    {% endfor %}
+                </select>
+              {% comment %} <label for="id_ps_working_days"><span class="text-danger">*</span>Working Days</label>
               <div class="">
                   <select id="id_ps_working_days" name="ps_working_days" multiple class="width-100 multiple-select-style">
                       {% for choice in form.ps_working_days.field.choices %}
                       <option class="selectday-option" value="{{ choice.0 }}" {% if choice.0 == form.ps_working_days.value %} selected {% endif %}>{{ choice.1 }}</option>
                       {% endfor %}
-                  </select>
+                  </select> {% endcomment %}
                   <div class="">
                       <input class="form-check-input" type="checkbox" id="selectAll"/>
                       <label class="form-check-label" for="selectAll">Select All</label>

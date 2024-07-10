@@ -4,8 +4,8 @@ from django.views.decorators.http import require_POST
 import pandas as pd
 
 
-from .models import CustomerAccount
-from .forms import CustomerAccountForm, UploadFileForm
+from .models import CustomerAccount, VendorAccount
+from .forms import CustomerAccountForm, UploadFileForm, VendorAccountForm
 
 
 # Create your views here.
@@ -16,7 +16,13 @@ from .models import Country, Region
 
 
 def customer_accounts_list_view(request):
-    accounts = CustomerAccount.objects.all()
+    customer_accounts = list(CustomerAccount.objects.all())
+    vendor_accounts = list(VendorAccount.objects.all())
+
+    accounts = customer_accounts + vendor_accounts
+
+    accounts = sorted(customer_accounts + vendor_accounts, key=lambda x: x.updated_at, reverse=True)
+
     context = {'accounts': accounts}
     return render(request, 'accounts/customer_accounts_list_view.html', context=context)
 
@@ -25,15 +31,15 @@ def select_account_type(request):
     account_type = request.POST.get('account_type')
     if account_type in ['customer', 'vendor']:
         if account_type == 'customer':
-            return redirect('accounts:customer_account_creation')
+            return redirect('accounts:customer_account_creation_form')
         elif account_type == 'vendor':
-            return redirect('accounts:vendor_account_creation')
+            return redirect('accounts:vendor_account_creation_form')
     else:
         return render(request, 'select_account_type.html', {'error': 'Invalid account type selection'})
 
 
 
-def customer_account_creation(request):
+def customer_account_creation_form(request):
     if request.method == 'POST':
         form = CustomerAccountForm(request.POST)
         if form.is_valid():
@@ -96,6 +102,26 @@ def customer_account_creation(request):
         form = CustomerAccountForm()
     return render(request, 'accounts/customer_account_creation_form.html', {'form': form})
 
+
+def vendor_account_creation_form(request):
+    if request.method == 'POST':
+        form = VendorAccountForm(request.POST)
+        if form.is_valid():
+            account_name = form.cleaned_data.get('va_name')
+            if VendorAccount.objects.filter(va_name=account_name).exists():
+                form.add_error('va_name', 'This account already exists.')
+            else:
+                new_account = form.save()
+                print(f"New account created : {new_account}")
+                messages.success(request, 'Customer account created successfully.')
+                return redirect('accounts:vendor_account_detail_view', pk=new_account.pk)
+                
+        else:
+            print(form.errors)
+    else:
+        form = VendorAccountForm()
+    return render(request, 'accounts/vendor_account_creation_form.html', {'form': form})
+
 def get_states_by_country(request):
     country_id = request.GET.get('country_id')
     states = Region.objects.filter(country_id=country_id).values('id', 'name')
@@ -105,6 +131,11 @@ def customer_account_detail_view(request, pk):
     customer_account = CustomerAccount.objects.filter(pk=pk).first()
     context = {'customer_account': customer_account}
     return render(request, 'accounts/customer_account_detail_view.html', context=context)
+
+def vendor_account_detail_view(request, pk):
+    vendor_account = VendorAccount.objects.filter(pk=pk).first()
+    context = {'vendor_account': vendor_account}
+    return render(request, 'accounts/vendor_account_detail_view.html', context=context)
 
 
 def customer_account_edit_form(request, pk=None):
@@ -137,6 +168,39 @@ def customer_account_edit_form(request, pk=None):
 
     # Render the form with the current data and errors if any
     return render(request, 'accounts/customer_account_edit_form.html', {'form': form, 'account': account})
+
+
+def vendor_account_edit_form(request, pk=None):
+    # Retrieve the existing account if editing
+    if pk:
+        account = get_object_or_404(VendorAccount, pk=pk)
+    else:
+        account = None
+
+    if request.method == 'POST':
+        form = VendorAccountForm(request.POST, instance=account)
+        if form.is_valid():
+            account_name = form.cleaned_data.get('va_name')
+            # Check if account name already exists
+            if VendorAccount.objects.filter(va_name=account_name).exclude(pk=pk).exists():
+                form.add_error('ca_name', 'This account name already exists.')
+            else:
+                account = form.save()
+                if pk:
+                    messages.success(request, 'Customer account updated successfully.')
+                else:
+                    messages.success(request, 'Customer account created successfully.')
+                return redirect('accounts:vendor_account_detail_view', pk=account.pk)
+        # If form is not valid, handle error display
+        else:
+            # Print form errors to console for debugging
+            print(form.errors)
+    else:
+        form = VendorAccountForm(instance=account)
+
+    # Render the form with the current data and errors if any
+    return render(request, 'accounts/vendor_account_edit_form.html', {'form': form, 'account': account})
+
 
 
 def upload_file_view(request):
@@ -182,7 +246,7 @@ def upload_file_view(request):
 
                 CustomerAccount.objects.create(
                     ca_name=row['CaName'],
-                    ca_record_type=row['CaRecordType'],
+                    record_type=row['CaRecordType'],
                     ca_phone_number=row['CaPhone'] if not pd.isna(row['CaPhone']) else '',
                     ca_account_owner=row['CaAccountOwner'] if not pd.isna(row['CaAccountOwner']) else '',
 

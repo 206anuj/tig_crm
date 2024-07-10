@@ -1,0 +1,911 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block title %}Account List{% endblock %}
+
+{% comment %} {% block extracss %}
+    <link rel="stylesheet" href="{% static 'accounts/css/customer_accounts_list_view.css' %}">
+{% endblock %} {% endcomment %}
+
+{% block content %}
+
+
+
+<div class="title-container">
+            
+    <div class="title-head " >
+        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="50" fill="currentColor" class="bi bi-archive title_item_one " viewBox="0 0 16 16">
+        
+            <path d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+        
+        </svg>
+                
+    
+        <span  class=" up f-size">Vendor Account</span>  
+        <span class=" down f-size"><b>{{ vendor_account.va_name }}</b></span>  
+         
+        <a href="{% url 'accounts:vendor_account_edit_form' vendor_account.pk %}"  class="btn4" id="" >Edit</a>
+
+    </div>
+   
+
+</div>
+
+<div class="title-body">
+    <div class="title-body-sub">
+      <div class="sub-sub-block">
+        <span class="f-size">Phone</span>
+       <span>{{ vendor_account.va_name }}</span>
+      </div>
+      <div class="sub-sub-block">
+        <span class="f-size">Account Record Type</span>
+        <span>{{ vendor_account.record_type }}</span>
+      </div>
+      <div class="sub-sub-block">
+        <span class="f-size">Status</span>
+        <span class="f-size">{{ vendor_account.va_status }}</span>
+      </div>
+      <div class="sub-sub-block">
+        <span class="f-size">Account Owner</span>
+        <span class="f-size">Admin</span>
+      </div>
+      <div class="sub-sub-block">
+        <span class="f-size">Type of Partner</span>
+        <span class="f-size">{{ vendor_account.va_partner_type }}</span>
+      </div>
+    </div>
+  </div>   
+
+
+<div class="container_1">
+
+<div class="content-head">
+
+    <ul class=" ">
+
+     <!--  <li class="">
+          <a class=" " href="#">Related</a>
+        </li> -->
+  
+        <li class="">
+          <a class=""  href="#">Details</a>
+        </li> 
+
+       <!--  <li class="">
+          <a class="" href="#">Due Diligence</a>
+        </li> -->
+             
+      </ul>
+
+</div>
+
+
+<div class="bg-grey"  style="margin-top: 15px; ">
+    <b><label class=""  style="margin-left: 10px;">
+        Account Information
+      </label> </b>
+  </div>
+
+  <div class="acc-info">
+
+    <div class="acc-sub-info ">
+
+      <label for="account_name" class="form-label f-size "></i>Account Name</label>
+      <input type="text" class="input-box input-box-border" id="account_name" value="{{ vendor_account.va_name }}">
+
+    </div>
+
+    <div class="acc-sub-info">
+      
+      <label for="inputPhone" class=" f-size">Phone</label>
+      <input type="text" class="input-box input-box-border" id="inputPhone" value="{{ vendor_account.va_phone_number }}">
+
+    </div>
+
+
+    
+    <div class="acc-sub-info">
+     
+       <label for="parent_acc" class=" f-size ">Parent Account </label>
+      <input type="text" class="input-box input-box-border" id="parent_acc" value="{{ vendor_account.va_parent_account }}">
+    </div>
+
+
+    <div class="acc-sub-info">
+     
+      <label for="acc-type" class=" f-size">Account Record Type</label>
+      <input type="text" class="input-box input-box-border" id="acc-type" value="{{ vendor_account.record_type }}">
+
+    </div>
+
+
+    
+    <div class="acc-sub-info">
+      
+      <label for="companyGroup" class=" f-size">Company Group</label>  
+      <input type="text" class="input-box input-box-border" id="companyGroup" value="{{ vendor_account.va_record_type }}">
+
+    </div>
+
+    <div class="acc-sub-info">
+
+      <label for="acc-owner" class=" f-size">Account Owner</label>
+      <input type="text" class="input-box input-box-border" id="acc-owner" value="{{ vendor_account.va_account_owner }}">
+
+
+    </div>
+
+    <div class="acc-sub-info">
+      <label for="Status" class="input-box">Status</label> 
+      <input type="text" class="input-box input-box-border" id="Status" value="{{ vendor_account.va_status }}">
+
+
+    </div>
+  
+  </div> <!-- acc- info- end-->
+
+
+  <div class="bg-grey">
+    <b><label class="" style="margin-left: 10px;">
+      Other Account Information
+      </label> </b>
+  </div>
+
+
+    <div class="acc-info">
+
+      <div class="acc-sub-info">
+          
+        <label for="type" class=" f-size">Type</label>        
+        <input type="text" class="input-box input-box-border" id="type" value="{{ vendor_account.va_type }}">
+       
+
+      </div>
+
+      <div class="acc-sub-info">
+
+        <label for="partner-type" class=" f-size">Type of Partner</label>
+        <input type="text" class="input-box input-box-border" id="partner-type" value="{{ vendor_account.va_type }}">
+        
+
+      </div>
+
+
+
+    <div class="acc-sub-info">
+  
+      <label for="partner-expense" class=" f-size">Partner Expense Type</label>        
+      <input type="text" class="input-box input-box-border" id="partner-expense" value="{{ vendor_account.va_expense_type }}">
+                                 
+    </div>
+
+
+    
+      <div class="acc-sub-info">
+    
+        <label for="input-Industry" class="f-size">Industry</label>
+        <input type="text" class="input-box input-box-border" id="input-Industry" value="{{ vendor_account.va_industry }}">
+                       
+      </div>
+
+      <div class="acc-sub-info">
+    
+        <label for="amountSpent" class=" f-size">Total Amount Spent</label>    
+        <input type="text" class="input-box input-box-border" id="amountSpent" >
+            
+      </div>
+
+      <div class="acc-sub-info">
+    
+        <label for="GP" class=" f-size">GP</label>    
+        <input type="text" class="input-box input-box-border" id="GP">
+            
+      </div>
+
+      
+      <div class="acc-sub-info">
+    
+        <label for="GP%" class=" f-size">GP %</label>    
+        <input type="text" class="input-box input-box-border" id="GP%">
+            
+      </div>
+
+    </div>
+
+    <div class="bg-grey">
+      <b><label class="" style="margin-left: 10px;">
+        Vendor Bank Information
+        </label> </b>
+    </div>
+
+    <div class="acc-info">
+
+      <div class="acc-sub-info">
+
+        <label for="bank-acc-no" class=" f-size">Bank Account Number / Clabe / CCI</label>
+        <input type="text" class="input-box input-box-border" id="bank-acc-no" value="{{ vendor_account.va_bank_account_no }}">
+
+      </div>
+
+
+      <div class="acc-sub-info">
+
+        <label for="amountSpent" class=" f-size">Bank Branch</label>
+        <input type="text" class="input-box input-box-border" id="bank-acc-no" value="{{ vendor_account.va_bank_branch }}">
+
+      </div>
+
+      <div class="acc-sub-info">
+       
+        <label for="bank-holder-name" class="f-size">Bank Account Holder or Beneficiery Name</label>
+        <input type="text" class="input-box input-box-border" id="bank-holder-name" value="{{ vendor_account.va_holder_name }}">
+
+      </div>
+
+      <div class="acc-sub-info">
+        
+        <label for="back-code" class="form-label f-size">Bank Code</label>
+        <input type="text" class="input-box input-box-border" id="back-code" value="{{ vendor_account.va_bank_code }}">
+     
+      </div>
+
+      <div class="acc-sub-info">
+        
+        <label for="branch-add" class="form-label f-size">Branch Address(Bank) </label>
+        <input type="text" class="input-box input-box-border" id="branch-add" value="{{ vendor_account.va_bank_address }}">
+      
+      </div>
+
+      <div class="acc-sub-info">
+
+        <label for="back-country-code" class=" f-size">Bank Account Country Code</label>
+        <input type="text" class="input-box input-box-border" id="back-country-code" value="{{ vendor_account.va_bank_account_country_code }}">
+
+      </div>
+
+      <div class="acc-sub-info">
+
+        <label for="ifsc-code" class=" f-size">IFSC Code </label>
+        <input type="text" class="input-box input-box-border" id="ifsc-code" value="{{ vendor_account.va_ifsc_code }}">
+
+      </div>
+
+      <div class="acc-sub-info">
+
+        <label for="bank-zipcode" class=" f-size"> ZIP / Postal Code (Bank) </label>
+        <input type="text" class="input-box input-box-border" id="bank-zipcode" value="{{ vendor_account.va_bank_zip }}">
+        
+
+      </div>
+      
+      
+      <div class="acc-sub-info">
+
+        <label for="swift-code" class=" f-size"> Swift Code </label>
+        <input type="text" class="input-box input-box-border" id="swift-code" value="{{ vendor_account.va_swift_code }}">
+
+      </div>
+
+      <div class="acc-sub-info">
+
+        <label for="bank-id" class=" f-size"> Bank ID </label>
+        <input type="text" class="input-box input-box-border" id="bank-id" value="{{ vendor_account.va_bank_id }}">
+
+      </div>
+
+
+      <div class="acc-sub-info">
+
+        <label for="sort-code" class="f-size"> Sort Code </label>
+        <input type="text" class="input-box input-box-border" id="sort-code" value="{{ vendor_account.va_sort_code }}">
+
+      </div>
+
+
+      <div class="acc-sub-info">
+
+        <label for="State" class=" f-size"> State(Bank) </label>
+        <input type="text" class="input-box input-box-border" id="bank-state" value="{{ vendor_account.va_bank_state }}">
+
+      </div>
+
+
+      <div class="acc-sub-info">
+
+        <label for="amountSpent" class=" f-size"> BSB Code </label>
+        <input type="text" class="input-box input-box-border" id="bsb-code" value="{{ vendor_account.va_bsb_code }}">
+
+      </div>
+
+
+      <div class="acc-sub-info">
+
+        <label for="amountSpent" class=" f-size"> Benen Bank Account Type </label>
+        <input type="text" class="input-box input-box-border" id="benen-acc-type" value="{{ vendor_account.va_benen_bank_acc_type }}">
+
+      </div>
+
+      <div class="acc-sub-info">
+      
+        <label for="transit-no" class=" f-size"> Transit Number </label>
+        <input type="text" class="input-box input-box-border" id="transit-no" value="{{ vendor_account.va_transit_no }}">
+     
+      </div>
+
+      <div class="acc-sub-info">
+
+        <label for="amountSpent" class="f-size"> TaxID/RUT/CUIT Number </label>
+        <input type="text" class="input-box input-box-border" id="taxID" value="{{ vendor_account.va_tax }}">
+
+      </div>
+
+      <div class="acc-sub-info">
+
+        <label for="rounting-number" class=" f-size">Routing Number</label>
+        <input type="text" class="input-box input-box-border" id="rounting-number" value="{{ vendor_account.va_routing_no }}">
+
+      </div>
+
+      <div class="acc-sub-info">
+
+        <label for="IBAN" class=" f-size"> International Bank Account Number (IBAN) </label>
+        <input type="text" class="input-box input-box-border" id="IBAN" value="{{ vendor_account.va_international_bank_account_no }}">
+
+      </div>
+
+    </div>
+
+
+
+
+    <div class="bg-grey">
+      <b><label class="" style="margin-left: 10px;">
+        Company Overview
+        </label> </b>
+    </div>
+
+    <div class="acc-info">
+
+      <div class="acc-sub-info">
+
+        <label for="company-name" class=" f-size"> Company Name </label>
+        <input type="text" class="input-box input-box-border" id="company-name" value="{{ vendor_account.va_company_name }}">
+
+      </div>
+
+      <div class="acc-sub-info">
+
+        <label for="company-headquater" class=" f-size"> Country Headquartered </label>
+        <input type="text" class="input-box input-box-border" id="company-headquater" value="{{ vendor_account.va_company_headquater }}">
+
+      </div>
+
+      <div class="acc-sub-info">
+
+        <label for="no-of-emp" class=" f-size"> No. of employees on your Direct payroll </label>
+        <input type="text" class="input-box input-box-border" id="no-of-emp" value="{{ vendor_account.va_nunmber_of_direct_employee }}">
+
+      </div>
+
+    </div>
+
+
+    <div class="bg-grey">
+      <b><label class="" style="margin-left: 10px;">
+        Company Registration Details 
+        </label> </b>
+    </div>
+
+    <div class="acc-info">
+
+      <div class="acc-sub-info">
+
+        <label for="company-reg-no" class=" f-size"> Company Registration Number </label>
+        <input type="text" class="input-box input-box-border" id="company-reg-no" value="{{ vendor_account.va_company_registration_no }}">
+
+      </div>
+
+      <div class="acc-sub-info">
+
+        <label for="gst-reg-no" class="form-label f-size"> GST/VAT Registration Number </label>
+        <input type="text" class="input-box input-box-border" id="gst-reg-no" value="{{ vendor_account.va_gst_registration_no }}">
+      </div>
+
+      <div class="acc-sub-info">
+
+        <label for="statutory-details" class=" f-size"> Statutory Details</label>
+        <input type="text" class="input-box input-box-border" id="statutory-details" value="{{ vendor_account.va_statutory_details }}">
+
+      </div>
+
+      <div class="acc-sub-info">
+       
+        <label for="serv-tax-no" class=" f-size"> Service Tax Registration Number </label>
+        <input type="text" class="input-box input-box-border" id="serv-tax-no" value="{{ vendor_account.va_service_registration_no }}">
+     
+      </div>
+
+      <div class="acc-sub-info">
+
+        <label for="tax-no" class="form-label f-size"> TAX Identification Number </label>
+        <input type="text" class="input-box input-box-border" id="tax-no" value="{{ vendor_account.va_tax_identifcation_no }}">
+
+      </div>
+
+      <div class="acc-sub-info">
+
+        <label for="payment-usa" class=" f-size"> Do you accept bank payments in US$ </label>
+        <input type="text" class="input-box input-box-border" id="payment-usa" value="{{ vendor_account.va_bank_accept_usd }}">
+
+      </div>
+
+      <div class="acc-sub-info">
+
+        <label for="payment-euro" class=" f-size"> Do you accept bank payments in EURO€ </label>
+        <input type="text" class="input-box input-box-border" id="payment-euro" value="{{ vendor_account.va_bank_accept_euro }}">
+
+      </div>
+
+    </div>
+
+
+    <div class="bg-grey">
+      <b><label class="" style="margin-left: 10px;">
+        Employees & Call Support Activity
+        </label> </b>
+    </div>
+
+    <div class="acc-info">
+
+      <div class="acc-sub-info">
+
+        <label for="24-hour-support" class="f-size">Can the company provide 24x7 support?</label>
+        <input type="text" class="input-box input-box-border" id="24-hour-support" value="{{ vendor_account.va_company_24x7_support }}">
+
+      </div>
+
+      <div class="acc-sub-info">
+
+        <label for="no-calls" class=" f-size"> Number of Support Call per Month </label>
+        <input type="text" class="input-box input-box-border" id="no-calls" value="{{ vendor_account.va_no_call_support_permonth }}">
+
+      </div>
+
+      <div class="acc-sub-info">
+
+        <label for="communication-method" class=" f-size"> Communication Method </label>
+        <input type="text" class="input-box input-box-border" id="communication-method" value="{{ vendor_account.va_communication_method }}">
+
+      </div>
+
+      <div class="acc-sub-info">
+        
+        <label for="multi-lingual" class=" f-size"> Do you have a multi lingual Helpdesk? </label>
+        <input type="text" class="input-box input-box-border" id="multi-lingual" value="{{ vendor_account.va_multilingual_helpdesk }}">
+
+      </div>
+
+      <div class="acc-sub-info">
+
+        <label for="call-web-access" class=" f-size"> company web access for logging calls? </label>
+        <input type="text" class="input-box input-box-border" id="call-web-access" value="{{ vendor_account.va_company_web_access }}">
+
+      </div>
+
+      <div class="acc-sub-info">
+
+        <label for="engineer-eng-sup" class=" f-size"> English speaking Engineers for support </label>
+        <input type="text" class="input-box input-box-border" id="engineer-eng-sup" value="{{ vendor_account.va_english_speaking_engineers }}">
+
+      </div>
+
+      <div class="acc-sub-info">
+
+        <label for="engineer-eng-tig" class=" f-size"> English speaking engineers for TIG </label>
+        <input type="text" class="input-box input-box-border" id="engineer-eng-tig" value="{{ vendor_account.va_english_speaking_engineers_tig }}">
+
+      </div>
+
+      <div class="acc-sub-info">
+
+        <label for="amountSpent" class=" f-size"> Call Logging Process </label>
+        <input type="text" class="input-box input-box-border" id="call-log-process" value="{{ vendor_account.va_call_logging_processig }}">
+
+      </div>
+
+    </div>
+      <div class="bg-grey">
+        <b><label class="marg10-left">
+          Address Information
+          </label> </b>
+      </div>
+
+
+      <div class="acc-info">
+
+        <div class="acc-sub-info">
+
+          <label for="" class=" f-size label-event"> Billing Address </label>
+          <textarea  class="input-box input-box-border" id="" rows="4" cols="50"> {{ vendor_account.va_billing_address }} </textarea>
+       <!--   <input type="text" class="input-box input-box-border" id="company-reg-no"> -->
+
+        </div>
+
+        <div class="acc-sub-info">
+
+          <label for="gst-reg-no" class=" f-size label-event"> Shipping Address </label>
+          <textarea  class="input-box input-box-border" id="" rows="4" cols="50"> {{ vendor_account.va_shipping_address }} </textarea>
+          <!-- <input type="text" class="input-box input-box-border" id="gst-reg-no"> -->
+        </div>
+
+        <div class="acc-sub-info">
+
+          <label for="" class=" f-size label-event"> Billing Country </label>
+          <input type="text" class="input-box input-box-border" id="" value="{{ vendor_account.va_billing_country }}">
+
+        </div>
+
+        <div class="acc-sub-info">
+
+          <label for="" class=" f-size label-event"> Shipping Country</label>
+          <input type="text" class="input-box input-box-border" id="" value="{{ vendor_account.va_shipping_country }}">
+
+        </div>
+
+        <div class="acc-sub-info">
+         
+          <label for="" class=" f-size label-event"> Billing Street </label>
+          <input type="text" class="input-box input-box-border" id="" value="{{ vendor_account.va_billing_street }}">
+       
+        </div>
+
+        <div class="acc-sub-info">
+
+          <label for="" class="form-label f-size"> Shipping Street </label>
+          <input type="text" class="input-box input-box-border" id="" value="{{ vendor_account.va_shipping_street }}">
+
+        </div>
+
+        <div class="acc-sub-info">
+
+          <label for="" class=" f-size label-event"> Billing City </label>
+          <input type="text" class="input-box input-box-border" id="" value="{{ vendor_account.va_billing_city }}">
+
+        </div>
+
+        <div class="acc-sub-info">
+
+          <label for="" class=" f-size label-event"> Billing State/Province </label>
+          <input type="text" class="input-box input-box-border" id="" value="{{ vendor_account.va_billing_state }}">
+
+        </div>
+
+        <div class="acc-sub-info">
+
+          <label for="" class=" f-size label-event"> Shipping City </label>
+          <input type="text" class="input-box input-box-border" id="" value="{{ vendor_account.va_shipping_city }}">
+
+        </div>
+
+        <div class="acc-sub-info">
+
+          <label for="" class=" f-size label-event"> Shipping State/Province </label>
+          <input type="text" class="input-box input-box-border" id="" value="{{ vendor_account.va_shipping_state }}">
+
+        </div>
+
+        <div class="acc-sub-info">
+
+          <label for="" class=" f-size label-event"> Billing Zip/Postal Code </label>
+          <input type="text" class="input-box input-box-border" id="" value="{{ vendor_account.va_billing_zip}}">
+
+        </div>
+
+        <div class="acc-sub-info">
+
+          <label for="" class=" f-size label-event"> Shipping Zip/Postal Code </label>
+          <input type="text" class="input-box input-box-border" id="" value="{{ vendor_account.va_shipping_zip }}">
+
+        </div>
+
+      </div>
+      
+
+
+    </div>
+</div> <!--container end-->
+
+</div> <!-- body-container end-->
+
+<style>  
+body{
+        background-image: url("{% static "accounts/images/SF_bg.png" %}"); 
+        background-size:cover;
+      } 
+      
+      *{
+        box-sizing: border-box;
+        margin: 0%;
+        padding: 0%;
+       
+      }
+       
+       
+      .title-container{
+        width: 99%;
+        height: auto;
+        background-color: #fff;
+        padding: 15px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 10px;
+        background-color: rgba(238, 235, 235, 0.986);
+        border-radius: 5px 5px 0px 0px;
+       
+       
+      }
+       
+       
+      /*
+      .sticky {
+      position: -webkit-sticky; /* For Safari *//*
+      position: sticky;
+      top: 0; /* Stick to the top of the viewport *//*
+      background-color: lightblue;
+      padding: 10px;
+      width: 300px;
+      }  */
+       
+      /*
+      .title-head{
+       
+        position: relative;
+      } */
+       
+      .up {
+        position: absolute;
+        margin-top: 9px;
+        margin-left: 15px;
+      }
+       
+      .down{
+        position: absolute;
+        margin-top: 28px;
+        margin-left: 15px;
+      }
+       
+      /*
+      .title-body{
+      background-color: #fff;
+      display: grid;
+      width: 99%;
+      padding: 15px;
+        margin-left: 11px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        border-radius: 0px 0px 5px 5px;
+       
+       
+      }
+       
+      .title-body-sub{
+        display: grid;
+        grid-template-rows: 1fr ;
+        grid-template-columns: repeat(6,150px);
+        grid-column-gap: 5px;
+        grid-row-gap: 2px;
+       
+           
+        } */
+       
+      .container_1{
+        width: 99%;
+        height: auto;
+        background-color: #fff;
+        padding: 35px;
+        margin: 10px;
+        border-radius: 5px;
+       
+      }
+       
+      .content-head{
+        border-bottom: 0.5px solid #888;
+      }
+       
+      .content-head li{
+       
+        list-style-type: none;
+        display: inline-block;
+        margin-left: 6px;
+        margin-bottom: 7px;
+      }
+       
+      .content-head a{
+       
+        text-decoration: none;
+        color: black;
+       
+       
+      }
+       
+       
+      .bg-grey{
+          background-color: rgba(238, 235, 235, 0.986);
+          margin-top: 20px;
+      }
+       
+        .acc-info{
+       
+          display: grid;
+          grid-template-rows: 1fr 1fr;
+          grid-template-columns: 1fr 1fr ;
+          grid-column-gap: 20px;
+          grid-row-gap: 20px;
+          margin-top: 15px;
+          margin-bottom: 15px;
+       
+         /* grid-column-gap: 0.5rem;  */
+       
+        }
+       
+        .a-tag-style-remove{
+          text-decoration: none;
+      }
+      .a-tag-style-remove:hover{
+          text-decoration: underline;
+      }
+       
+       
+       
+       
+       
+        .acc-sub-info{
+          display: grid;
+          grid-template-columns: 1.5fr 2fr ;
+          grid-column-gap: 5px;
+          grid-row-gap: 10px;
+          border-bottom: 0.5px solid  #888;
+       
+        }
+       
+        .input-box{
+          width: 100%;
+          height: 2rem;
+       
+        }
+       
+       
+      .input-box-border{
+        pointer-events: none;
+       
+        border:none;
+      }
+       
+       
+      .title-body{
+        background-color: #fff;
+        /* this page addon css */
+        border-bottom-left-radius: 0.4rem;
+        border-bottom-right-radius: 0.4rem;
+        height: auto;
+        padding: 5px;
+        margin: 0.6rem;
+        margin-right: 0.2rem;
+        margin-top: 0rem;
+       
+         
+        }
+       
+        .title-body-sub{
+            margin-left: 0.5rem;
+            display: flex;
+            flex-direction:row;
+            align-items: flex-start;
+            min-width: none;
+            overflow-x: hidden;
+            flex-wrap: nowrap;
+        }
+       
+        .sub-sub-block{
+            display: grid;
+            grid-template-rows: repeat(2,0.5fr);
+            row-gap: 0.2rem;
+            min-width: none;
+            padding-left: 1rem;
+        }
+       
+       
+       
+      .label-event{
+      pointer-events: none;
+      }
+       
+      .add-info{
+       
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr 1fr ;
+        grid-column-gap: 20px;
+        grid-row-gap: 15px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+       /* grid-column-gap: 0.5rem;  */
+       
+      }
+       
+      .add-sub-info{
+        display: grid;
+        grid-template-rows: 1fr 1fr ;
+        grid-column-gap: 10px;
+        grid-row-gap: 5px;
+       
+      }
+       
+      .add-sub-text{
+        display: grid;
+        grid-template-rows: 0.5fr 1fr ;
+        grid-column-gap: 10px;
+       
+      }
+       
+       
+       
+       
+      .check-style{
+       
+        float: left;
+       width: 15px;
+       
+      }
+       
+      .f-size{
+        font-size: 14px;
+       
+      }
+       
+      .btn4{
+       
+        float: right;
+        border: none;
+         padding-left: 15px;
+         padding-right: 15px ;
+         padding-top: 8px;
+         padding-bottom: 10px;
+         margin-top: 5px;
+         text-decoration: none;
+         background-color: #494848ab;
+         border-radius: 4px;
+         color: #fff;
+       }
+       
+      .btn4:hover{
+       
+         background-color: #e02222da;
+         color: #fff;
+       }
+       
+      body input:focus {
+        outline: none;
+      }
+       
+      .marg10-left{
+      margin-left: 10px;
+      }
+       
+      .content {
+        padding: 16px;
+      }
+       
+      .sticky {
+        position: fixed;
+        top: 0;
+        width: 100%;
+      }
+       
+      .sticky + .content {
+        padding-top: 60px;
+      }
+        
+</style>
+
+{% endblock %}

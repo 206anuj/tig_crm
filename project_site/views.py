@@ -39,7 +39,7 @@ def project_site_creation_form(request):
                 form.add_error('ps_name', 'This account already exists.')
             else:
                 project_site = form.save(commit=False)
-                project_site.ps_project = form.cleaned_data.get('ps_project_uuid')
+                project_site.ps_project_id = form.cleaned_data.get('ps_project_uuid')
                 project_site.save()
                 messages.success(request, 'Project site created successfully.')
                 return redirect('project_site:project_site_list_view')

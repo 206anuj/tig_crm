@@ -1,5 +1,5 @@
 from django import forms
-from .models import CustomerAccount
+from .models import CustomerAccount, VendorAccount
 
 class CustomerAccountForm(forms.ModelForm):
     class Meta:
@@ -39,3 +39,11 @@ class CustomerAccountForm(forms.ModelForm):
 
 class UploadFileForm(forms.Form):
     file = forms.FileField()
+
+
+
+class VendorAccountForm(forms.ModelForm):
+
+    class Meta:
+        model = VendorAccount
+        fields = '__all__'

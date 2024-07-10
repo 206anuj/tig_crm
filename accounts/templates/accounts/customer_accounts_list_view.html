@@ -238,9 +238,24 @@ color: white;
         {% for account in accounts %}
           <tr class="table-row-style">
               <td class="body-row-col-style">{{ forloop.counter }}</td>
+
+              {% if account.record_type == "Customer"  %}
               <td class="body-row-col-style"><a class="a-tag-style-remove" href="{% url 'accounts:customer_account_detail_view' account.id%}">{{ account.ca_name }}</a></td>
+              {% elif account.record_type == "Vendor"  %}
+              <td class="body-row-col-style"><a class="a-tag-style-remove" href="{% url 'accounts:vendor_account_detail_view' account.id%}">{{ account.va_name }}</a></td>
+              {% endif %}
+
+              {% if account.record_type == "Customer"  %}
               <td class="body-row-col-style">{{ account.ca_account_owner }}</td>
+              {% elif account.record_type == "Vendor"  %}
+              <td class="body-row-col-style">{{ account.va_account_owner }}</td>
+              {% endif %}
+
+              {% if account.record_type == "Customer"  %}
               <td class="body-row-col-style">{{ account.ca_phone_number }}</td>
+              {% elif account.record_type == "Vendor"  %}
+              <td class="body-row-col-style">{{ account.va_phone_number }}</td>
+              {% endif %}
              
           </tr>
           {% endfor %}
