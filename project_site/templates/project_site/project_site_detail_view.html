@@ -1,39 +1,37 @@
 {% extends 'header.html' %}
 {% load static %}
-
-{% block title %}Account List{% endblock %}
-
+{% block title %}Account List{%endblock %}
 {% block extracss %}
-    <link rel="stylesheet" href="{% static 'accounts/css/customer_accounts_list_view.css' %}">
+ 
 {% endblock %}
-
 {% block content %}
-
-
+ 
 <div class="background-image_SF">
-    <div class="this-page-header">
-      <div class="site_header_box">
-        <div class="header-col1">
-          <img class="site_logo" src="{% static 'project_site/images/project_icon.png' %}" alt="site-logo" />
-          <div>
-            <p class="sub-header-heading">Project Sites</p>
-            <p class="site-name-style">{{ project_site.ps_name }}</p>
-          </div>
-        </div>
-
-        <div class="edit-button-style">
-          <a href="{% url 'project_site:project_site_edit_form' project_site.pk %}" class="edit_project_site"
-            ><b>Edit </b></a>
-        </div>
+  <div class="sub_header_box">
+    <div>
+      <img
+        class="header_logo"
+        src="{% static 'images/site.png' %}"
+        alt="site-logo"
+      />
+      <div>
+        <p class="sub-header-heading">Project Sites</p>
+        <p class="object-name-style">{{ project_site.ps_name }}</p>
       </div>
     </div>
-
-    <!-- ------------------- -->
-
-    <div class="saved_form">
-      <div class="block-header-style"><b>Information</b></div>
+    <div class="edit-button-style">
+      <a href="{% url 'project_site:project_site_edit_form' project_site.pk %}" class="edit_button_text"><b>Edit</b></a>
+    </div>
+  </div>
+ 
+  <div class="saved_form">
+    <div class="accordian">
+      <div class="block-header-style">
+        <ion-icon class="accordion_icon" name="chevron-down-outline"> </ion-icon
+        >Information
+      </div>
       <br />
-      <div class="site-add-info">
+      <div class="detail_block accordian_sub">
         <div class="sub-block">
           <label for="site-Name" class="width-100 disable-label">Name</label>
           <input
@@ -45,9 +43,7 @@
           />
         </div>
         <div class="sub-block">
-          <label for="project" class="width-100 disable-label"
-            >Project</label
-          >
+          <label for="project" class="width-100 disable-label">Project</label>
           <input
             type="text"
             id="project"
@@ -57,17 +53,26 @@
           />
         </div>
         <div class="sub-block">
-            <label for="Working-Days" class="width-100 disable-label">Working-Days</label>
-            <input
-              type="text"
-              id="Working-Days"
-              class="input-height disable-input"
-              aria-label="Working-Days"
-              value="{{ project_site.ps_working_days }}"
-            />
+          <label for="Working-Days" class="width-100 disable-label"
+            >Working-Days</label
+          >
+          {% comment %}
+          <input
+            type="text"
+            id="Working-Days"
+            class="input-height disable-input"
+            aria-label="Working-Days"
+            value="{{ project_site.ps_working_days }}"
+          />
+          {% endcomment %}
+          <div class="div_as_ip_style disable-input">
+            {{ project_site.ps_working_days }}
           </div>
+        </div>
         <div class="sub-block">
-          <label for="Work-start-time" class="width-100 disable-label">Work-start-time</label>
+          <label for="Work-start-time" class="width-100 disable-label"
+            >Work-start-time</label
+          >
           <input
             type="text"
             id="Work-start-time"
@@ -76,9 +81,10 @@
             value="{{ project_site.ps_business_start_time }}"
           />
         </div>
-
         <div class="sub-block">
-          <label for="Work-end-time" class="width-100 disable-label">Work-end-time</label>
+          <label for="Work-end-time" class="width-100 disable-label"
+            >Work-end-time</label
+          >
           <input
             type="text"
             id="Work-end-time"
@@ -87,16 +93,20 @@
             value="{{ project_site.ps_business_end_time }}"
           />
         </div>
-        
-      </div> 
-      <br>
-
-<!-- site address information -->
-      <div class="block-header-style"><b>Site Address Information</b></div>
+      </div>
+    </div>
+    <br />
+    <div class="accordian">
+      <div class="block-header-style">
+        <ion-icon class="accordion_icon" name="chevron-down-outline"></ion-icon>
+        Site Address Information
+      </div>
       <br />
-      <div class="site-add-info">
+      <div class="detail_block accordian_sub">
         <div class="sub-block">
-          <label for="site-address" class="width-100 disable-label">Address</label>
+          <label for="site-address" class="width-100 disable-label">
+            Address</label
+          >
           <input
             type="text"
             id="site-Address"
@@ -137,7 +147,6 @@
             value="{{ project_site.ps_state }}"
           />
         </div>
-
         <div class="sub-block">
           <label for="city" class="width-100 disable-label">City</label>
           <input
@@ -158,13 +167,16 @@
             value="{{ project_site.ps_ZIP_postal_Code }}"
           />
         </div>
-      </div> 
-
-      <br>
-
-      <div class="block-header-style"><b>Other Information</b></div>
+      </div>
+    </div>
+    <br />
+    <div class="accordian">
+      <div class="block-header-style">
+        <ion-icon class="accordion_icon" name="chevron-down-outline"></ion-icon
+        >Other Information
+      </div>
       <br />
-      <div class="other-info-block">
+      <div class="detail_block accordian_sub">
         <div class="sub-block">
           <label for="created-by" class="width-100 disable-label"
             >Created by :</label
@@ -189,237 +201,218 @@
         </div>
       </div>
     </div>
+  </div>
 </div>
-
-
+ 
 <style>
-    *{
-        font-family: Arial, Helvetica, sans-serif;
-        padding: 0%;
-        margin: 0%;
-        box-sizing: border-box;
-        
+ 
+  *{
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0%;
+    margin: 0%;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+   
+  }
+ 
+  .background-image_SF {
+    background-image: url("{% static 'images/SF_bg.png' %}");
+    width: 100%;
+    height: 100vh;
+    background-size:cover;
+    background-position: center;
+    background-clip: border-box;
+    background-repeat: repeat-x;
+    overflow-x: hidden;
+    margin:0%;
+    pdding:0%;
+    box-sizeing : border-box;
     }
-    
-    .background-image_SF {
-        background-image: url("../../images/SF_bg.png"); 
-        z-index: -20;
-        width: 100%;
-        height: 100vh;
-        background-size:cover; 
-        background-position: center;
-        background-clip: border-box;
-        background-repeat: repeat-x;
-        overflow: hidden;
-    
-      }
-    
-    .site_header_box {
-        border-radius: 0.4rem;
-        height: auto;
-        background-color: #e8eaec;
-        padding: 5px;
-        margin: 0.5rem;
-        -webkit-border-radius: 0.4rem;
-        -moz-border-radius: 0.4rem;
-        -ms-border-radius: 0.4rem;
-        -o-border-radius: 0.4rem;
-        display: grid;
-        grid-template-columns: 1.5fr 0.2fr;
+    body::-webkit-scrollbar{
+      display: none;
     }
-    
-    
-    
-    .site_logo {
-        background-color: #d12222;
-        border-radius: 2px;
-        width: auto;
-        height: 35px;
-        float: left;
-        margin: 5px;
-        margin-right: 10px;
-    }
-    
-    .sub-header-heading{
-        font-weight: 100;
-        font-size: small;
-        padding-top: 0.2rem;
-        padding-bottom: 0.2rem;
-    }
-    
-    .site-name-style{
-        font-weight: 600;
-        font-size: larger;
-        padding-top: 0.2rem;
-        padding-bottom: 0.2rem;
-    }
-    
-    .edit_project_site{
-        /* float: right; */
-        background-color: white;
-        color: #d12222;
-        border-radius: 5px;
-        padding: 5px 15px;
-        text-decoration: none;
-        border:1px solid #d12222;
-        height: 60%;
-        
-    }
-    
-    .edit_project_site:hover{
+ 
+  .sub_header_box {
+    border-radius: 0.4rem;
+    height: auto;
+    background-color: #e8eaec;
+    padding: 5px;
+    margin: 0.5rem;
+    -webkit-border-radius: 0.4rem;
+    -moz-border-radius: 0.4rem;
+    -ms-border-radius: 0.4rem;
+    -o-border-radius: 0.4rem;
+    display: grid;
+    grid-template-columns: 1.5fr 0.2fr;
+ 
+  }
+ 
+  .header_logo {
+    background-color: #d12222;
+    border-radius: 2px;
+    width: auto;
+    height: 40px;
+    float: left;
+    margin: 5px;
+    margin-right: 10px;
+  }
+ 
+  .sub-header-heading{
+    font-weight: 100;
+    font-size: small;
+    padding-top: 0.2rem;
+    margin:0px;
+  }
+ 
+  .object-name-style{
+    font-weight: 600;
+    font-size: larger;
+    padding-top: 0.2rem;
+    margin:0px;
+}
+ 
+  .edit_button_text{
+    background-color: white;
+    color: #d12222;
+    border-radius: 5px;
+    text-decoration: none;
+    border:1px solid #d12222;
+    height: 60%;
+    padding:5px 15px;
+ 
+  }
+ 
+  .edit_button_text:hover{
     background-color: #d12222;
     color: white;
-    }
-    
-    .edit-button-style{
-        display: flex;
-        align-items: center;
-        justify-content: end;
-        margin-right: 20%;
-    }
-    
-    /* form data */
-    .saved_form {
-        height: auto;
-        width: 99%;
-        background-color: rgb(252, 249, 249);
-        overflow: scroll;
-        margin-top: 0.5%;
-        margin-bottom: 0.5%;
-        overflow-x: auto;
-        padding: 10px;
-        margin-left: 0.5%;
-        border-radius: 0.2rem;
-        -webkit-border-radius: 0.2rem;
-        -moz-border-radius: 0.2rem;
-        -ms-border-radius: 0.2rem;
-        -o-border-radius: 0.2rem;
-    }
-    
-    /* block header */
-    
-    .block-header-style{
-        background-color: #e8eaec;
-        padding: 6px;
-        border-radius: 7px;
-        font-size: larger;
-        width: 100%;
-    
-    }
-    
-    /* Information block */
-    
-    .info-block {
-        display: grid;
-        /* grid-template-rows: 0.5fr 1.5fr;
-        grid-template-columns: 1fr 1fr; */
-        row-gap: 1rem;
-        column-gap: 1rem;
-        color: black;
-    }
-    
-    .sub-block4{
-        display: grid;
-        /* grid-template-columns: 1fr 1.5fr;
-        grid-template-rows: 1fr 1fr; */
-        row-gap: 1rem;
-        border-bottom: 2px solid grey;
-    }
-    
-    /* Site Address information */
-    
-    .site-add-info{
-        display: grid;
-        /* grid-template-rows: 1fr 1fr 1fr;
-        grid-template-columns: 1fr 1fr; */
-        row-gap: 1rem;
-        column-gap: 1rem;
-        color: black;
-    }
-    
-    /* other information block */
-    
-    .other-info-block {
-        display: grid;
-        /* grid-template-columns: 1fr 1fr; */
-        row-gap: 1rem;
-        column-gap: 1rem;
-        color: black;
-    }
-    .sub-block{
-        display: grid;
-        /* grid-template-columns: 1fr 1.5fr; */
-        border-bottom: 1px solid grey;
-    }
-    
-    .disable-input {
-        border: none;
-        pointer-events: none;
-        color: rgb(92, 90, 90);
-    }
-    
-    
-    .disable-label{
-        pointer-events: none;
-        padding-top: 0.5rem;
-    }
-    
-      
-    .saved_form label{
-        padding-bottom: 5px;
-    }
-    .saved_form span{
-        float: right;
-    }
-    .saved_form input{
-        border: none;
-        background-color: transparent ;
-    }
-    
-     @media( min-width: 906px ){ */
-        .info-block {
-       
-            grid-template-rows: 0.5fr 1.5fr;
-            grid-template-columns: 1fr 1fr;
-    
-        }
-        .sub-block{
-    
-            grid-template-columns: 1fr 1.5fr;
-        }
-        
-        .sub-block4{
-           
-            grid-template-columns: 1fr 1.5fr;
-            grid-template-rows: 1fr 1fr;
-        }
-        
-        .site-add-info{
-            grid-template-rows: 1.5fr 1fr 1fr;
-            grid-template-columns: 1fr 1fr;
-        }
-    
-        .other-info-block {
-            grid-template-columns: 1fr 1fr;
-        }
-    } 
-    
-    .new_project_button{
-        float: right;
-        background-color: white;
-        color: #d12222;
-        border-radius: 5px;
-        padding: 5px 15px;
-        text-decoration: none;
-        border:1px solid #d12222;
-        
-    }
-    
-    .new_project_button:hover{
-    background-color: #d12222;
-    color: white;
-    }
-    
+  }
+ 
+  .edit-button-style{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin-right: 5%;
+  }
+ 
+  /* form data */
+  .saved_form {
+    height: auto;
+    width: 99%;
+    background-color: rgb(252, 249, 249);
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+    overflow-x: auto;
+    padding: 10px;
+    margin-left: 0.5%;
+    border-radius: 0.2rem;
+    -webkit-border-radius: 0.2rem;
+    -moz-border-radius: 0.2rem;
+    -ms-border-radius: 0.2rem;
+    -o-border-radius: 0.2rem;
+  }
+ 
+  /* block header */
+ 
+  .block-header-style{
+      background-color: #e8eaec;
+      padding: 6px;
+      border-radius: 7px;
+      font-size: larger;
+      width: 100%;
+ 
+  }
+ 
+  .detail_block {
+      display: grid;
+      {% comment %} grid-template-columns: 1fr 1fr; {% endcomment %}
+      row-gap: 1rem;
+      column-gap: 1rem;
+      color: black;
+  }
+ 
+ 
+  .sub-block{
+    display: grid;
+    border-bottom: 1px solid grey;
+  }
+ 
+  .disable-input {
+    border: none;
+    pointer-events: none;
+    color: rgb(92, 90, 90);
+  }
+ 
+ 
+  .disable-label{
+    pointer-events: none;
+    padding-top: 0.5rem;
+  }
+ 
+  @media( min-width: 906px ){
+    .detail_block {
+      grid-template-columns: 1fr 1fr;
+  }
+  .sub-block{
+   
+    grid-template-columns: 0.4fr 1fr;
+  }
+}
+  {% comment %} collapse classes {% endcomment %}
+ 
+  .accordian_sub{
+    max-height: fit-content;
+    transition: max-height 0.2s;
+    overflow: hidden;
+  }
+ 
+  .accordion_icon {
+    margin-right: 16px;
+    transition: transform 0.2s;
+  }
+ 
+  .accordion_icon.active_accordian {
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+  }
+ 
+  .accordian_sub.active_accordian {
+    max-height: 0;
+  }
+ 
+  .div_as_ip_style{
+  padding-top:0.4rem;
+  }
 </style>
-
+ 
+<script
+  type="module"
+  src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+></script>
+<script
+  nomodule
+  src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"
+></script>
+<script>
+  const accordians = document.querySelectorAll(".accordian");
+ 
+  accordians.forEach((accordian) => {
+    const accordion_icon = accordian.querySelector(".accordion_icon");
+    const accordian_sub = accordian.querySelector(".accordian_sub");
+    const header_block = accordian.querySelector('.block-header-style')
+       
+    header_block.addEventListener('click', () => {
+      accordion_icon.classList.toggle("active_accordian");
+      accordian_sub.classList.toggle("active_accordian");
+    });
+  });
+</script>
+ 
 {% endblock %}

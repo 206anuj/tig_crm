@@ -1,0 +1,747 @@
+{% extends "header.html" %}
+{% load static %}
+ 
+{% block title %}Vendor project Creation From{% endblock %}
+ 
+{% block extracss %}
+        <link rel="stylesheet" href="{% static "" %}">
+{% endblock %}
+ 
+{% block content %}
+ 
+<!-- Display form errors -->
+{% if form.errors %}
+<div class="error-messages">
+    <ul>
+        {% for field in form %}
+            {% if field.errors %}
+                <li>{{ field.label }}: {{ field.errors|striptags }}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+ 
+                <!-- Site form - 3rd layer- -->
+ 
+<div id="popup" class="popup">
+        <div class="popup-block">
+           <img class="img-logo" src="{% static "projects/images/logo.png" %}" alt="logo" loading="lazy">
+           <div class="popup-heading">
+           New Project: Vendor
+           </div>
+        </div>
+           
+        <div class="req-info">
+        <span class="text-danger" >* </span>= Required Information
+        </div>
+ 
+        <!--  Form Begin -->
+        <form method="post">
+        {% csrf_token %}
+ 
+                        <!--- Information block  -->
+ 
+            <div class="block-name"> &nbsp Information </div>
+ 
+            <div class="info-block">
+ 
+                <div class="sub-block">
+                    <label for="id_vp_name"
+                    ><span class="text-danger">* </span>Project Name</label>
+                    <input
+                    type="text"
+                    id="id_vp_name"
+                    class="input-height"
+                    name ="vp_name" required >
+                </div>
+ 
+                <div class="sub-block">
+                    <label for="id_vp_status" class="width-100" >Project Status</label>
+                    <select class="form-select" id="id_vp_status" name="vp_status">
+                        {% for choice in form.vp_status.field.choices %}
+                        <option value="{{ choice.0 }}" {% if choice.0 == form.vp_status.value %} selected {% endif %}>{{ choice.1 }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+ 
+                {% comment %} search boxs {% endcomment %}
+                <div class="sub-block">
+                    <label for="id_vp_vendor_account"><span class="text-danger">*</span>Vendor Account</label>
+                        <div class="search_and_sugg_box">
+                            <input
+                                type="text"
+                                id="id_vp_vendor_account"
+                                class="search-type width-100"
+                                placeholder="Search Vendor Account..."
+                                name="vp_vendor_account"
+                                />
+                            <div>
+                                <input type="hidden" id="id_vp_vendor_account_uuid" name="vp_vendor_account_uuid">
+                            </div>
+                            <div class="result-box">
+                                <ul id="vendor_account_suggestions-list"></ul>
+                            </div>
+                        </div>                
+                </div>
+ 
+                <div class="sub-block">
+                        <label for="id_vp_customer_project">
+                                <span class="text-danger">*</span>Customer Project
+                        </label>
+                        <div class="search_and_sugg_box">
+                        <input type="text"
+                         id="id_vp_customer_project"
+                         class="search-type width-100"
+                         placeholder="Search Customer Project..."
+                         name="vp_customer_project"/>
+                        <div>
+                                <input type="hidden" id="id_vp_customer_project_uuid" name="vp_customer_project_uuid">
+                        </div>
+                        <div class="result-box">
+                                <ul id="customer_project_suggestions_list"></ul>
+                        </div>
+                        </div>                  
+                </div>
+                {% comment %} search boxs {% endcomment %}
+ 
+               <div class="sub-block">
+                    <label for="id_vp_project_start_date" class="width-100"
+                        ><span class="text-danger">*</span>Project Start Date</label
+                    >
+                    <input type="date" class="date-height" id="id_vp_project_start_date" name="vp_project_start_date"></input>
+                </div>
+ 
+                <div class="sub-block">
+                    <label for="id_vp_project_end_date" class="width-100"
+                        ><span class="text-danger">*</span>Project End Date</label
+                    >
+                    <input type="date" class="date-height" id="id_vp_project_end_date" name="vp_project_end_date"></input>
+                </div>
+ 
+                <div class="sub-block">
+                    <label for="id_vp_tig_entity_name" class="width-100"
+                        ><span class="text-danger">*</span>TIG Entity Name</label
+                    >
+                    <select class="form-select " id="id_vp_tig_entity_name" name="vp_tig_entity_name">
+                        {% for choice in form.vp_tig_entity_name.field.choices %}
+                             <option value="{{ choice.0 }}" {% if choice.0 == form.vp_tig_entity_name.value %} selected {% endif %}>{{ choice.1 }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+ 
+                <div class="sub-block">
+                    <label for="id_vp_type_of_project" class="width-100"
+                        >Type of Project</label
+                    >
+                    <select class="form-select " id="id_vp_type_of_project" name="vp_type_of_project">
+                        {% for choice in form.vp_type_of_project.field.choices %}
+                    <option value="{{ choice.0 }}" {% if choice.0 == form.vp_type_of_project.value %} selected {% endif %}>{{ choice.1 }}</option>
+                {% endfor %}
+                    </select>
+                </div>
+ 
+                <div class="sub-block">
+                    <label for="id_vp_region" class="width-100"
+                        >Region</label
+                    >
+                    <select class="form-select " id="id_vp_region" name="vp_region">
+                        {% for choice in form.vp_region.field.choices %}
+                    <option value="{{ choice.0 }}" {% if choice.0 == form.vp_region.value %} selected {% endif %}>{{ choice.1 }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+ 
+            </div>
+ 
+<!-- ---------------------------------Billing Information----------------------------------- -->
+           
+            <div class="block-name"> &nbsp Billing Information </div>
+ 
+            <div class="billing-information">
+                <div class="sub-block">
+                    <label for="id_vp_payment_terms" class="width-100"
+                        ><span class="text-danger">*</span>Payment Terms</label
+                    >
+                    <select class="form-select" id="id_vp_payment_terms" name="vp_payment_terms">
+                        {% for choice in form.vp_payment_terms.field.choices %}
+                    <option value="{{ choice.0 }}" {% if choice.0 == form.vp_payment_terms.value %} selected {% endif %}>{{ choice.1 }}</option>
+                {% endfor %}
+                       
+                    </select>
+                </div>      
+ 
+                <div class="sub-block">
+                    <label for="id_vp_billing_frequency" class="width-100"
+                        ><span class="text-danger" >* </span>Billing Frequency</label
+                    >
+                    <select class="form-select border-radius" id="id_vp_billing_frequency" name="vp_billing_frequency">
+                        {% for choice in form.vp_billing_frequency.field.choices %}
+                    <option value="{{ choice.0 }}" {% if choice.0 == form.vp_billing_frequency.value %} selected {% endif %}>{{ choice.1 }}</option>
+                {% endfor %}
+                    </select>
+                </div>
+ 
+                <div class="sub-block">
+                    <label for="id_vp_terms_and_condition"
+                    >Terms and Conditions</label
+                    >
+                    <textarea name="vp_terms_and_condition"class="textarea-style field-border-style" rows="3" id="id_vp_terms_and_condition"></textarea>
+                </div>
+ 
+            </div>
+ 
+            <!-- other information block -->
+ 
+            <div class="block-name">&nbsp System Information</div>
+ 
+            <div class="system-information">
+                <div class="sub-block">
+                        <label for="id_vp_owner" class="width-100"
+                        >Owner :</label
+                        >
+                        <input type="text" id="id_vp_owner" name="vp_owner" class="input-height " />
+                </div>
+                <div class="sub-block">
+                        <label class="disable-label" for="id_record_type">Record Type</label>
+                        <input class="disable-option" type="text" name="record_type" id="id_record_type" value="Vendor" readonly>
+                </div>
+            </div>
+ 
+ 
+ 
+                 <br>
+   
+                <div class="Submit_buttons_box">
+                    <a href="{% url 'projects:customer_project_list_view' %}" class="Submit_buttons">Cancel</a>
+                    <button type="submit" class="Submit_buttons"  >Save</button>
+                    <!-- <button class="Submit_buttons" onclick="closePopup_selection_account()">Cancel</button> -->
+                   
+                </div>
+            </form>
+   
+        </div>
+ 
+    <!-- ---------------------------- Overlay - 2nd layer -------------------------------- -->
+    <div id="overlay" class="overlay"></div>
+ 
+ 
+ <style>
+       
+  *{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: small;
+    }
+   
+    form{
+        padding-bottom:0;
+        margin-bottom:0;
+    }
+ 
+    /* level 1 class for navbar */
+   
+    .navbox_top {  
+       
+        background-color: whitesmoke;
+        /* border: 2px solid red; */
+        width: 100% ;
+        position: fixed;
+        padding: 5px;
+        list-style-type: none;
+        /* display: block; */
+        height: auto;
+        /* test code */
+        justify-content: center;
+        align-items: center;
+        display: block;
+    }
+   
+    .navbar_search_box {
+   
+        text-align: center;
+   
+        .search_box{
+            width: 50vw;
+            height: 2vh;
+            border-radius: 5px;
+            position: relative;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid gray;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            -ms-border-radius: 5px;
+            -o-border-radius: 5px;
+    }
+    }
+   
+   
+    .logo{
+        /* height: 4rem; */
+        /* width: auto; */
+        height: 40px;
+        margin-top: 0.5%;
+        margin-left: 0.5%;
+        float: left;
+        position: fixed;
+        }
+   
+    .user_profile{
+        float: right;
+        width: auto;
+        height: 50px;
+        margin-right: 1.5rem;
+    }
+   
+    /* level 2 - overlay */
+   
+   
+    .overlay {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 90;
+    }
+   
+    /* level 3 - custom model */
+   
+    .popup {
+        display: block;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #ffffff;
+        padding: 0px 20px 0px 20px;
+        border: 1px solid #ccc;
+       
+        z-index: 100;
+        width: 70% ;
+        max-height: 80%;
+        overflow-y: auto;
+       
+    }
+   
+    .block-name{
+        background-color: rgb(223, 216, 216);
+        font-size: large;
+        margin-block: 0.9rem;
+        padding: 0.3rem;
+        border-radius: 0.25rem;
+        -webkit-border-radius: 0.25rem;
+        -moz-border-radius: 0.25rem;
+        -ms-border-radius: 0.25rem;
+        -o-border-radius: 0.25rem;
+    }
+   
+    .popup-block{
+        position: sticky;
+        top: 0;
+        background: white;
+        padding: 0.2rem 0;
+        border-bottom: 0.06rem solid #ccc;
+        height: 4rem;
+    }
+   
+    .popup-heading{
+        display:flex;
+        justify-content:center;  
+        text-align: center;
+        height: 1.5rem;
+        font-size: 2rem;
+        font-weight: 100;
+        padding-top:0.5rem;
+       
+    }
+   
+   
+   
+  .Submit_buttons_box {
+        display:flex;
+        justify-content:center;
+        gap:10px;
+        position: sticky;
+        bottom: -2;
+        background: white;
+        padding: 15px 0px;
+        border-top: 1px solid #ccc;
+        bottom:0;
+       
+    }
+ 
+     
+    .Submit_buttons {
+        background-color: rgb(10, 91, 138);
+        color: red;
+        border-radius: 5px;
+        border: none;
+        padding: 0.4rem 0.8rem;
+        text-decoration: none;
+        border:1px solid red;
+        background:white;
+        position:sticky;
+        bottom:-1;
+       
+    }
+ 
+ 
+    .Submit_buttons:hover{
+        background: red;
+        color:white;
+        border: 1px solid white;
+    }
+   
+   
+   
+    /* *=Required info CSS */
+   
+    .req-info{
+        margin: 1rem;
+        text-align: right;
+        font-size: 1rem;
+    }
+   
+   
+   
+    .option-style{
+        border: none;
+        padding-left: 0.5rem;
+    }
+   
+    .img-logo{
+        /* height: 4rem; */
+        /* width: auto; */
+        height: 40px;
+        margin-top: 0.5%;
+        margin-left: 0.5%;
+        float: left;
+        position: fixed;
+        position: sticky;
+    }
+   
+    .info-block {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        row-gap: 1rem;
+        column-gap: 1rem;
+        color: black;
+        min-width: none;
+    }
+    .sub-block{
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+    }
+   
+    .sub-block4{
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        grid-template-rows: 1fr 1fr;
+        row-gap: 1rem;
+    }
+   
+    .billing-information{
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+        row-gap: 1rem;
+        column-gap: 1rem;
+        color: black;
+        min-width: none;
+    }
+   
+    .system-information{
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+        row-gap: 1rem;
+        column-gap: 1rem;
+        color: black;
+        min-width: none;
+    }
+   
+    /* @media( min-width: 856px ){
+        .info-block {
+       
+            grid-template-rows: 0.5fr 0.5fr 0.5fr 1.5fr;
+            grid-template-columns: 1fr 1fr;
+   
+        }
+        .sub-block{
+   
+            grid-template-columns: 1fr 1.5fr;
+        }
+       
+        .sub-block4{
+           
+            grid-template-columns: 1fr 1.5fr;
+            grid-template-rows: 1fr 1fr;
+        }
+       
+        .site-add-info{
+            grid-template-rows: 1.5fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr;
+        }
+   
+        .other-info-block {
+            grid-template-columns: 1fr 1fr;
+        }
+    } */
+   
+    .popup input:focus {
+        outline: none; /* Remove default outline */
+        border: 1px solid grey;
+        box-shadow: 0 0 10px #d1a2a2;
+   
+    }
+   
+    .popup select:focus {
+        outline: none; /* Remove default outline */
+        border: 1px solid grey;
+        box-shadow: 0 0 10px #d1a2a2;
+    }
+   
+    .popup .textarea:focus {
+        outline: none; /* Remove default outline */
+        border: 1px solid grey;
+        box-shadow: 0 0 10px #d1a2a2;
+    }
+   
+    /* for search icon */
+   
+    /* .icon-overlay-container {
+        position: relative;
+      }
+    .icon-overlay {
+        position: absolute;
+        top: 20%;
+        transform: translateY(-50%);
+        z-index: 1;
+        transition: opacity 0.2s ease;
+        -webkit-transition: opacity 0.3s ease;
+        -moz-transition: opacity 0.2s ease;
+        -ms-transition: opacity 0.2s ease;
+        -o-transition: opacity 0.2s ease;
+        -webkit-transition: opacity 0.2s ease;
+    }
+   
+    .icon-overlay{
+        right: 10px;
+        align-items: center;
+        padding-top: 8%;
+    }
+     
+      .icon-overlay-container .search-type:focus + .icon-overlay {
+        opacity: 0; /* Hide the icon when input is in focus
+      }*/
+   
+    .width-100{
+        width: 100%;
+    }
+   
+    .text-danger{
+        color: red;
+        size: 5px;
+       
+    }
+    .search-type{
+        width: 100%;
+        height: 2.5rem;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+        border: 1px solid rgba(128, 128, 128, 0.87);
+    }
+   
+    .multiple-select-option{
+        padding: 0.4rem 0.4rem;
+    }
+   
+    .input-height{
+        height: 2.5rem;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+        border: 1px solid rgba(128, 128, 128, 0.87);
+    }
+   
+    .form-select{
+        height: 2.5rem;
+        padding: 0.5rem 0.4rem;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+        border: 1px solid rgba(128, 128, 128, 0.87);
+    }
+   
+    .multiple-select-style{
+        padding: 0.4rem;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+       
+    }
+   
+    .disable-option{
+        border: none;
+        pointer-events: none;
+    }
+   
+    .disable-label{
+        pointer-events: none;
+    }
+   
+    .date-height{
+        height: 2.35rem;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+        border: 1px solid rgba(128, 128, 128, 0.87);
+        padding-left: 0.5rem;
+    }
+   
+    .option-padding{
+        padding: 1rem;
+    }
+   
+    .skill-select-style{
+        padding-top: 10px;
+    }
+   
+    .hidden-field-label{
+        color: transparent;
+    }
+   
+    .search_box:focus {
+        outline: none; /* Remove default outline */
+        box-shadow: 0 0 10px #d1a2a2;
+   
+    }
+   
+    .field-border-style{
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+        border: 1px solid rgba(128, 128, 128, 0.87);
+    }
+   
+    .textarea-style:focus{
+        outline: none; /* Remove default outline */
+        border: 1px solid grey;
+        box-shadow: 0 0 10px #d1a2a2;
+    }
+   
+    .width-100{
+        width: 100%;
+    }
+ 
+    {% comment %} search box style {% endcomment %}
+    .result-box{
+        max-height: 110px;
+        overflow-y: scroll;
+    }
+ 
+    .result-box ul{
+        padding: 5px 1px;
+    }
+ 
+    .result-box ul li{
+        font-size:small;
+        list-style: none;
+        border-radius: 2px;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        -ms-border-radius: 2px;
+        -o-border-radius: 2px;
+        padding: 5px 1px;
+        cursor: pointer;
+    }
+    .result-box ul li:hover{
+        background: #d8d8d854;
+        color: rgb(0, 0, 0);
+    }
+ 
+   
+</style>
+ 
+<script>
+        $(document).ready(function(){
+            // Function to handle suggestions and selection for a given input field
+            function setupAutocomplete(inputFieldId, suggestionsListId, hiddenFieldId, ajaxUrl) {
+                $(inputFieldId).on('input', function(){
+                    var query = $(this).val();
+                    if (query.length >= 3) {
+                        $.ajax({
+                            url: ajaxUrl,
+                            data: {'query': query},
+                            dataType: 'json',
+                            success: function(data) {
+                                var suggestions = data.suggestions;
+                                $(suggestionsListId).empty();
+                                for (var i = 0; i < suggestions.length; i++) {
+                                    var suggestion = suggestions[i];
+                                    $(suggestionsListId).append('<li data-account-id="' + suggestion.account_id + '">' + suggestion.account_name + '</li>');
+                                }
+                                $(suggestionsListId + ' li').on('click', function() {
+                                    var selectedAccountId = $(this).data('account-id');
+                                    var selectedAccountName = $(this).text();
+                                    $(inputFieldId).val(selectedAccountName); // Set the display name
+                                    $(hiddenFieldId).val(selectedAccountId); // Store the UUID in hidden input
+                                    $(suggestionsListId).empty();
+                                });
+                            },
+                            error: function(xhr, status, error) {
+                                console.error('AJAX Error:', status, error);
+                            }
+                        });
+                    } else {
+                        $(suggestionsListId).empty();
+                    }
+                });
+            }
+   
+            // Apply autocomplete for vp_vendor_account
+            setupAutocomplete('#id_vp_vendor_account', '#vendor_account_suggestions-list', '#id_vp_vendor_account_uuid', '{% url "projects:vendor_account_suggestions" %}');
+   
+            // Apply autocomplete for vp_customer_project
+            setupAutocomplete('#id_vp_customer_project', '#customer_project_suggestions_list', '#id_vp_customer_project_uuid', '{% url "projects:customer_project_suggestions" %}');
+   
+            // Form submission handling
+            $('#VendorProjectForm').on('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
+   
+                // Submit the form using Ajax
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: $(this).attr('method'),
+                    data: $(this).serialize(), // Serialize form data including CSRF token
+                    success: function(response) {
+                        console.log('Form submitted successfully');
+                        // Optionally handle success response, e.g., redirect
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Form submission error:', status, error);
+                        // Optionally handle error response
+                    }
+                });
+            });
+        });
+    </script>
+ 
+{% endblock %}
+has context menu

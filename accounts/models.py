@@ -67,6 +67,8 @@ class CustomerAccount(models.Model):
     # Account Information
     ca_name = models.CharField(max_length=255)
     record_type = models.CharField(max_length=255)
+    ca_spoc_name = models.CharField(max_length=255, blank=True) 
+    ca_spoc_phone_number = models.CharField(max_length=255, blank=True)
     ca_phone_number = models.CharField(max_length=11, blank=True)
     ca_account_owner = models.CharField(max_length=255, blank=True)
 
@@ -75,22 +77,22 @@ class CustomerAccount(models.Model):
     ca_customer_code = models.CharField(max_length=255, blank=True)
     ca_industray = models.CharField(max_length=64, choices=CUSTOMER_ACCOUNT_INDUSTRY_CHOICES, blank=True)
     ca_description = models.TextField(max_length=1024, blank=True)
-    ca_payment_terms = models.CharField(max_length=64, choices=CUSTOMER_ACCOUNT_PAYMENT_TERM_CHOICES, blank=True)
+    ca_payment_terms = models.CharField(max_length=64, choices=CUSTOMER_ACCOUNT_PAYMENT_TERM_CHOICES)
     
     #Address Information (Billing Information)
     ca_billing_address = models.CharField(max_length=1024, blank=True)
-    ca_billing_country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, related_name='billing_customer_accounts')
+    ca_billing_country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, related_name='billing_customer_accounts', blank=True)
     ca_billing_street = models.TextField(max_length=1024, blank=True)
     ca_billing_city = models.CharField(max_length=255, blank=True)
-    ca_billing_state = models.ForeignKey(Region, on_delete=models.SET_NULL, null=True, related_name='billing_customer_accounts')
+    ca_billing_state = models.ForeignKey(Region, on_delete=models.SET_NULL, null=True, related_name='billing_customer_accounts', blank=True)
     ca_billing_pin_code = models.CharField(max_length=64, blank=True)
 
     # Address Information (shipping Information)
     ca_shipping_address = models.CharField(max_length=1024, blank=True)
-    ca_shipping_country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, related_name='shipping_customer_accounts')
+    ca_shipping_country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, related_name='shipping_customer_accounts', blank=True)
     ca_shipping_street = models.TextField(max_length=1024, blank=True)
     ca_shipping_city = models.CharField(max_length=255, blank=True)
-    ca_shipping_state = models.ForeignKey(Region, on_delete=models.SET_NULL, null=True, related_name='shipping_customer_accounts')
+    ca_shipping_state = models.ForeignKey(Region, on_delete=models.SET_NULL, null=True, related_name='shipping_customer_accounts', blank=True)
     ca_shipping_pin_code = models.CharField(max_length=64, blank=True)
 
     # Model information 

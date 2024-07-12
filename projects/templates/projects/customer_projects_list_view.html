@@ -64,6 +64,10 @@
     padding-left: 3px;
     padding-top: 0.5%;
 }
+ 
+.body-row-col-style:hover{
+  background:rgba(201, 201, 201, 0.271);
+}
 .table-row-style:hover{
     background-color: rgba(201, 201, 201, 0.171);
     border-block: 1px groove rgba(182, 181, 181, 0.753);
@@ -76,6 +80,10 @@
   text-decoration: none;
   color: rgb(3, 0, 187);
   font-size: medium;
+}
+.a-tag-style-remove: hover{
+  text-decoration: underline;
+ 
 }
   </style>
  
@@ -94,17 +102,40 @@
           </tr>
       </thead>
       <tbody class="table-body">
-        {% for account in accounts %}
-          <tr class="table-row-style">
-           
-              <td class="body-row-col-style">{{ forloop.counter }}</td>
-              <td class="body-row-col-style"><a class="a-tag-style-remove" href="{% url 'projects:customer_project_detail_view' account.pk %}">{{ account.cp_name }}</a></td>
-              <td class="body-row-col-style">{{ account.cp_owner }}</td>
-              <td class="body-row-col-style">{{ account.cp_record_type }}</td>
+        {% for project in projects %}
+ 
+        {% if project.record_type == "Customer" %}
+ 
+            <tr class="table-row-style">
              
+              <td class="body-row-col-style">{{ forloop.counter }}</td>
+              <td class="body-row-col-style">
+                <a class="a-tag-style-remove" href="{% url 'projects:customer_project_detail_view' project.pk %}">
+                  {{ project.cp_name }}
+                </a>
+              </td>
+              <td class="body-row-col-style">{{ project.cp_owner }}</td>
+              <td class="body-row-col-style">{{ project.record_type }}</td>
+           
           </tr>
-          {% endfor %}
+ 
+        {% elif project.record_type == "Vendor" %}
+        <tr class="table-row-style">
+             
+          <td class="body-row-col-style">{{ forloop.counter }}</td>
+          <td class="body-row-col-style">
+            <a class="a-tag-style-remove" href="#">
+              {{ project.vp_name }}
+            </a>
+          </td>
+          <td class="body-row-col-style">{{ project.vp_owner }}</td>
+          <td class="body-row-col-style">{{ project.record_type }}</td>
+       
+      </tr>
+ 
+        {% endif %}
          
+          {% endfor %}
       </tbody>
  
     </table>
@@ -116,20 +147,20 @@
     <!-- <a  class="cross" >&times;</a> -->
     <h3>New Project</h3>
  
-    <hr>
-    <form action="/submit" method="post">
+    <form method="post" action="{% url 'projects:select_project_type' %}">
+      {% csrf_token %}
       <h6>Select a record type</h6>
       <div class="account_information_box">
  
         <div class="account_information_box_input">
           <ul>
-            <input  type="radio" id="name" name="name" checked>
-            <label for="">Customer</label><br><br>
+            <input  type="radio"  name="project_type" value="customer" checked>
+            <label for="">Customer</label><br>
  
-            <input type="radio" id="name" name="name">
-            <label for="">Indirect Expense</label><br><br>
+            {% comment %} <input type="radio" id="name" name="name">
+            <label for="">Indirect Expense</label><br><br> {% endcomment %}
  
-            <input type="radio" id="name" name="name">
+            <input type="radio" name="project_type" value="vendor">
             <label for="">Vendor</label>
           </ul>
  
@@ -139,8 +170,9 @@
  
         <div class="Submit_buttons_box">
           <!-- <button  class="Submit_buttons" >Next</button> -->
-          <a href="customer_project_list_view.html" class="Submit_buttons">Cancel</a>
-          <a href="{% url "projects:customer_project_creation_form" %}" class="Submit_buttons">Next</a>
+          <a href="{% url 'projects:customer_project_list_view' %}" class="Submit_buttons">Cancel</a>
+          <button type="submit" class="Submit_buttons">Next</button>
+         
  
         </div>
     </form>
@@ -155,7 +187,7 @@
     .recent_navbar_box {
         width: 100%;
         /* border: 1px solid red; */
-        border-radius: 10px;
+ 
        
     }
    
@@ -175,7 +207,8 @@
         width: auto;
         background-color: #e8eaec;
         padding: 5px;
-        border-radius: 10px;
+        border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
     }
    
     .recent_navbar_box_upper .recent_search{
@@ -261,22 +294,25 @@
    
    
     .selection_window_project .Submit_buttons {
-        background-color: rgb(161, 155, 155);
-        color: white;
-        border-radius: 3px;
-        border: none;
-        padding: 10px 15px;
-        text-decoration: none;
-    }
-   
-    .selection_window_project .Submit_buttons:hover{
-        background-color: rgb(128, 125, 125);
-    }
-   
+      background-color: rgb(161, 155, 155);
+      color: white;
+      border-radius: 3px;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      text-decoration: none;
+  }
+ 
+  .selection_window_project .Submit_buttons:hover{
+      background-color: rgb(128, 125, 125);
+  }
    
    
     .selection_window_project .Submit_buttons_box {
-        text-align: right;
+      display:flex;
+      justify-content:flex-end;
+      gap:0.5rem;
+      background: white;
+     
     }
        
   </style>

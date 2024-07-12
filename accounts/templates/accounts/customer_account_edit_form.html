@@ -1,15 +1,15 @@
 {% extends 'header.html' %}
 {% load static %}
-
+ 
 {% block title %}Account List{% endblock %}
-
+ 
 {% comment %} {% block extracss %}
     <link rel="stylesheet" href="{% static 'accounts/css/customer_accounts_list_view.css' %}">
 {% endblock %} {% endcomment %}
-
+ 
 {% block content %}
-
-
+ 
+ 
     <!-- Display form errors -->
     {% if form.errors %}
         <div class="error-messages">
@@ -22,149 +22,174 @@
             </ul>
         </div>
     {% endif %}
-
-    <!-- Display Django messages -->
-    {% comment %} {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %} {% endcomment %}
-
-<div id="popup" class="popup">
+ 
+ 
+<div id="popup" class="form_block">
     <!-- <a class="cross" href="">&times;</a> -->
-
-    <div class="popup_heading">
+ 
+    <div class="popup-header-block">
       <img class="form_logo" src="{% static 'accounts/images/logo.png' %}" alt="">
-      <h2>Edit Account: Customer</h2>
+      <div class="popup-heading">
+        New Account: Customer
+      </div>
     </div>
-    <br />
-
+ 
+    <div class="req-info">
+        <span class="text-danger">* </span>= Required
+        Information
+      </div>
+ 
     <form method="post">
         {% csrf_token %}
-      <div>
-        <h3>&nbsp <b>Account Information </b></h3>
-      </div>
-      <div class="popup_c1">
-        <div class="popup_c1_b1">
-            <label for="id_ca_name">Account Name:</label>
-            <input type="text" id="id_ca_name" name="ca_name" value="{{ account.ca_name }}"><br/>
-
-            <label for="id_ca_phone_number">Phone Number:</label>
-            <input type="text" id="id_ca_phone_number" name="ca_phone_number" value="{{ account.ca_phone_number}}"><br/>
-        </div>
-        <div class="popup_c1_b2">
-            <label for="id_ca_record_type">Account Record Type:</label>
-            <input type="text" id="id_ca_record_type" name="ca_record_type" value="Customer" readonly><br/>
-
-            <label for="id_ca_account_owner">Account Owner:</label>
-            <input type="text" id="id_ca_account_owner" name="ca_account_owner" value="{{ account.ca_account_owner}}"><br/>
-        </div>
-      </div>
-      <br />
-
-      <h3>&nbsp <b>Account Other Information </b></h3>
-
-      <div class="popup_c2">
-        <div class="popup_c2_b1">
-            <label for="id_ca_type">Account Type:</label>
-            <select id="id_ca_type" name="ca_type" required>
-                {% for choice in form.ca_type.field.choices %}
-                    <option value="{{ choice.0 }}" {% if choice.0 == form.ca_type.value %} selected {% endif %}>{{ choice.1 }}</option>
-                {% endfor %}
-            </select>
-          <br />
-
-
-          <label for="id_ca_industray">Industry:</label>
-          <select id="id_ca_industray" name="ca_industray" required>
+         <div class="block-name">Account Information </div>
+ 
+         <div class="block">
+            <div class="sub-block">
+                <label class="width-100" for="id_ca_name"><span class="text-danger">* </span>Account Name:</label>
+                <input class="input-height" type="text" id="id_ca_name" name="ca_name" value="{{ account.ca_name }}">
+            </div>
+            <div class="sub-block">
+                <label for="id_ca_spoc_name">SPOC Name:</label>
+                <input class="input-height" type="text" id="id_ca_spoc_name" name="ca_spoc_name" value="{{ account.ca_spoc_name }}">
+            </div>
+            <div class="sub-block">
+                <label for="id_ca_spoc_phone_number">SPOC Contact Number:</label>
+                <input class="input-height" type="text" id="id_ca_spoc_phone_number" name="ca_spoc_phone_number" value="{{ account.ca_spoc_phone_number }}">
+            </div>
+            {% comment %} <div class="sub-block">
+                <label for="id_ca_phone_number">Phone Number:</label>
+                <input class="input-height" type="text" id="id_ca_phone_number" name="ca_phone_number">
+            </div> {% endcomment %}
+            <div class="sub-block">
+                <label for="id_ca_type"><span class="text-danger">* </span>Account Type:</label>
+                <select class="form-select-style" id="id_ca_type" name="ca_type" required>
+                    {% for choice in form.ca_type.field.choices %}
+                        <option value="{{ choice.0 }}" {% if choice.0 == form.ca_type.value %} selected {% endif %}>{{ choice.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+ 
+         </div>
+ 
+         <br/>
+ 
+        {% comment %} <div class="block-name">
+            Account Other Information
+        </div> {% endcomment %}
+ 
+        <div class="block">
+ 
+            <div class="sub-block">
+                <label for="id_ca_industray">Industry:</label>
+          <select class="form-select-style" id="id_ca_industray" name="ca_industray" required>
               {% for choice in form.ca_industray.field.choices %}
                   <option value="{{ choice.0 }}" {% if choice.0 == form.ca_industray.value %} selected {% endif %}>{{ choice.1 }}</option>
               {% endfor %}
           </select>
-          <br />
-
-          <label for="id_ca_payment_terms">Payment Terms:</label>
-          <select id="id_ca_payment_terms" name="ca_payment_terms" required>
+            </div>
+            <div class="sub-block">
+                <label for="id_ca_payment_terms"><span class="text-danger">* </span>Payment Terms:</label>
+          <select class="form-select-style" id="id_ca_payment_terms" name="ca_payment_terms" required>
               {% for choice in form.ca_payment_terms.field.choices %}
                   <option value="{{ choice.0 }}" {% if choice.0 == form.ca_payment_terms.value %} selected {% endif %}>{{ choice.1 }}</option>
               {% endfor %}
-          </select>  
+          </select>
+            </div>
+            <div class="sub-block">
+                <label for="id_record_type">Account Record Type:</label>
+            <input class="input-height" type="text" id="id_record_type" name="record_type" value="Customer" readonly>
+            </div>
+            <div class="sub-block">
+                <label for="id_ca_account_owner">Account Owner:</label>
+                <input class="input-height" type="text" id="id_ca_account_owner" name="ca_account_owner" value="{{ account.ca_account_owner }}">
+            </div>
+            {% comment %} <div class="sub-block">
+                <label for="id_ca_customer_code">Customer Code:</label>
+            <input class="input-height" type="text" id="id_ca_customer_code" name="ca_customer_code">
+            </div> {% endcomment %}
+            {% comment %} <div class="sub-block">
+                <label for="id_ca_description">Customer Description:</label>
+            <input class="input-height" type="text" id="id_ca_description" name="ca_description">
+            </div> {% endcomment %}
         </div>
-
-        <div class="popup_c2_b2">
-            <label for="id_ca_customer_code">Customer Code:</label>
-            <input type="text" id="id_ca_customer_code" name="ca_customer_code" value="{{ account.ca_customer_code }}"><br/>
-
-            <label for="id_ca_description">Customer Description:</label>
-            <input type="text" id="id_ca_description" name="ca_description" value="{{ account.ca_description }}"><br/>
+ 
+      {% comment %} <div class="block-name">
+        Address Information
+    </div>
+ 
+    <div class="block">
+        <div class="sub-block">
+            <label class="width-100" for="id_ca_billing_address">Billing Address:</label>
+            <input class='input-height' type="text" id="id_ca_billing_address" name="ca_billing_address">
         </div>
-      </div>
-      <br />
-
-      <h3>&nbsp <b>Address Information </b></h3>
-      <div class="popup_c3">
-        <div class="popup_c3_b1">
-            <label for="id_ca_billing_address">Billing Address:</label>
-            <input type="text" id="id_ca_billing_address" name="ca_billing_address" value="{{ account.ca_billing_address }}"><br/>
-
-            <label for="id_ca_billing_country">Billing Country:</label>
-            <select id="id_ca_billing_country" name="ca_billing_country" required>
+        <div class="sub-block">
+            <label class="width-100" for="id_ca_shipping_address">Shipping Address:</label>
+            <input class='input-height' type="text" id="id_ca_shipping_address" name="ca_shipping_address">
+        </div>
+ 
+        <div class="sub-block">
+            <labe class="width-100"l for="id_ca_billing_country">Billing Country:</labe>
+            <select class="form-select-style width-100" id="id_ca_billing_country" name="ca_billing_country" required>
                 {% for choice in form.ca_billing_country.field.choices %}
                     <option value="{{ choice.0 }}" {% if choice.0 == form.ca_billing_country.value %} selected {% endif %}>{{ choice.1 }}</option>
                 {% endfor %}
-            </select><br/>
-
-            <label for="id_ca_billing_state">Billing State/Province:</label>
-            <select id="id_ca_billing_state" name="ca_billing_state" required>
-                {% for choice in form.ca_billing_state.field.choices %}
-                    <option value="{{ choice.0 }}" {% if choice.0 == form.ca_billing_state.value %} selected {% endif %}>{{ choice.1 }}</option>
-                {% endfor %}
-            </select><br/>
-
-            <label for="id_ca_billing_street">Billing Street:</label>
-            <input type="text" id="id_ca_billing_street" name="ca_billing_street" value="{{ account.ca_billing_street }}"><br/>
-
-            <label for="id_ca_billing_city">Billing City:</label>
-            <input type="text" id="id_ca_billing_city" name="ca_billing_city" value="{{ account.ca_billing_city }}"><br/>
-
-            <label for="id_ca_billing_pin_code">Billing City Pin Code:</label>
-            <input type="text" id="id_ca_billing_pin_code" name="ca_billing_pin_code" value="{{ account.ca_billing_pin_code }}"><br/>
-
+            </select>
         </div>
-
-        <div class="popup_c3_b2">
-            <label for="id_ca_shipping_address">Shipping Address:</label>
-                <input type="text" id="id_ca_shipping_address" name="ca_shipping_address" value="{{ account.ca_shipping_address }}"><br/>
-
-
-            <label for="id_ca_shipping_country">Shipping Country:</label>
-            <select id="id_ca_shipping_country" name="ca_shipping_country" required>
+        <div class="sub-block">
+            <label class="width-100" for="id_ca_shipping_country">Shipping Country:</label>
+            <select class="form-select-style width-100" id="id_ca_shipping_country" name="ca_shipping_country" required>
                 {% for choice in form.ca_shipping_country.field.choices %}
                     <option value="{{ choice.0 }}" {% if choice.0 == form.ca_shipping_country.value %} selected {% endif %}>{{ choice.1 }}</option>
                 {% endfor %}
-            </select><br/>
-
-            <label for="id_ca_shipping_state">Shipping State:</label>
-            <select id="id_ca_shipping_state" name="ca_shipping_state" required>
+            </select>
+        </div>
+ 
+        <div class="sub-block">
+            <label class="width-100" for="id_ca_billing_state">Billing State/Province:</label>
+            <select class="form-select-style width-100" id="id_ca_billing_state" name="ca_billing_state" required>
+                {% for choice in form.ca_billing_state.field.choices %}
+                    <option value="{{ choice.0 }}" {% if choice.0 == form.ca_billing_state.value %} selected {% endif %}>{{ choice.1 }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="sub-block">
+            <label class="width-100" for="id_ca_shipping_state">Shipping State:</label>
+            <select class="form-select-style width-100" id="id_ca_shipping_state" name="ca_shipping_state" required>
                 {% for choice in form.ca_shipping_state.field.choices %}
                     <option value="{{ choice.0 }}" {% if choice.0 == form.ca_shipping_state.value %} selected {% endif %}>{{ choice.1 }}</option>
                 {% endfor %}
-            </select><br/>
-
-            <label for="id_ca_shipping_street">Shipping Street:</label>
-            <input type="text" id="id_ca_shipping_street" name="ca_shipping_street" value="{{ account.ca_shipping_street }}"><br/>
-
-            <label for="id_ca_shipping_city">Shipping City:</label>
-            <input type="text" id="id_ca_shipping_city" name="ca_shipping_city" value="{{ account.ca_shipping_city }}"><br/>
-
-            <label for="id_ca_shipping_pin_code">Shipping City Pin Code:</label>
-            <input type="text" id="id_ca_shipping_pin_code" name="ca_shipping_pin_code" value="{{ account.ca_shipping_pin_code }}"><br/><br />
+            </select>
         </div>
-      </div>
+ 
+        <div class="sub-block">
+            <label class="width-100" for="id_ca_billing_street">Billing Street:</label>
+            <input class='input-height' type="text" id="id_ca_billing_street" name="ca_billing_street">
+        </div>
+        <div class="sub-block">
+            <label class="width-100" for="id_ca_shipping_street">Shipping Street:</label>
+            <input class='input-height' type="text" id="id_ca_shipping_street" name="ca_shipping_street">
+        </div>
+ 
+        <div class="sub-block">
+            <label class="width-100" for="id_ca_billing_city">Billing City:</label>
+            <input class='input-height' type="text" id="id_ca_billing_city" name="ca_billing_city">
+        </div>
+        <div class="sub-block">
+            <label class="width-100" for="id_ca_shipping_city">Shipping City:</label>
+            <input class='input-height' type="text" id="id_ca_shipping_city" name="ca_shipping_city">
+        </div>
+ 
+        <div class="sub-block">
+            <label class="width-100" for="id_ca_billing_pin_code">Billing City Pin Code:</label>
+            <input class='input-height' type="text" id="id_ca_billing_pin_code" name="ca_billing_pin_code">
+        </div>        
+        <div class="sub-block">
+            <label class="width-100" for="id_ca_shipping_pin_code">Shipping City Pin Code:</label>
+            <input class='input-height' type="text" id="id_ca_shipping_pin_code" name="ca_shipping_pin_code">
+        </div>
+    </div>  {% endcomment %}
       <br />
-
+ 
           <!-- Display form errors -->
     {% if form.errors %}
     <div class="error-messages">
@@ -177,28 +202,43 @@
         </ul>
     </div>
 {% endif %}
-
+ 
       <div class="Submit_buttons_box">
-        <button type="submit" class="Submit_buttons">Save</button>
+       
         <!-- <button class="Submit_buttons" onclick="closePopup_selection_account()">Cancel</button> -->
         <a href="{% url 'accounts:customer_accounts_list_view' %}" class="Submit_buttons">Cancel</a>
-      </div>
+        <button type="submit" class="Submit_buttons">Save</button>
+    </div>
     </form>
   </div>
-
+ 
   <div id="overlay" class="overlay"></div>
-
-
-
-  <style>
-    *{
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: small;
-        
-    }
-    
-    
-    .popup {
+ 
+ 
+ 
+ 
+ 
+<style>
+ 
+   
+ 
+  *{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
+   }
+ 
+   .overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+   }
+ 
+    .form_block {
         display: block;
         position: fixed;
         top: 50%;
@@ -209,41 +249,29 @@
         border: 1px solid #ccc;
         border-radius: 0px ;
         z-index: 9999;
-        width: 50%;
+        width: 70%;
         max-height: 80%;
         overflow-y: auto;
         /* Enable vertical scrollbar when content exceeds the maximum height */
     }
-    
-    .overlay {
-        display: block;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 9998;
-    }
-    
+ 
     /* from heading */
-    .popup_heading{
+    .popup-header-block{
         position: sticky;
         top: 0;
         background: white;
-        padding: 10px 0;
-        border-bottom: 1px solid #ccc;
+        padding: 0.2rem 0;
+        border-bottom: 0.06rem solid #ccc;
+        height: 4rem;
     }
-    
-    .popup input:focus {
-        outline: none; /* Remove default outline */
+ 
+    .form_block input:focus,
+    select:focus,
+    textarea:focus {
+        outline: none;
         box-shadow: 0 0 10px #d1a2a2;
-    
     }
-    
-    /* form bottom heading */
-    
-    
+ 
     .form_logo{
         height: 40px;
         width: auto;
@@ -251,224 +279,205 @@
         margin-left: 0.5%;
         float: left;
         }
-    
-       
-    
-    .popup label {
-        display: inline-block;
-        padding: 10px;
-    }
-    
-    .popup h2 {
+ 
+    .popup-heading{
+        display:flex;
+        justify-content:center;  
         text-align: center;
+        height: 1.5rem;
+        font-size: 1.5rem;
+        font-weight: 100;
+        padding-top:0.5rem;
     }
-    
-    .popup h3 {
-        background-color: #e8eaec;
-        font-size: large;
-        padding: 5px;
-        border-radius: 5px;
-    }
-    
-    .popup .Submit_buttons {
+ 
+ 
+ 
+    .Submit_buttons {
         background-color: rgb(10, 91, 138);
-        color: white;
-        border-radius: 3px;
+        color: #d12222;
+        border-radius: 5px;
         border: none;
-        padding: 10px 15px;
+        padding: 0.4rem 0.8rem;
         text-decoration: none;
-        
+        border:1px solid #d12222;
+        background:white;
+        position:sticky;
+        bottom:-1;
+        width: 7%;
     }
-    
-    .popup .Submit_buttons:hover{
-        background-color: rgb(4, 72, 108);
-        
+ 
+ 
+    .Submit_buttons:hover{
+        background: #d12222;
+        color:white;
+        border: 1px solid white;
     }
-    
-    
-    
-    .popup .Submit_buttons_box {
-        text-align: center;
-            position: sticky;
-            bottom: 0;
-            background: white;
-            padding: 15px 0px;
-            border-top: 1px solid #ccc;
-        
+ 
+ 
+ 
+    .Submit_buttons_box {
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    position: sticky;
+    bottom: -2;
+    background: white;
+    padding: 15px 0px;
+    border-top: 1px solid #ccc;
+    bottom:0;
     }
-    
-    
-    
-    /* -------- */
-    
-    
-    .popup input{
-        width: 100px;
+ 
+    form{
+        padding-bottom:0;
+        margin-bottom:0;
     }
-    
-    
-    .popup_c1 {
-        display: flex;
-        justify-content: left;
-        
-    }
-    
-    
-    .popup_c1_b1 label {
-        display: inline-block;
-        width: 150px;
-        /* padding: 5px; */
-        
-    }
-    
-    .popup_c1_b2 {
-        margin-left: 10%;
-    }
-    
-    .popup_c1_b2 label {
-        display: inline-block;
-        width: 150px;
-        /* padding: 5px; */
-    }
-    
-    /* Container 2*/
-    
-    .popup_c2 {
-        display: flex;
-        justify-content: left;
-    }
-    
-    
-    .popup_c2_b1 label {
-        display: inline-block;
-        width: 150px;
-        /* padding: 5px; */
-    }
-    
-    .popup_c2_b2 {
-        margin-left: 10%;
-    }
-    
-    .popup_c2_b2 label {
-        display: inline-block;
-        width: 150px;
-        /* padding: 5px; */
-    }
-    
-    /*container 3*/
-    
-    .popup_c3 {
-        display: flex;
-        justify-content: left;
-    }
-    
-    
-    .popup_c3_b1 label {
-        display: inline-block;
-        width: 150px;
-        /* padding: 5px; */
-    }
-    
-    .popup_c3_b2 {
-        margin-left: 10%;
-    }
-    
-    .popup_c3_b2 label {
-        display: inline-block;
-        width: 150px;
-        /* padding: 5px; */
-    }
-    
-    /* --------- */
-    
-    
-    
-    .popup input,
-    option,
-    select  {
-        width: 200px;
-        padding: 6px 15px;
+ 
+    .form_block option,
+    select ,textarea {
         border-radius: 5px;
         border: 1px solid rgb(166, 165, 165);
     }
-      
-    
-    .cross {
-        color: #aaa;
-        float: right;
-        font-size: 40px;
-        font-weight: bold;
-        cursor: pointer;
-        text-decoration: none;
+    .textarea{
+        height: 5rem;
+        border-radius: 5px;
+        border: 1px solid grey;
     }
-    
-    .cross:hover,
-    .cross:focus {
-        color: #e90909;
-        text-decoration: none;
-        cursor: pointer;
+ 
+   
+ 
+    {% comment %} Internal form CSS {% endcomment %}
+ 
+    .block-name{
+        font-size: large;
+        margin-block: 0.9rem;
+        padding: 0.5rem;
+        background-color: #e8eaec;
+        border-radius: 5px;
     }
-    
-    .New_account_button{
-        float: right;
-        margin-top: 100px;
-        padding: 15px;
-        border-radius: 20px;
-        background-color:#d12222 ;
-        color: white;
+ 
+    .block{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        row-gap: 1rem;
+        column-gap: 1rem;
+        color: black;
+        min-width: none;
+    }
+ 
+    .sub-block{
+        display:grid;
+        grid-template-columns: 0.5fr 1fr;
+        grid-template-rows:1fr;
+    }
+ 
+    .width-100{
+        width: 100%;
+    }
+ 
+    .input-height{
+        height: 2.5rem;
+        border-radius: 5px;
+        border: 1px solid rgb(166, 165, 165);
+    }
+ 
+    .form-select-style{
+        height: 2.5rem;
+    }
+ 
+    .disable{
+        pointer-events:none;
         border: none;
-    
+        outline: none;
     }
-    
-    .New_account_button:hover {
-        transition: 0.6s ease;
-        /* transform: rotate(360deg); */
-        font-size: x-large;
-        
+ 
+   
+    .req-info{
+        margin: 1rem;
+        text-align: right;
+        font-size: 1rem;
     }
-  </style>
-
-
+    .text-danger{
+        color: #d12222;
+    }
+ 
+    {% comment %} search box style {% endcomment %}
+    .result-box{
+        max-height: 70px;
+        overflow-y: scroll;
+    }
+ 
+    .result-box ul{
+        padding: 5px 1px;
+    }
+ 
+    .result-box ul li{
+        font-size:small;
+        list-style: none;
+        border-radius: 2px;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        -ms-border-radius: 2px;
+        -o-border-radius: 2px;
+        padding: 5px 1px;
+        cursor: pointer;
+    }
+    .result-box ul li:hover{
+        background: #d8d8d854;
+        color: rgb(0, 0, 0);
+    }
+ 
+    .error-messages{
+        background: white;
+        border: 1px solid black;
+        border-radius: 5px;
+        z-index:9999999;
+    }
+ 
+ 
+</style>
+ 
+ 
+ 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  $(document).ready(function() {
-      // Functionality for billing country change
-      $('#id_ca_billing_country').change(function() {
-          var countryId = $(this).val();
-          $.ajax({
-              url: '/accounts/get_states_by_country/',  // Correct URL path
-              data: {
-                  'country_id': countryId
-              },
-              dataType: 'json',
-              success: function(data) {
-                  $('#id_ca_billing_state').empty(); // Clear previous options
-                  $('#id_ca_billing_state').append('<option value="">Select State</option>'); // Add a default option
-                  $.each(data, function(index, state) {
-                      $('#id_ca_billing_state').append('<option value="' + state.id + '">' + state.name + '</option>');
-                  });
-              }
-          });
-      });
-
-      // Functionality for shipping country change
-      $('#id_ca_shipping_country').change(function() {
-          var countryId = $(this).val();
-          $.ajax({
-              url: '/accounts/get_states_by_country/',  // Correct URL path
-              data: {
-                  'country_id': countryId
-              },
-              dataType: 'json',
-              success: function(data) {
-                  $('#id_ca_shipping_state').empty(); // Clear previous options
-                  $('#id_ca_shipping_state').append('<option value="">Select State</option>'); // Add a default option
-                  $.each(data, function(index, state) {
-                      $('#id_ca_shipping_state').append('<option value="' + state.id + '">' + state.name + '</option>');
-                  });
-              }
-          });
-      });
-  });
-</script>
+  <script>
+    $(document).ready(function() {
+        // Functionality for billing country change
+        $('#id_ca_billing_country').change(function() {
+            var countryId = $(this).val();
+            $.ajax({
+                url: '/accounts/get_states_by_country/',  // Correct URL path
+                data: {
+                    'country_id': countryId
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $('#id_ca_billing_state').empty(); // Clear previous options
+                    $('#id_ca_billing_state').append('<option value="">Select State</option>'); // Add a default option
+                    $.each(data, function(index, state) {
+                        $('#id_ca_billing_state').append('<option value="' + state.id + '">' + state.name + '</option>');
+                    });
+                }
+            });
+        });
+ 
+        // Functionality for shipping country change
+        $('#id_ca_shipping_country').change(function() {
+            var countryId = $(this).val();
+            $.ajax({
+                url: '/accounts/get_states_by_country/',  // Correct URL path
+                data: {
+                    'country_id': countryId
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $('#id_ca_shipping_state').empty(); // Clear previous options
+                    $('#id_ca_shipping_state').append('<option value="">Select State</option>'); // Add a default option
+                    $.each(data, function(index, state) {
+                        $('#id_ca_shipping_state').append('<option value="' + state.id + '">' + state.name + '</option>');
+                    });
+                }
+            });
+        });
+    });
+  </script>
 {% endblock %}

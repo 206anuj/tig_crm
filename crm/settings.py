@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'projects',
     'orders',
     'project_site',
+    'services',
 ]
 
 MIDDLEWARE = [

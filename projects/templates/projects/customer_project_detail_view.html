@@ -1,34 +1,32 @@
 {% extends 'header.html' %}
 {% load static %}
-
+ 
 {% block title %}Account List{% endblock %}
-
+ 
 {% block extracss %}
     <link rel="stylesheet" href="{% static 'accounts/css/customer_accounts_list_view.css' %}">
 {% endblock %}
-
+ 
 {% block content %}
-
-
+ 
+ 
  
 <div class="background-image_SF">
+ 
     <div class="this-page-header">
-      <div class="site_header_box">
-        <div class="header-col1">
-          <img class="site_logo" src="{% static 'projects/images/project_icon.png' %}" alt="PS-logo" />
+ 
+ 
+      <div class="sub_header_box">
+        <div>
+          <img class="header_logo" src="{% static 'projects/images/project_icon.png' %}" alt="header_icon" />
           <div>
             <p class="sub-header-heading">Project</p>
-            <p class="site-name-style">{{ customer_project.cp_name }}</p>
+            <p class="object-name-style">{{ customer_project.cp_name }}</p>
           </div>
         </div>
-       
         <div class="edit-button-style">
-          <a href="{% url 'projects:customer_project_edit_form' customer_project.pk %}" class="edit_project_site"><b>Edit </b></a>
+          <a href="{% url 'projects:customer_project_edit_form' customer_project.pk %}" class="edit_button_text"><b>Edit </b></a>
         </div>
-        <div class="edit-button-style">
-          <a href="" class="edit_project_site"><b>Submit for calculation</b></a>
-        </div>
-       
       </div>
       <div class="title-body">
         <div class="title-body-sub">
@@ -61,11 +59,7 @@
     <!-- ---------information block---------- -->
  
     <div class="saved_form">
-      <div class="detail-div-style">
-        <div class="detail-style">Details</div>
-      </div>
-      <br />
- 
+     
       <div class="block-header-style">Information</div>
       <br />
  
@@ -354,7 +348,7 @@
           />
         </div>
  
-
+ 
         <div class="sub-block">
           <label for="Record Type" class="width-100 disable-label"
             >Record Type</label
@@ -364,7 +358,7 @@
             id="Record Type"
             class="input-height disable-input"
             aria-label="Record Type"
-            value="{{ customer_project.cp_record_type }}"
+            value="{{ customer_project.record_type }}"
           />
         </div>
  
@@ -374,8 +368,8 @@
  
     </div>
 </div>
-
-
+ 
+ 
 <style>
     *{
         font-family: Arial, Helvetica, sans-serif;
@@ -397,46 +391,7 @@
         background-repeat: repeat-x;
       }
      
-    .site_header_box {
-        border-top-left-radius: 0.4rem;
-        border-top-right-radius: 0.4rem;
-        height: auto;
-        background-color: #e8eaec;
-        padding: 5px;
-        margin: 0.5rem;
-        margin-bottom: 0rem;
-        display: grid;
-        grid-template-columns: 1.5fr 0.1fr 0.3fr;
-        column-gap: 10px;
-    }
-     
-     
-     
-    .site_logo {
-        background-color: #d12222;
-        border-radius: 2px;
-        width: auto;
-        height: 35px;
-        float: left;
-        margin: 5px;
-        margin-right: 10px;
-    }
-     
-    .sub-header-heading{
-        font-weight: 100;
-        font-size: small;
-        padding-top: 0.2rem;
-        padding-bottom: 0.2rem;
-    }
-     
-    .site-name-style{
-        font-weight: 600;
-        font-size: larger;
-        padding-top: 0.2rem;
-        padding-bottom: 0.2rem;
-    }
-     
-    .edit_project_site{
+    .edit_button_text{
         /* float: right; */
         background-color: white;
         color: #d12222;
@@ -444,21 +399,59 @@
         padding: 5px 15px;
         text-decoration: none;
         border:1px solid #d12222;
-        height: auto;
-     
-       
+        height: 60%;
+        margin-right:0.5rem;
+   
     }
-     
-    .edit_project_site:hover{
+ 
+    .edit_button_text:hover{
     background-color: #d12222;
     color: white;
     }
-     
-    .edit-button-style{
+ 
+    .sub_header_box {
+       
+        height: auto;
+        background-color: #e8eaec;
+        padding: 5px;
+        margin: 0.5rem;
+        display: grid;
+        grid-template-columns: 1.5fr 0.2fr;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+       margin-bottom:0%;
+      }
+   
+      .header_logo {
+        background-color: #d12222;
+        border-radius: 2px;
+        width: auto;
+        height: 40px;
+        float: left;
+        margin: 5px;
+        margin-right: 10px;
+      }
+   
+      .sub-header-heading{
+        font-weight: 100;
+        font-size: small;
+        padding-top: 0.2rem;
+        margin:0px;
+      }
+   
+      .object-name-style{
+        font-weight: 600;
+        font-size: larger;
+        padding-top: 0.2rem;
+        margin:0px;
+    }
+   
+      .edit-button-style{
         display: flex;
         align-items: center;
-        width: 100%;
-    }
+        justify-content: end;
+        margin-right: 5%;
+      }
      
     /* form data */
     .saved_form {
@@ -690,6 +683,6 @@
         color: black;
     }
 </style>
-
-
+ 
+ 
 {% endblock %}

@@ -1,15 +1,15 @@
 {% extends 'header.html' %}
 {% load static %}
-
+ 
 {% block title %}Account List{% endblock %}
-
+ 
 {% block extracss %}
     <link rel="stylesheet" href="{% static 'accounts/css/customer_accounts_list_view.css' %}">
 {% endblock %}
-
+ 
 {% block content %}
-
-
+ 
+ 
     <!-- Display form errors -->
     {% if form.errors %}
         <div class="error-messages">
@@ -22,9 +22,9 @@
             </ul>
         </div>
     {% endif %}
-
+ 
   <!-- --------------------------Site form - 3rd layer------------------------------- -->
-
+ 
   <div id="popup" class="popup">
     <div class="popup-block">
       <img
@@ -35,7 +35,7 @@
       />
       <div class="popup-heading">New Project Sites</div>
     </div>
-
+ 
     <div class="req-info">
       <span class="text-danger">* </span>= Required
       Information
@@ -44,7 +44,7 @@
     <form method="post">
       {% csrf_token %}
       <div class="block-name">&nbsp Information</div>
-  
+ 
       <div class="info-block">
           <div class="sub-block">
               <label for="id_ps_name"><span class="text-danger">*</span>Name</label>
@@ -52,11 +52,19 @@
           </div>
           <div class="sub-block">
               <label for="id_ps_project"><span class="text-danger">*</span>Project</label>
-              <div class="">
-                  <input type="search" id="id_ps_project" name="ps_project" class="search-type input_felid_border width-100" placeholder="Search projects..." aria-label="Project name"/>
-                  <input type="hidden" id="id_ps_project_uuid" name="ps_project_uuid"/> <!-- Hidden input to store UUID -->
-                  <ul id="suggestions-list"></ul><br>
-              </div>
+              <div class="search_and_sugg_box">
+                <input type="search" id="id_ps_project" name="ps_project" class="search-type input_felid_border width-100" placeholder="Search projects..." />
+                <div>
+                    <input type="hidden" id="id_ps_project_uuid" name="ps_project_uuid"/>
+                </div>
+                <div class="result-box">
+                    <ul id="suggestions-list"></ul>
+                </div>
+            </div>  
+           
+           
+ 
+             
           </div>
           <div class="sub-block">
               <label for="id_ps_working_days"><span class="text-danger">*</span>Working Days</label>
@@ -69,6 +77,8 @@
                   <div class="">
                       <input class="form-check-input" type="checkbox" id="selectAll"/>
                       <label class="form-check-label" for="selectAll">Select All</label>
+                      <input class="form-check-input"  type="checkbox" id="select_working_day"/>
+                        <label class="form-check-label"  for="select_working_day">Working Days</label>
                   </div>
               </div>
           </div>
@@ -87,7 +97,7 @@
               </select>
           </div>
       </div>
-  
+ 
       <div class="block-name">&nbsp Site Address Information</div>
       <div class="site-add-info">
           <div class="sub-block">
@@ -96,7 +106,7 @@
           </div>
           <div class="sub-block">
               <label for="id_ps_ZIP_site_classification" class="width-100"><span class="text-danger">*</span>Site Classification</label>
-              <select id="id_ps_ZIP_site_classification" name="ps_ZIP_site_classification" class="site-class-style width-100 multiple-select-style">
+              <select id="id_ps_ZIP_site_classification" name="ps_ZIP_site_classification" class="form-select width-100 ">
                   {% for choice in form.ps_ZIP_site_classification.field.choices %}
                   <option class="select-style" value="{{ choice.0 }}" {% if choice.0 == form.ps_ZIP_site_classification.value %} selected {% endif %}>{{ choice.1 }}</option>
                   {% endfor %}
@@ -127,19 +137,22 @@
               <input type="text" id="id_ps_ZIP_postal_Code" name="ps_ZIP_postal_Code" class="input-height" placeholder="Zip Code" aria-label="Zip Code"/>
           </div>
       </div>
-  
+ 
       <br />
       <div class="Submit_buttons_box">
-          <button type="submit" class="Submit_buttons">Save</button>
           <a href="{% url 'project_site:project_site_list_view' %}" class="Submit_buttons">Cancel</a>
+          <button type="submit" class="Submit_buttons">Save</button>
       </div>
   </form>
   </div>
   <!-- ----------------------------Overlay - 2nd layer-------------------------------- -->
   <div id="overlay" class="overlay"></div>
-
-
+ 
+ 
 <style>
+    *{
+        font-size:small;
+    }
     .info-block {
         display: grid;
         /* grid-template-rows: 0.5fr 1.5fr;
@@ -153,14 +166,14 @@
         display: grid;
         /* grid-template-columns: 1fr 1.5fr; */
     }
-    
+   
     .sub-block4{
         display: grid;
         /* grid-template-columns: 1fr 1.5fr;
         grid-template-rows: 1fr 1fr; */
         row-gap: 1rem;
     }
-    
+   
     .site-add-info{
         display: grid;
         /* grid-template-rows: 1.5fr 1fr 1fr;
@@ -170,100 +183,56 @@
         color: black;
         min-width: none;
     }
-    
-    .other-info-block {
-        display: grid;
-        /* grid-template-columns: 1fr 1fr; */
-        row-gap: 1rem;
-        column-gap: 1rem;
-        color: black;
-    }
-    
+   
+   
     @media( min-width: 856px ){
         .info-block {
        
             grid-template-rows: 0.5fr 1.5fr;
             grid-template-columns: 1fr 1fr;
-    
+   
         }
         .sub-block{
-    
+   
             grid-template-columns: 1fr 1.5fr;
         }
-        
+       
         .sub-block4{
            
             grid-template-columns: 1fr 1.5fr;
             grid-template-rows: 1fr 1fr;
         }
-        
+       
         .site-add-info{
             grid-template-rows: 1.5fr 1fr 1fr;
             grid-template-columns: 1fr 1fr;
         }
-    
+   
         .other-info-block {
             grid-template-columns: 1fr 1fr;
         }
     }
-    
-    .popup input:focus {
+   
+    .popup input:focus, select:focus, .textarea:focus {
         outline: none; /* Remove default outline */
         border: 1px solid grey;
         box-shadow: 0 0 10px #d1a2a2;
-    
+   
     }
-    
-    .popup select:focus {
-        outline: none; /* Remove default outline */
-        border: 1px solid grey;
-        box-shadow: 0 0 10px #d1a2a2;
-    }
-    
-    .popup .textarea:focus {
-        outline: none; /* Remove default outline */
-        border: 1px solid grey;
-        box-shadow: 0 0 10px #d1a2a2;
-    }
-    
+ 
+   
     .textarea{
         height: 5rem;
         border-radius: 5px;
         border: 1px solid grey;
     }
-    
-    /* for search icon */
-    
-    /* .icon-overlay-container {
-        position: relative;
-      }
-    .icon-overlay {
-        position: absolute;
-        top: 20%;
-        transform: translateY(-50%);
-        z-index: 1;
-        transition: opacity 0.2s ease;
-        -webkit-transition: opacity 0.3s ease;
-        -moz-transition: opacity 0.2s ease;
-        -ms-transition: opacity 0.2s ease;
-        -o-transition: opacity 0.2s ease;
-        -webkit-transition: opacity 0.2s ease;
-    }
-    
-    .icon-overlay{
-        right: 10px;
-        align-items: center;
-        padding-top: 8%;
-    }
-      
-      .icon-overlay-container .search-project:focus + .icon-overlay {
-        opacity: 0; /* Hide the icon when input is in focus 
-      }*/
-    
+   
+   
+   
     .width-100{
         width: 100%;
     }
-    
+   
     .text-danger{
         color: red;
     }
@@ -271,46 +240,25 @@
         width: 100%;
         height: 2.5rem;
        border: 1p0x solid grey;
-        
+       
     }
-    
+   
     .selectday-option{
         padding: 0.3rem 0.4rem;
     }
-    
+   
     .input-height{
         height: 2.5rem;
         border-radius: 5px;
         border: 1px solid grey;
     }
-    
-    .site-class-style{
-        height: 2.5rem;
-        border-radius: 5px;
-        border: 1px solid grey;
-    }
-    
+   
     .form-select{
         height: 2.5rem;
         border-radius: 5px;
         border: 1px solid grey;
     }
-    
-    #created-by {
-        border: none;
-        pointer-events: none;
-    }
-    
-    #last-modified-by{
-        border: none;
-        pointer-events: none;
-    }
-    
-    .disable-label{
-        pointer-events: none;
-    }
-    
-    
+   
     .multiple-select-style{
         padding: 0.4rem;
         border-radius: 5px;
@@ -320,13 +268,13 @@
         -o-border-radius: 5px;
         border: 1px solid grey;
     }
-    
+   
     .search-type{
         width: 100%;
         height: 2.5rem;
         border: 1px solid rgba(128, 128, 128, 0.87);
     }
-
+ 
     .popup {
         display: block;
         position: fixed;
@@ -351,13 +299,13 @@
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 90;
     }
-    
+   
     .req-info{
         margin: 1rem;
         text-align: right;
         font-size: 1rem;
     }
-    
+   
     .block-name{
         background-color: rgb(223, 216, 216);
         font-size: large;
@@ -369,7 +317,7 @@
         -ms-border-radius: 0.25rem;
         -o-border-radius: 0.25rem;
     }
-    
+   
     /* from heading */
     .popup-block{
         position: sticky;
@@ -377,9 +325,9 @@
         background: white;
         padding: 1rem 0;
         border-bottom: 0.06rem solid #ccc;
-        height: 3rem;
+        height: 5rem;
     }
-    
+   
     .popup-heading{
         text-align: center;
         margin-top: 1rem;
@@ -387,7 +335,7 @@
         font-size: 1.5rem;
         font-weight: 100;
     }
-    
+   
     .option-style{
         border: none;
         padding-left: 0.5rem;
@@ -399,36 +347,49 @@
         scrollbar-width: none;
         padding: 0px;  
     }
-    
+   
     .working-day-style{
         margin: 0%;
     }
-    
-    .popup .Submit_buttons {
+ 
+    .Submit_buttons {
         background-color: rgb(10, 91, 138);
-        color: white;
-        border-radius: 3px;
+        color: red;
+        border-radius: 5px;
         border: none;
-        padding: 10px 15px;
+        padding: 0.4rem 0.8rem;
         text-decoration: none;
-        
+        border:1px solid red;
+        background:white;
+        position:sticky;
+        bottom:-1;
+        width: 7%;
+       
     }
-    
-    .popup .Submit_buttons:hover{
-        background-color: rgb(4, 72, 108);
-        
+ 
+ 
+    .Submit_buttons:hover{
+        background: red;
+        color:white;
+        border: 1px solid white;
     }
-    
-    .popup .Submit_buttons_box {
-        text-align: center;
-            position: sticky;
-            bottom: 0;
-            background: white;
-            padding: 15px 0px;
-            border-top: 1px solid #ccc;
-        
-    }
-    
+    .Submit_buttons_box {
+        display:flex;
+        justify-content:center;
+        gap:10px;
+        position: sticky;
+        bottom: -2;
+        background: white;
+        padding: 15px 0px;
+        border-top: 1px solid #ccc;
+        bottom:0;
+        }
+     
+        form{
+            padding-bottom:0;
+            margin-bottom:0;
+        }
+   
     .img-logo{
         /* height: 4rem; */
         /* width: auto; */
@@ -447,19 +408,52 @@
         -ms-border-radius: 5px;
         -o-border-radius: 5px;
     }
+ 
+    {% comment %} search box style {% endcomment %}
+    .result-box{
+        max-height: 110px;
+        overflow-y: scroll;
+    }
+ 
+    .result-box ul{
+        padding: 5px 1px;
+    }
+ 
+    .result-box ul li{
+        font-size:small;
+        list-style: none;
+        border-radius: 2px;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        -ms-border-radius: 2px;
+        -o-border-radius: 2px;
+        padding: 5px 1px;
+        cursor: pointer;
+    }
+    .result-box ul li:hover{
+        background: #d8d8d854;
+        color: rgb(0, 0, 0);
+    }
+    .form-check-label{
+        margin-right:0.5rem;
+    }
+    .form-check-input{
+        margin-right: 0.5rem;
+        border:1px solid grey;
+    }
 </style>
-
+ 
   <!-- jQuery (required for Bootstrap) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-
+ 
+ 
   <script src="js/site_creation_forml.js"></script>
-
+ 
 <script>
   const selectAllCheckbox = document.getElementById('selectAll');
   const daysSelect = document.getElementById('id_ps_working_days');
   const daysOptions = daysSelect.querySelectorAll('option');
-
+ 
   selectAllCheckbox.addEventListener('change', function() {
     if (this.checked) {
       daysOptions.forEach(option => {
@@ -471,15 +465,42 @@
       });
     }
   });
-
+ 
   daysSelect.addEventListener('change', function() {
     const allSelected = [...daysOptions].every(option => option.selected);
     selectAllCheckbox.checked = allSelected;
   });
-
+ 
+  const selectweekdaysCheckBox = document.getElementById('select_working_day');
+  const WORKING_DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+  const workingDaysoption = []
+  daysOptions.forEach(option => {
+    if (WORKING_DAYS.includes(option.value)) {
+        workingDaysoption.push(option);
+    }
+});
+ 
+selectweekdaysCheckBox.addEventListener('change', function() {
+    if (this.checked) {
+      workingDaysoption.forEach(option => {
+        option.selected = true;
+      });
+    } else {
+      workingDaysoption.forEach(option => {
+        option.selected = false;
+      });
+    }
+  });
+ 
+  daysSelect.addEventListener('change', function() {
+    const allSelected = [...workingDaysoption].every(option => option.selected);
+    selectAllCheckbox.checked = allSelected;
+  });
+ 
+ 
 </script>
-
-
+ 
+ 
 <script>
   $(document).ready(function(){
       // Function to handle suggestions and selection for a given input field
@@ -515,14 +536,14 @@
               }
           });
       }
-  
+ 
       // Apply autocomplete for ps_project
       setupAutocomplete('#id_ps_project', '#suggestions-list', '#id_ps_project_uuid', '{% url "project_site:customer_project_suggestions" %}');
-  
+ 
       // Form submission handling
       $('#ProjectSiteForm').on('submit', function(event) {
           event.preventDefault(); // Prevent default form submission
-  
+ 
           // Submit the form using Ajax
           $.ajax({
               url: $(this).attr('action'),
@@ -540,7 +561,7 @@
       });
   });
   </script>
-
+ 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     $(document).ready(function() {
@@ -562,7 +583,7 @@
                 }
             });
         });
-  
+ 
         // Functionality for shipping country change
         $('#id_ps_country').change(function() {
             var countryId = $(this).val();
@@ -583,5 +604,5 @@
         });
     });
   </script>
-
+ 
 {% endblock %}

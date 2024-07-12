@@ -29,13 +29,6 @@ class CustomerAccountForm(forms.ModelForm):
             'ca_shipping_pin_code': 'Shipping Pin Code',
         }
 
-        # def clean_ca_name(self):
-        #     ca_name = self.cleaned_data.get('ca_name')
-        #     pk = self.instance.pk
-        #     if CustomerAccount.objects.filter(ca_name=ca_name).exclude(pk=pk).exists():
-        #         raise forms.ValidationError('This account already exists.')
-        #     return ca_name
-
 
 class UploadFileForm(forms.Form):
     file = forms.FileField()
