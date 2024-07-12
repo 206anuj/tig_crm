@@ -437,7 +437,7 @@ class VendorAccount(models.Model):
     va_name = models.CharField(max_length=255) # required=True
     va_phone_number = models.CharField(max_length=255, blank=True)
     va_parent_account = models.CharField(max_length=255, blank=True) #this will come from VendorAccount
-    record_type = models.CharField(max_length=255,blank=True)
+    record_type = models.CharField(max_length=255, blank=True)
     va_company_group = models.CharField(max_length=255, blank=True)
     va_primary_contact_number = models.CharField(max_length=11, blank=True)
     va_account_owner = models.CharField(max_length=255, blank=True)

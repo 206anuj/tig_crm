@@ -68,7 +68,7 @@ class SalesOrder(models.Model):
     so_po_status = models.CharField(max_length=16, choices=SALES_ORDER_PO_STATUS_CHOICES)
     so_customer_vendor = models.ForeignKey(CustomerAccount, on_delete=models.CASCADE, related_name='so_customer_vendor')
     so_project = models.ForeignKey(CustomerProject, on_delete=models.CASCADE, related_name='so_project')
-    so_comment = models.TextField(blank=True, max_length=1024)
+    so_comment = models.TextField(max_length=1024, blank=True)
     so_tig_entity = models.CharField(max_length=64, choices=SALES_ORDER_TIG_ENTITY_CHOICES)
 
     # PO Details Information fields for sales orders
@@ -76,13 +76,13 @@ class SalesOrder(models.Model):
     so_po_end_date = models.DateField()
     so_currency = models.CharField(max_length=32, choices=SALES_ORDER_CURRENCY_CHOICES)
     so_po_amount = models.CharField(max_length=10)
-    so_po_amount_utilised = models.CharField(max_length=10)
-    so_po_balance = models.CharField(max_length=10)
+    so_po_amount_utilised = models.CharField(max_length=10, blank=True)
+    so_po_balance = models.CharField(max_length=10, blank=True)
     so_tax_included = models.CharField(max_length=3, choices=SALAES_ORDER_TAX_INCLUDED_CHOICES)
 
     # Address Information fields for sales orders
     so_bill_to_address = models.TextField(max_length=1024)
-    so_ship_to_address = models.TextField(max_length=1024)
+    so_ship_to_address = models.TextField(max_length=1024, blank=True)
 
     # System Information fields for sales orders
     so_record_type = models.CharField(max_length=32)

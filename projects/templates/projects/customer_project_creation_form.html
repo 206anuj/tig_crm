@@ -43,11 +43,11 @@
  
             <div class="block">
                 <div class="sub-block">
-                    <label class="" for="id_cp_name">Project Name</label>
+                    <label class="" for="id_cp_name"><span class="text-danger">*</span>Project Name</label>
                     <input class="input-height" type="text" id="id_cp_name" name="cp_name" />
                 </div>
                 <div class="sub-block">
-                    <label class="width-100" for="id_cp_customer_vendor">Customer/Vendor </label>
+                    <label class="width-100" for="id_cp_customer_vendor"><span class="text-danger">*</span>Customer/Vendor </label>
                     <div class="search_and_sugg_box">
                         <input class="width-100 input-height" type="text" id="id_cp_customer_vendor" name="cp_customer_vendor" placeholder="Search customer account...">
                         <div><input type="hidden" id="id_cp_customer_vendor_uuid" name="cp_customer_vendor_uuid"></div>
@@ -57,17 +57,17 @@
                     </div>
                 </div>
                 <div class="sub-block">
-                    <label class="" for="id_cp_start_date">Project Start Date</label>
+                    <label class="" for="id_cp_start_date"><span class="text-danger">*</span>Project Start Date</label>
                     <input  class="input-height" type="date" id="id_cp_start_date" name="cp_start_date" />
                 </div>
  
                 <div class="sub-block">
-                    <label class="" for="id_cp_end_date">Project End Date</label>
+                    <label class="" for="id_cp_end_date"><span class="text-danger">*</span>Project End Date</label>
                     <input class="input-height" type="date" id="id_cp_end_date" name="cp_end_date" />
                 </div>
                
                 <div class="sub-block">
-                    <label class="width-100" for="id_cp_tig_entity">TIG Entity Name</label>
+                    <label class="width-100" for="id_cp_tig_entity"><span class="text-danger">*</span>TIG Entity Name</label>
                     <select class="form-select-style" type="text" name="cp_tig_entity" id="id_cp_tig_entity" required>
                     {% for choice in form.cp_tig_entity.field.choices %}
                         <option value="{{ choice.0 }}" {% if choice.0 == form.cp_tig_entity.value %} selected {% endif %}>{{ choice.1 }}</option>
@@ -86,7 +86,7 @@
                 </div>  
            
                 <div class="sub-block">
-                    <label class="width-100" for="id_cp_status">Project Status</label>
+                    <label class="width-100" for="id_cp_status"><span class="text-danger">*</span>Project Status</label>
                     <select class="form-select-style" type="text" name="cp_status" id="id_cp_status" required>
                     {% for choice in form.cp_status.field.choices %}
                         <option value="{{ choice.0 }}" {% if choice.0 == form.cp_status.value %} selected {% endif %}>{{ choice.1 }}</option>
@@ -95,7 +95,7 @@
                 </div>
  
                 <div class="sub-block">
-                    <label class="" for="id_cp_end_customer">End Customer</label>
+                    <label class="" for="id_cp_end_customer"><span class="text-danger">*</span>End Customer</label>
                    
                     <div class="search_and_sugg_box">
                         <input class="input-height width-100" type="text" id="id_cp_end_customer" name="cp_end_customer" placeholder ="Search End Customer Account..." />
@@ -124,7 +124,7 @@
  
           <div class="block">
             <div class="sub-block">
-                <label for="id_cp_payment_terms">Payment Terms</label>
+                <label for="id_cp_payment_terms"><span class="text-danger">*</span>Payment Terms</label>
                 <select class="form-select-style" type="text" name="cp_payment_terms" id="id_cp_payment_terms" required>
                     {% for choice in form.cp_payment_terms.field.choices %}
                     <option value="{{ choice.0 }}" {% if choice.0 == form.cp_payment_terms.value %} selected {% endif %}>{{ choice.1 }}</option>
@@ -160,7 +160,7 @@
             </div>
            
             <div class="sub-block">
-                <label for="id_cp_billing_frequency">Billing Frequency</label>
+                <label for="id_cp_billing_frequency"><span class="text-danger">*</span>Billing Frequency</label>
                 <select class="form-select-style" type="text" name="cp_billing_frequency" id="id_cp_billing_frequency" required>
                     {% for choice in form.cp_billing_frequency.field.choices %}
                     <option value="{{ choice.0 }}" {% if choice.0 == form.cp_billing_frequency.value %} selected {% endif %}>{{ choice.1 }}</option>

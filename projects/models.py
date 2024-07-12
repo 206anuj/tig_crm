@@ -85,7 +85,7 @@ class CustomerProject(models.Model):
     cp_end_date = models.DateField()
     cp_tig_entity = models.CharField(max_length=64, choices=CUSTOMER_PROJECT_TIG_ENTITY_CHOICES)
     cp_region = models.CharField(max_length=5, choices=CUSTOMER_PROJECT_REGION_CHOICES, blank=True)
-    cp_status = models.CharField(max_length=16, choices=CUSTOMER_PROJECT_STATUS_CHOICES, blank=True)
+    cp_status = models.CharField(max_length=16, choices=CUSTOMER_PROJECT_STATUS_CHOICES)
     cp_end_customer = models.ForeignKey(CustomerAccount, on_delete=models.CASCADE, related_name='cp_end_customer')
     cp_type = models.CharField(max_length=32, choices=CUSTOMER_PROJECT_TYPE_CHOICES, blank=True)
  
