@@ -41,12 +41,13 @@ INSTALLED_APPS = [
     # Custom installed apps 
     'cities_light',
     # 'cities',
-    # Creaed Apps
+    # My Apps
+    'home',
     'accounts',
     'projects',
     'orders',
     'project_site',
-    'services',
+    'services'
 ]
 
 MIDDLEWARE = [
@@ -69,6 +70,7 @@ TEMPLATES = [
                 os.path.join(BASE_DIR, 'accounts/templates'),
                 os.path.join(BASE_DIR, 'projects/templates'),
                 os.path.join(BASE_DIR, 'orders/templates'),
+                os.path.join(BASE_DIR, 'project_site/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -137,9 +139,13 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'accounts/static'),
     os.path.join(BASE_DIR, 'projects/static'),
     os.path.join(BASE_DIR, 'orders/static'),
+    os.path.join(BASE_DIR, 'project_site/static'),
 ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# LOGIN_URL = '/login/'
+

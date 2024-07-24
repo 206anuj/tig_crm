@@ -81,7 +81,7 @@
  
             <div class="sub-block">
                 <label for="id_ca_industray">Industry:</label>
-          <select class="form-select-style" id="id_ca_industray" name="ca_industray" required>
+          <select class="form-select-style" id="id_ca_industray" name="ca_industray">
               {% for choice in form.ca_industray.field.choices %}
                   <option value="{{ choice.0 }}" {% if choice.0 == form.ca_industray.value %} selected {% endif %}>{{ choice.1 }}</option>
               {% endfor %}
@@ -303,7 +303,7 @@
         background:white;
         position:sticky;
         bottom:-1;
-        width: 7%;
+       
     }
  
  
@@ -312,7 +312,6 @@
         color:white;
         border: 1px solid white;
     }
- 
  
  
     .Submit_buttons_box {

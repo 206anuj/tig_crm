@@ -239,7 +239,7 @@
           </div>
           <br />
  
-          <div class="block-name">  Company Overview </div>
+          {% comment %} <div class="block-name">  Company Overview </div>
  
           <div class="block">
             <div class="sub-block">
@@ -256,8 +256,8 @@
             </div>
          
           </div>
-          <br />
- 
+          <br /> {% endcomment %}
+{% comment %}  
           <div class="block-name">  Company Registration Details </div>
  
           <div class="block">
@@ -296,9 +296,9 @@
             </div>
          
           </div>
-          <br />
+          <br /> {% endcomment %}
  
-          <div class="block-name"> Employees & Call Support Activity </div>
+          {% comment %} <div class="block-name"> Employees & Call Support Activity </div>
  
           <div class="block">
             <div class="sub-block">
@@ -342,7 +342,7 @@
             </div>
  
           </div>
-          <br />
+          <br /> {% endcomment %}
  
           <div class="block-name">
             Address  Information
@@ -458,9 +458,10 @@
          
  
           <div class="Submit_buttons_box">
-            <button class="Submit_buttons">Save</button>
+            
             <!-- <button class="Submit_buttons" onclick="closePopup_selection_account()">Cancel</button> -->
             <a href="{% url 'accounts:vendor_account_detail_view' account.pk %}" class="Submit_buttons">Cancel</a>
+            <button class="Submit_buttons">Save</button>
         </div>
          
         </form>
@@ -555,21 +556,21 @@
  
     .Submit_buttons {
         background-color: rgb(10, 91, 138);
-        color: red;
+        color: #d12222;
         border-radius: 5px;
         border: none;
         padding: 0.4rem 0.8rem;
         text-decoration: none;
-        border:1px solid red;
+        border:1px solid #d12222;
         background:white;
         position:sticky;
         bottom:-1;
-       
+        text-align: center;
     }
  
  
     .Submit_buttons:hover{
-        background: red;
+        background: #d12222;
         color:white;
         border: 1px solid white;
     }

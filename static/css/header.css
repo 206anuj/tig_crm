@@ -1,34 +1,11 @@
-
-/* NAVIGATION BAR CODE START */
-*{
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.navbox_top {  
-    
-    background-color: whitesmoke;
-    /* border: 2px solid red; */
-    width: 100% ;
-    position: fixed;
-    padding: 5px;
-    list-style-type: none;
-    /* display: block; */
-    height: auto;
-    /* test code */
-    justify-content: center;
-    align-items: center; 
-}
-
- .navbox_top .nav_item{
-    font-size: small;
-}
-
+/* NAVIGATION BAR CODE START
+ 
+ 
 .navbar_search_box {
-
+ 
     text-align: center;
-    /* display: flex; */
-    /* justify-content: center; */
-
+ 
+ 
     .search_box{
         width: 500px;
         height: 25px;
@@ -37,38 +14,38 @@
         padding: 15px;
         margin-bottom: 20px;
         border: 1px solid gray;
-        
-        
+       
+       
     }
 }
-
+ 
 .search_box:focus {
-    outline: none; /* Remove default outline */
+    outline: none;
     box-shadow: 0 0 10px #d1a2a2;
-
+ 
 }
-
+ 
 .search_icon_navbar{
     position: absolute;
     z-index: 2;
     height: 20px;
-    /* margin-top: 0.3%; */
+ 
     margin-left: 1%;
     margin-block: 0.5%;
     float: right;
     align-self: auto;
-
+ 
 }
-
+ 
 .navbox_top ul li {
     display: inline;
-    
+   
 }
  .navbox_top ul {
     margin-bottom: 0px;
     text-align: center;
  }
-
+ 
 .logo{
     height: 60px;
     width: auto;
@@ -76,7 +53,7 @@
     margin-left: 0.5%;
     float: left;
     }
-
+ 
     .logo:hover{
         transition: 0.6s ease;
         transform: scale(1.1);
@@ -85,7 +62,7 @@
         -ms-transform: scale(1.1);
         -o-transform: scale(1.1);
 }
-
+ 
     .navbox_top ul li a{
     text-decoration: none;
     padding: 10px 15px;
@@ -94,35 +71,34 @@
     text-align: center;
     white-space: nowrap;
     margin: auto;
-    
+   
 }
-
+ 
 .navbox_top ul li a:hover {
     background-color: rgb(238, 229, 229);
-    color: rgb(12, 12, 12); 
-    /* border-top: 4px solid #d12222; */
+    color: rgb(12, 12, 12);
+   
     transition: 0.3s ease;
-    
-
+   
+ 
 }
-
+ 
 .navbox_top ul li a.active{
     background-color: rgb(238, 229, 229);
-    color: rgb(12, 12, 12); 
-    /* border-top: 4px solid #d12222; */
-    /* box-shadow: 0px 0px 5px 0px; */
+    color: rgb(12, 12, 12);
+   
     background-color: #d12222 ;
     color: white;
     border-radius: 10px;
-
+ 
 }
-
+ 
 .user_profile{
     float: right;
     width: auto;
     height: 60px;
 }
-
+ 
 .user_profile:hover{
     transition: 0.6s ease;
     transform: scale(1.1);
@@ -130,9 +106,287 @@
     -moz-transform: scale(1.1);
     -ms-transform: scale(1.1);
     -o-transform: scale(1.1);
+} */
+ 
+ 
+/* New Nav code */
+ 
+ 
+/* NAVIGATION BAR CODE START */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap");
+:root {
+  --primary: #eeeeee;
+  --secondary: #d12222;
+  --green: #d12222da;
+  --secondary-light: rgba(116, 116, 116, 0.2);
+  --secondary-light-2: rgba(160, 160, 160, 0.1);
+  --white: #fff;
+  --black: #393e46;
+ 
+  --shadow: 0px 2px 8px 0px var(--secondary-light);
 }
-
-
+ 
+*{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+ 
+.navbox_top {  
+   
+    background-color: whitesmoke;
+    width: 100% ;
+    position: fixed;
+    padding: 5px;
+    list-style-type: none;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+}
+ 
+ .navbox_top .nav_item{
+    font-size: small;
+}
+ 
+.navbar_search_box {
+ 
+    text-align: center;
+    /* display: flex; */
+    /* justify-content: center; */
+ 
+    .search_box{
+        width: 500px;
+        height: 25px;
+        border-radius: 5px;
+        position: relative;
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid gray;
+       
+       
+    }
+}
+ 
+.search_box:focus {
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 10px #d1a2a2;
+ 
+}
+ 
+.search_icon_navbar{
+    position: absolute;
+    z-index: 2;
+    height: 20px;
+ 
+    margin-left: 1%;
+    margin-block: 0.5%;
+    float: right;
+    align-self: auto;
+ 
+}
+ 
+.navbox_top_ul_li {
+    display: inline;
+   
+}
+ .navbox_top_ul {
+    margin-bottom: 0px;
+    text-align: center;
+ }
+ 
+.logo{
+    height: 60px;
+    width: auto;
+    margin-top: 0.5%;
+    margin-left: 0.5%;
+    float: left;
+    }
+ 
+    .logo:hover{
+        transition: 0.6s ease;
+        transform: rotate(360deg);
+    }
+ 
+ 
+ 
+    .navbox_top_ul_li_a{
+    text-decoration: none;
+    padding: 10px 15px;
+    font-size: medium;
+    color: black;
+    text-align: center;
+    white-space: nowrap;
+    margin: auto;
+   
+}
+ 
+.navbox_top_ul_li_a:hover {
+    background-color: rgb(238, 229, 229);
+    color: rgb(12, 12, 12);
+    /* border-top: 4px solid #d12222; */
+    transition: 0.3s ease;
+}
+ 
+.active{
+        background-color: #d12222 ;
+        color: white;
+        border-radius: 10px;
+}
+ 
+.navbox_top_ul_li_a.active:hover{
+    background-color: #d12222 ;
+    color: white;
+    border-radius: 10px;
+}
+ 
+.user_profile{
+    float: right;
+    width: auto;
+    height: 50px;
+}
+ 
+ 
+ 
+ 
 /* NAVIGATION BAR CODE END */
-
-
+ 
+.profile-dropdown {
+    position: relative;
+    width: fit-content;
+  }
+ 
+  .profile-dropdown-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    width: auto;
+    border-radius: 50px;
+    color: var(--black);
+    /* background-color: white;
+    box-shadow: var(--shadow); */
+ 
+    cursor: pointer;
+    border: 1px solid var(--black);
+    transition: box-shadow 0.2s ease-in, background-color 0.2s ease-in,
+      border 0.3s;
+  }
+ 
+  .profile-dropdown-btn:hover {
+    background-color: var(--secondary-light-2);
+    box-shadow: var(--shadow);
+  }
+ 
+ 
+  .profile-img i {
+    position: absolute;
+    right: 0;
+    bottom: 0.3rem;
+    font-size: 0.5rem;
+    color: var(--green);
+  }
+ 
+  .profile-dropdown-btn span {
+    margin: 0 0.5rem;
+    margin-right: 0;
+  }
+ 
+  .profile-dropdown-list {
+    position: absolute;
+    top: 68px;
+    width: 220px;
+    right: 0;
+    background-color: var(--white);
+    border-radius: 10px;
+    max-height: 0;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: max-height 0.5s;
+    list-style-type: none;
+    margin-left:0;
+    padding-left:0;
+  }
+ 
+  .profile-dropdown-list hr {
+    border: 0.5px solid var(--green);
+  }
+ 
+  .profile-dropdown-list.active_profile_dropdown {
+    max-height: 500px;
+  }
+ 
+  .profile-dropdown-list-item {
+    padding: 0.5rem 0rem 0.5rem 1rem;
+    transition: background-color 0.2s ease-in, padding-left 0.2s;
+  }
+ 
+  .profile-dropdown-list-item a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--black);
+  }
+ 
+  .profile-dropdown-list-item a i {
+    margin-right: 0.8rem;
+    font-size: 1.1rem;
+    width: 2.3rem;
+    height: 2.3rem;
+    background-color: var(--secondary);
+    color: var(--white);
+    line-height: 2.3rem;
+    text-align: center;
+    margin-right: 1rem;
+    border-radius: 50%;
+    transition: margin-right 0.3s;
+  }
+ 
+  .profile-dropdown-list-item:not(:last-child):hover {
+    /* padding-left: 0.5rem; */
+    background-color: var(--secondary-light);
+  }
+ 
+  .profile-dropdown-list-item:last-child:hover {
+      background-color: var(--secondary-light);
+    }
+ 
+  /* log out button */
+ 
+  .logout-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.4rem;
+      background-color: #d12222;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: small;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px;
+      -o-border-radius: 5px;
+  }
+ 
+  .logout-btn i {
+      margin-right: 0.2rem ;
+  }
+ 
+ 
+  .logout-btn:focus {
+      outline: none;
+  }
+ 
+  .logout-btn:active {
+      background-color: #cc0000;
+  }
+ 
+  .flex_space_beetween{
+    display: flex;
+    justify-content: space-between;
+  }

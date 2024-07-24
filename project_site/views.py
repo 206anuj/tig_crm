@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import JsonResponse
 
@@ -8,11 +9,13 @@ from projects.models import CustomerProject
 from .forms import ProjectSiteForm
 # Create your views here.
 
+# @login_required
 def project_site_list_view(request):
     project_sites = ProjectSite.objects.all()
     context = {'project_sites': project_sites}
     return render(request, 'project_site/project_site_list_view.html', context=context)
 
+# @login_required
 def project_site_detail_view(request, pk):
     project_site = ProjectSite.objects.filter(pk=pk).first()
     context = {'project_site': project_site}
@@ -26,7 +29,7 @@ def customer_project_suggestions(request):
         return JsonResponse({'suggestions': suggestions})
     return JsonResponse({'suggestions': []})
 
-
+# @login_required
 def project_site_creation_form(request):
     if request.method == 'POST':
         all_post_data = request.POST
@@ -49,7 +52,7 @@ def project_site_creation_form(request):
         form = ProjectSiteForm()
     return render(request, 'project_site/project_site_creation_form.html', {'form': form})
 
-
+# @login_required
 def project_site_edit_form(request, pk):
     if pk:
         account = get_object_or_404(ProjectSite, pk=pk)

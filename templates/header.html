@@ -1,7 +1,7 @@
 {% load static %}
-
+ 
 <html lang="en">
-
+ 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,52 +13,111 @@
     crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    
-
-</head>
-
+ 
+{% comment %} font added {% endcomment %}
+ 
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+/>
+  </head>
+ 
 <body>
   <nav id="navbar">
   <div class="navbox_top">
-    <img class="logo" src="{% static 'images/logo.png' %}" alt="tig_logo">
-    <a href=""><img class="user_profile" src="{% static 'images/user_profile.png' %}" alt="user_profile_logo"></a>
+   
+    {% comment %} <a href=""><img class="user_profile" src="{% static 'images/user_profile.png' %}" alt="user_profile_logo"></a> {% endcomment %}
+ 
+    <div class="flex_space_beetween">
+      <img class="logo" src="{% static 'images/logo.png' %}" alt="tig_logo">
+      <div class="navbar_search_box">
+        <!-- <img class="search_icon_navbar" id="search_icon"  src="/images/search_icon.png" alt=""> -->
+        <input class="search_box" id="search_bar" type="text" onclick="hide()" placeholder="&nbsp&nbsp&nbsp&nbsp Search" >
+      </div>
+      <div class="profile-dropdown">
+        <div onclick="toggle()" class="profile-dropdown-btn">
+          <div class="profile-img">
+            <!-- <i class="fa-solid fa-circle"></i> -->
+          </div>
+ 
+          <span>
+            {% if request.user.is_authenticated %}
+            {{ request.user.first_name }}<!-- Change name here-->
+            {% comment %} <i class="fa-solid fa-angle-down"></i> {% endcomment %}
+            {% else  %} 
+            User
+            {% endif %}
+          </span>
+        </div>
+ 
+        <ul class="profile-dropdown-list">
+          <li class="profile-dropdown-list-item">
+            <a href="#">
+              <i class="fa-regular fa-user"></i>
+              View Profile
+            </a>
+          </li>
+          <hr />
 
-
-    
-    <div class="navbar_search_box">
-      <input class="search_box" id="search_bar" type="text" onclick="hide()" placeholder="&nbsp&nbsp&nbsp&nbsp Search" >
-      
+          <li class="profile-dropdown-list-item">
+            <form method="post" action="{% url 'home:user_logout' %}">
+              {% csrf_token %}
+              <button class="logout-btn" type="submit"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</button>
+          </form>  
+          </li>
+ 
+          {% comment %} <li class="profile-dropdown-list-item">
+            <button class="logout-btn">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i>
+              Log out
+            </button>
+          </li> {% endcomment %}
+        </ul>
+      </div>
     </div>
-
-    <ul>
-
+ 
+    <ul class="navbox_top_ul">
+ 
       <b>
-      <li><a href="navbar.html" class="nav_item"> Home</a></li>
-      <li><a href="{% url 'accounts:customer_accounts_list_view' %}" class="nav_item" >Account</a></li>
-      <li><a href="{% url 'projects:customer_project_list_view' %}" class="nav_item">Project</a></li>
-      <li><a href="{% url 'orders:sales_order_list_view' %}" class="nav_item">Orders</a></li>
-      <li><a href="#" class="nav_item">Invoice</a></li>
-      <li><a href="#" class="nav_item">Proforma Invoices</a></li>
-      <li><a href="#" class="nav_item">Tickets</a></li>
-      <li><a href="#" class="nav_item">Project Teams</a></li>
-      <li><a href="#" class="nav_item">Project Service</a></li>
-      <li><a href="{% url 'project_site:project_site_list_view' %}" class="nav_item">Project Sites</a></li>
-    </b>
-      
+      <li class="navbox_top_ul_li"><a  href="navbar.html" class="nav_item navbox_top_ul_li_a"> Home</a></li>
+      <li class="navbox_top_ul_li"><a  href="{% url 'accounts:customer_accounts_list_view' %}" class="nav_item navbox_top_ul_li_a" >Account</a></li>
+      <li class="navbox_top_ul_li"><a  href="{% url 'projects:customer_project_list_view' %}" class="nav_item navbox_top_ul_li_a">Project</a></li>
+      <li class="navbox_top_ul_li"><a  href="{% url 'orders:sales_order_list_view' %}" class="nav_item navbox_top_ul_li_a">Orders</a></li>
+      <li class="navbox_top_ul_li"><a  href="#" class="nav_item navbox_top_ul_li_a">Invoice</a></li>
+      <li class="navbox_top_ul_li"><a  href="#" class="nav_item navbox_top_ul_li_a">Proforma Invoices</a></li>
+      <li class="navbox_top_ul_li"><a  href="#" class="nav_item navbox_top_ul_li_a">Tickets</a></li>
+      <li class="navbox_top_ul_li"><a  href="#" class="nav_item navbox_top_ul_li_a">Project Teams</a></li>
+      <li class="navbox_top_ul_li"><a href="{% url 'services:services_list_view' %}" class="nav_item navbox_top_ul_li_a">Services</a></li>
 
+      {% comment %} <li class="navbox_top_ul_li"><a href="{% url 'services:services_list_view' %}" class="nav_item navbox_top_ul_li_a">Services</a></li> {% endcomment %}
+      <li class="navbox_top_ul_li"><a  href="{% url 'project_site:project_site_list_view' %}" class="nav_item navbox_top_ul_li_a">Project Sites</a></li>
+    </b>
+     
+ 
     </ul>
   </div>
 </nav>
-
+ 
 <main>
   <br><br><br> <br>
     {% block content %}
     <!-- Your main content goes here -->
     {% endblock %}
 </main>
-
-
-
+ 
+ 
+<style>
+  .profile-img {
+    position: relative;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: url({% static 'images/user_profile.png' %});
+    background-size: cover;
+  }
+ 
+</style>
+ 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   var currentLocation = window.location.href; // Get the current URL
@@ -71,8 +130,20 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
+ 
+{% comment %} profile drop down {% endcomment %}
+let profileDropdownList = document.querySelector(".profile-dropdown-list");
+let btn = document.querySelector(".profile-dropdown-btn");
+ 
+let classList = profileDropdownList.classList;
+ 
+const toggle = () => classList.toggle("active_profile_dropdown");
+ 
+window.addEventListener("click", function (e) {
+  if (!btn.contains(e.target)) classList.remove("active_profile_dropdown");
+});
 </script>  
-
+ 
 </body>
 </html>
-
+ 

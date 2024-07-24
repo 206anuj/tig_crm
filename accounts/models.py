@@ -101,6 +101,9 @@ class CustomerAccount(models.Model):
     # created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='%(class)s_created_by')
     # updated_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='%(class)s_updated_by')
 
+    class Meta:
+        permissions = [('can_add_new_customer_account', 'can add new customer account')]
+        
     def __str__(self):
         return self.ca_name
     
@@ -430,7 +433,6 @@ class VendorAccount(models.Model):
         ('ZW', 'ZW'),
     ]
  
-    
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     
     # Account Information

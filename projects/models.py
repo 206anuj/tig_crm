@@ -189,23 +189,26 @@ class VendorProject(models.Model):
  
     # Vendor project Information
     vp_name = models.CharField(max_length=255) #required
-    vp_status = models.CharField(max_length=64, choices=VENDOR_PROJECT_STATUS_CHOICES)
+    vp_status = models.CharField(max_length=64, choices=VENDOR_PROJECT_STATUS_CHOICES, blank=True)
     vp_vendor_account =  models.ForeignKey(VendorAccount, on_delete=models.CASCADE, related_name='vp_vendor_account') #this will come from vendor account #required
     vp_customer_project = models.ForeignKey(CustomerProject, on_delete= models.CASCADE, related_name='vp_customer_project') #this will come from customer project #required
     vp_project_start_date = models.DateField()#required
     vp_project_end_date = models.DateField()#required
     vp_tig_entity_name = models.CharField(max_length=100, choices=VENDOR_PROJECT_TIG_ENTITY_NAME_CHOICES)#required
-    vp_type_of_project = models.CharField(max_length=64, choices=VENDOR_PROJECT_TYPE_OF_WORK_CHOICES)
-    vp_region = models.CharField(max_length=64, choices=VENDOR_PROJECT_REGION_CHOICES)
+    vp_type_of_project = models.CharField(max_length=64, choices=VENDOR_PROJECT_TYPE_OF_WORK_CHOICES, blank=True)
+    vp_region = models.CharField(max_length=64, choices=VENDOR_PROJECT_REGION_CHOICES, blank=True)
  
     #Billing Information
     vp_payment_terms = models.CharField(max_length=64, choices=VENDOR_PROJECT_PAYMENT_TERMS)#required
-    vp_billing_frequency = models.CharField(max_length=64, choices=VENDOR_PROJECT_BILLING_FREQUENCY)
+    vp_billing_frequency = models.CharField(max_length=64, choices=VENDOR_PROJECT_BILLING_FREQUENCY, blank=True)
     vp_terms_and_condition = models.TextField(max_length=1024, blank=True)
  
     # system information
     vp_owner = models.CharField(max_length=255)
     record_type =models.CharField(max_length=35)
+ 
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True)
    
     def __str__(self):
         return self.vp_name

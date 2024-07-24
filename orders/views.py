@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
@@ -10,16 +11,19 @@ from .forms import SalesOrderForm
 
 # Create your views here.
 
+# @login_required
 def sales_order_list_view(request):
     sales_order = SalesOrder.objects.all()
     context = {'sales_order': sales_order}
     return render(request, 'orders/sales_order_list_view.html', context=context)
 
+# @login_required
 def sales_order_detail_view(request, pk):
     sales_order = SalesOrder.objects.filter(pk=pk).first()
     context = {'sales_order': sales_order}
     return render(request, 'orders/sales_order_detail_view.html', context=context)
 
+# @login_required
 @require_POST
 def select_account_type(request):
     account_type = request.POST.get('account_type')
@@ -32,6 +36,7 @@ def select_account_type(request):
         return render(request, 'select_account_type.html', {'error': 'Invalid account type selection'})
 
 
+# @login_required
 def sales_order_creation_form(request):
     if request.method == 'POST':
         all_post_data = request.POST
@@ -86,6 +91,7 @@ def customer_project_suggestions(request):
     return JsonResponse({'suggestions': []})
 
 
+# @login_required
 def sales_order_edit_form(request, pk):
     if pk:
         account = get_object_or_404(SalesOrder, pk=pk)
@@ -131,6 +137,8 @@ def sales_order_edit_form(request, pk):
         if account:
             so_customer_vendor_uuid = CustomerAccount.objects.filter(ca_name=account.so_customer_vendor).values_list('pk', flat=True).first()
             so_project_uuid = CustomerProject.objects.filter(cp_name=account.so_project).values_list('pk', flat=True).first()
+            print(f"This is so_customer_vendor_uuid {so_customer_vendor_uuid}")
+            print(f"This is so_project_uuid {so_project_uuid}")
             account.so_customer_vendor_uuid = so_customer_vendor_uuid
             account.so_project_uuid = so_project_uuid
             form = SalesOrderForm(instance=account)

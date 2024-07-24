@@ -29,6 +29,14 @@ class SalesOrderForm(forms.ModelForm):
             'so_record_type'
         ]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Ensure hidden fields are initialized
+        if self.instance.pk:
+            self.fields['so_customer_vendor_uuid'].initial = self.instance.so_customer_vendor_id
+            self.fields['so_project_uuid'].initial = self.instance.so_project_id
+
+
     def clean_so_customer_vendor_uuid(self):
         so_customer_vendor_uuid = self.cleaned_data.get('so_customer_vendor_uuid')
         if not so_customer_vendor_uuid:

@@ -283,8 +283,8 @@ class ProjectSite(models.Model):
     # Site Address Information
     ps_address = models.TextField(max_length=250, blank=True)
     ps_city = models.CharField(max_length=255)
-    ps_state = models.ForeignKey(Region, on_delete=models.SET_NULL, null=True, related_name='ps_state') # this data comes from Country
-    ps_country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, related_name='ps_country')# this data comes from State
+    ps_state = models.ForeignKey(Region, on_delete=models.SET_NULL, null=True, related_name='ps_state', blank=True) # this data comes from Country
+    ps_country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, related_name='ps_country', blank=True)# this data comes from State
     ps_ZIP_postal_Code = models.CharField(max_length=64, blank=True)
     ps_ZIP_site_classification = models.CharField(max_length=64, blank=True, choices=PROJECT_SITE_CLASSIFICATION_CHOICES)
     ps_ZIP_site_code = models.CharField(max_length=64, blank=True)

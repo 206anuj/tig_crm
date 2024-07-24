@@ -45,14 +45,14 @@
  
             <div class="block">
                 <div class="sub-block">
-                    <label class="" for="id_so_po_number">PO Number</label>
+                    <label class="" for="id_so_po_number"><span class="text-danger">*</span>PO Number</label>
                     <input class="input-height" type="text" id="id_so_po_number" name="so_po_number"  value="{{ account.so_po_number }}"/>
                 </div>
                 <div class="sub-block">
-                    <label class="width-100" for="id_so_customer_vendor">Customer Account </label>
+                    <label class="width-100" for="id_so_customer_vendor"><span class="text-danger">*</span>Customer Account </label>
                     <div class="search_and_sugg_box">
                         <input class="width-100 input-height" type="text" id="id_so_customer_vendor" name="so_customer_vendor" value="{{ account.so_customer_vendor}}" placeholder="Search customer account...">
-                        <div><input type="hidden" id="id_so_customer_vendor_uuid" name="so_customer_vendor_uuid"></div>
+                        <div><input type="hidden" id="id_so_customer_vendor_uuid" name="so_customer_vendor_uuid" value="{{ account.so_customer_vendor_uuid }}"></div>
                         <div class="result-box">
                         <ul id="suggestions-list"></ul>
                         </div>
@@ -60,7 +60,7 @@
                 </div>
                
                 <div class="sub-block">
-                    <label class="width-100" for="id_so_tig_entity">TIG Entity</label>
+                    <label class="width-100" for="id_so_tig_entity"><span class="text-danger">*</span>TIG Entity</label>
                     <select class="form-select-style" type="text" name="so_tig_entity" id="id_so_tig_entity" required>
                     {% for choice in form.so_tig_entity.field.choices %}
                         <option value="{{ choice.0 }}" {% if choice.0 == form.so_tig_entity.value %} selected {% endif %}>{{ choice.1 }}</option>
@@ -70,7 +70,7 @@
                
                    
                 <div class="sub-block">
-                    <label for="id_so_project">Project:</label>
+                    <label for="id_so_project"><span class="text-danger">*</span>Project</label>
                     <div class="search_and_sugg_box">
                     <input class="width-100 input-height" type="text" id="id_so_project" name="so_project" placeholder="Type end customer name" value="{{ account.so_project }}">
                     <div> <input type="hidden" id="id_so_project_uuid" name="so_project_uuid" value="{{ account.so_project_uuid }}"></div>
@@ -81,7 +81,7 @@
                 </div>  
            
                 <div class="sub-block">
-                    <label class="width-100" for="id_so_po_status">PO Status</label>
+                    <label class="width-100" for="id_so_po_status"><span class="text-danger">*</span>PO Status</label>
                     <select class="form-select-style" type="text" name="so_po_status" id="id_so_po_status" required>
                     {% for choice in form.so_po_status.field.choices %}
                         <option value="{{ choice.0 }}" {% if choice.0 == form.so_po_status.value %} selected {% endif %}>{{ choice.1 }}</option>
@@ -96,11 +96,11 @@
  
           <div class="block">
             <div class="sub-block">
-                <label for="id_so_po_start_date">PO Start Date</label>
+                <label for="id_so_po_start_date"><span class="text-danger">*</span>PO Start Date</label>
                 <input class="input-height" type="date" name="so_po_start_date" id="id_so_po_start_date" value="{{ account.so_po_start_date|date:'Y-m-d' }}"  required>
             </div>
             <div class="sub-block">
-                <label for="id_so_currency">Currency</label>
+                <label for="id_so_currency"><span class="text-danger">*</span>Currency</label>
                 <select class="form-select-style" type="text" name="so_currency" id="id_so_currency" required>
                 {% for choice in form.so_currency.field.choices %}
                     <option value="{{ choice.0 }}" {% if choice.0 == form.so_currency.value %} selected {% endif %}>{{ choice.1 }}</option>
@@ -112,7 +112,7 @@
                 <input class="input-height" type="text" name="so_po_amount_utilised" id="id_so_po_amount_utilised" value="{{ account.so_po_amount_utilised }}">
             </div>
             <div class="sub-block">
-                <label for="id_so_tax_included">Tax Included</label>
+                <label for="id_so_tax_included"><span class="text-danger">*</span>Tax Included</label>
                 <select class="form-select-style" type="text" name="so_tax_included" id="id_so_tax_included" required>
                 {% for choice in form.so_tax_included.field.choices %}
                     <option value="{{ choice.0 }}" {% if choice.0 == form.so_tax_included.value %} selected {% endif %}>{{ choice.1 }}</option>
@@ -120,11 +120,11 @@
                 </select>
             </div>
             <div class="sub-block">
-                <label for="id_so_po_end_date">PO End Date </label>
+                <label for="id_so_po_end_date"><span class="text-danger">*</span>PO End Date </label>
                 <input class="input-height" type="date" name="so_po_end_date" id="id_so_po_end_date" value="{{ account.so_po_end_date|date:'Y-m-d' }}" />
             </div>
             <div class="sub-block">
-                <label for="id_so_po_amount">PO Amount</label>
+                <label for="id_so_po_amount"><span class="text-danger">*</span>PO Amount</label>
                 <input class="input-height" type="text" name="so_po_amount" id="id_so_po_amount" value="{{ account.so_po_amount }}"/>
             </div>
             <div class="sub-block">
@@ -139,7 +139,7 @@
           </div>
           <div class="block">
             <div class="sub-block">
-              <label for="id_so_bill_to_address">Bill to Address</label>
+              <label for="id_so_bill_to_address"><span class="text-danger">*</span>Bill to Address</label>
               <textarea class="textarea" name="so_bill_to_address" id="id_so_bill_to_address">{{ account.so_bill_to_address }}</textarea>
  
             </div>

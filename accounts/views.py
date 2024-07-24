@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
 from django.views.decorators.http import require_POST
 import pandas as pd
+
 
 
 from .models import CustomerAccount, VendorAccount
@@ -14,7 +16,8 @@ from django.http import JsonResponse
 from .models import Country, Region
 
 
-
+@login_required
+@permission_required("accounts.view_customeraccount")
 def customer_accounts_list_view(request):
     customer_accounts = list(CustomerAccount.objects.all())
     vendor_accounts = list(VendorAccount.objects.all())
@@ -26,6 +29,7 @@ def customer_accounts_list_view(request):
     context = {'accounts': accounts}
     return render(request, 'accounts/customer_accounts_list_view.html', context=context)
 
+# @login_required
 @require_POST
 def select_account_type(request):
     account_type = request.POST.get('account_type')
@@ -38,7 +42,8 @@ def select_account_type(request):
         return render(request, 'select_account_type.html', {'error': 'Invalid account type selection'})
 
 
-
+@login_required
+@permission_required({("accounts.add_customeraccount"), ("accounts.can_add_new_customer_account")})
 def customer_account_creation_form(request):
     if request.method == 'POST':
         form = CustomerAccountForm(request.POST)
@@ -102,7 +107,7 @@ def customer_account_creation_form(request):
         form = CustomerAccountForm()
     return render(request, 'accounts/customer_account_creation_form.html', {'form': form})
 
-
+# @login_required
 def vendor_account_creation_form(request):
     if request.method == 'POST':
         form = VendorAccountForm(request.POST)
@@ -132,12 +137,13 @@ def customer_account_detail_view(request, pk):
     context = {'customer_account': customer_account}
     return render(request, 'accounts/customer_account_detail_view.html', context=context)
 
+# @login_required
 def vendor_account_detail_view(request, pk):
     vendor_account = VendorAccount.objects.filter(pk=pk).first()
     context = {'vendor_account': vendor_account}
     return render(request, 'accounts/vendor_account_detail_view.html', context=context)
 
-
+# @login_required
 def customer_account_edit_form(request, pk=None):
     # Retrieve the existing account if editing
     if pk:
@@ -169,7 +175,7 @@ def customer_account_edit_form(request, pk=None):
     # Render the form with the current data and errors if any
     return render(request, 'accounts/customer_account_edit_form.html', {'form': form, 'account': account})
 
-
+# @login_required
 def vendor_account_edit_form(request, pk=None):
     # Retrieve the existing account if editing
     if pk:
@@ -202,7 +208,7 @@ def vendor_account_edit_form(request, pk=None):
     return render(request, 'accounts/vendor_account_edit_form.html', {'form': form, 'account': account})
 
 
-
+# @login_required
 def upload_file_view(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)

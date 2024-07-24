@@ -1,0 +1,347 @@
+{% extends 'header.html' %}
+{% load static %}
+ 
+{% block title %}Services List{% endblock %}
+ 
+{% block extracss %}
+    <link rel="stylesheet" href="{% static 'accounts/css/customer_accounts_list_view.css' %}">
+{% endblock %}
+ 
+{% block content %}
+
+<div class="recent_navbar_box">
+
+    <div class="recent_navbar_box_upper">
+      <img class="project_service_icon_logo" src="../images/project_services_icon.png" alt="">
+      <label for="">Project Services</label><br>
+      <label style="font-size: larger;" for=""><b>All Project Services</b></label>
+      <!-- <a  href="selection_window.html" class="new_project_button" ><b>New</b></a> -->
+
+      <button class="new_project_service_button" onclick="openPopup_project_service()"><b>Create New  </b></button>
+
+      <!-- <button href="selection_window.html" class="new_project_button" onclick="openPopup_selection()" ><b>New</b></button> -->
+
+
+
+      <input class="recent_search" type="search" name="" id="" placeholder="  Search">
+    </div>
+
+
+  </div>
+
+<!-- --------------------- -->
+
+
+
+  <style>
+    .project_service_page_table,
+    thead,
+    tr,
+    td {
+      border-top: 1px solid gray;
+      border-bottom: 1px solid gray;
+      margin-top: 2%;
+
+    }
+
+    .project_service_page_table tr:hover {
+      background-color: #f2f2f2;
+    }
+
+    .project_service_page_table .project {
+      width: 100%;
+    }
+
+    .project_service_page_table a {
+      text-decoration: none;
+    }
+  </style>
+  <div>
+    <table class="project_service_page_table">
+      <thead class="project_service_page_tabe_head">
+        <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+        <td class="project">&nbsp&nbsp&nbsp <b>Project Service Name</b></td>
+      </thead>
+      {% for fte_service in fte_services %}
+      <tr class="project_service_page_tabe_row">
+        <td>&nbsp&nbsp&nbsp {{ forloop.counter }}</td>
+        <td><a href="{% url 'services:fte_service_detail_view' fte_service.id %}"> &nbsp&nbsp&nbsp {{ fte_service.fte_serivce_name }}</a></td>
+      </tr>
+      {% endfor %}
+      {% comment %} <tr>
+        <td>&nbsp&nbsp&nbsp 2</td>
+        <td><a href="">&nbsp&nbsp&nbsp FTE-OT-India-Delhi-Mar23Feb24</a></td>
+      </tr>
+      <tr>
+        <td>&nbsp&nbsp&nbsp 3</td>
+        <td><a href="">&nbsp&nbsp&nbsp Scheduled-Visit-India-Delhi-Mar23Feb24</a></td>
+      </tr>
+      <tr>
+        <td>&nbsp&nbsp&nbsp 4</td>
+        <td><a href="">&nbsp&nbsp&nbsp FTE-India-Delhi-Mar23Feb24</a></td>
+      </tr>
+      <tr>
+        <td>&nbsp&nbsp&nbsp 5</td>
+        <td><a href="">&nbsp&nbsp&nbsp Fixed-Fee-India-Delhi-Mar23Feb24</a></td>
+      </tr><tr>
+        <td>&nbsp&nbsp&nbsp 6</td>
+        <td><a href="">&nbsp&nbsp&nbsp Dispatch-India-Delhi-Mar23Feb24</a></td>
+      </tr><tr>
+        <td>&nbsp&nbsp&nbsp 7</td>
+        <td><a href="">&nbsp&nbsp&nbsp FTE-India-Delhi-Mar23Feb24</a></td>
+      </tr><tr>
+        <td>&nbsp&nbsp&nbsp 8</td>
+        <td><a href="">&nbsp&nbsp&nbsp Fixed-Fee-India-Delhi-Mar23Feb24</a></td>
+      </tr><tr>
+        <td>&nbsp&nbsp&nbsp 9</td>
+        <td><a href="">&nbsp&nbsp&nbsp Scheduled-Visit-India-Delhi-Mar23Feb24</a></td>
+      </tr><tr>
+        <td>&nbsp&nbsp 10</td>
+        <td><a href="">&nbsp&nbsp&nbsp Dispatch-India-Delhi-Mar23Feb24</a></td>
+      </tr><tr>
+        <td>&nbsp&nbsp 11</td>
+        <td><a href="">&nbsp&nbsp&nbsp Fixed-Fee-India-Delhi-Mar23Feb24</a></td>
+      </tr><tr>
+        <td>&nbsp&nbsp 12</td>
+        <td><a href="">&nbsp&nbsp&nbsp FTE-India-Delhi-Mar23Feb24</a></td>
+      </tr><tr>
+        <td>&nbsp&nbsp 13</td>
+        <td><a href="">&nbsp&nbsp&nbsp Scheduled-Visit-India-Delhi-Mar23Feb24</a></td>
+      </tr><tr>
+        <td>&nbsp&nbsp 14</td>
+        <td><a href="">&nbsp&nbsp&nbsp Dispatch-India-Delhi-Mar23Feb24</a></td>
+      </tr><tr>
+        <td>&nbsp&nbsp 15</td>
+        <td><a href="">&nbsp&nbsp&nbsp Scheduled-Visit-India-Delhi-Mar23Feb24</a></td>
+      </tr><tr>
+        <td>&nbsp&nbsp 16</td>
+        <td><a href="">&nbsp&nbsp&nbsp FTE-India-Delhi-Mar23Feb24</a></td>
+      </tr><tr>
+        <td>&nbsp&nbsp 17</td>
+        <td><a href="">&nbsp&nbsp&nbsp Dispatch-India-Delhi-Mar23Feb24</a></td>
+      </tr><tr>
+        <td>&nbsp&nbsp 18</td>
+        <td><a href="">&nbsp&nbsp&nbsp FTE-India-Delhi-Mar23Feb24</a></td>
+      </tr> {% endcomment %}
+
+
+    </table>
+  </div>
+
+  <!-- --------------- -->
+
+  <div id="selection_window_project_service" class="selection_window_project_service">
+    <!-- <a  class="cross" >&times;</a> -->
+    <h3>New Project Service</h3>
+
+    <hr>
+    <form action="/submit" method="post">
+      <h6>Select a record type</h6>
+      <div class="project_service_selection_box">
+
+        <div class="">
+          <ul>
+            <input  type="radio" id="else" name="name">
+            <label for="">AMC</label><br><br>
+
+            <input type="radio" id="dispatch_type" name="name">
+            <label for="">Dispatch</label><br><br>
+
+            <input type="radio" id="else" name="name" checked>
+            <label for="">FTE</label><br><br>
+
+            <input type="radio" id="else" name="name">
+            <label for="">FTE OT</label><br><br>
+ 
+            <input type="radio" id="else" name="name">
+            <label for="">Fixed Fee</label><br><br>
+
+            <input type="radio" id="else" name="name">
+            <label for="">Indirect Expense</label><br><br>
+
+            <input type="radio" id="else" name="name">
+            <label for="">Migration</label><br><br>
+            
+            <input type="radio" id="else" name="name">
+            <label for="">Scheduled Visit</label><br><br>
+          </ul>
+
+        </div>
+
+        
+
+        <div class="Submit_buttons_box">
+          <!-- <button  class="Submit_buttons" >Next</button> -->
+          <a href="{% url 'services:services_list_view' %}" class="Submit_buttons">Cancel</a>
+          <a href="{% url 'services:fte_service_creation_form' %}" class="Submit_buttons">Next</a>
+
+          <!-- <button href="C_Accountpop.html" class="Submit_buttons" onclick="nextform()">Next </button> -->
+
+
+        </div>
+    </form>
+
+  </div>
+
+
+
+<style>
+    *{
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    
+    .recent_navbar_box {
+        width: 100%;
+        border-radius: 10px;
+        
+    }
+    
+    .project_service_icon_logo {
+        background-color: rgb(47, 182, 80);
+        border-radius: 5px;
+        width: auto;
+        height: 35px;
+        float: left;
+        margin: 5px;
+        margin-right: 10px;
+    }
+    
+    .recent_navbar_box_upper {
+        height: 80px;
+        width: auto;
+        background-color: #e8eaec;
+        padding: 5px;
+        border-radius: 10px;
+    }
+    
+    .recent_navbar_box_upper .recent_search{
+        float: right;
+        border-radius: 5px;
+        border: 1px solid gray;
+        width: 20%;
+        margin-right: 1%;
+        padding: 5px;
+    }
+    
+     .recent_search:focus{
+            outline: none; /* Remove default outline */
+            box-shadow: 0 0 10px #d1a2a2;  
+    }
+    
+    .new_project_service_button{
+        float: right;
+        background-color: white;
+        color: #d12222;
+        border-radius: 5px;
+        padding: 5px 15px;
+        text-decoration: none;
+        border:1px solid #d12222;
+        
+    }
+    
+    .new_project_service_button:hover{
+    background-color: #d12222;
+    color: white;
+    }
+    
+    
+    /* selection popup form start */
+    
+    .selection_window_project_service {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #ffffff;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        z-index: 9999;
+        width: 55%;
+        max-height: 80%;
+        overflow-y: auto;/* Enable vertical scrollbar when content exceeds the maximum height */
+    }
+    
+    .selection_window_project_service_overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+    }
+    
+    .cross {
+        color: #aaa;
+        float: right;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    
+    .cross:hover,
+    .cross:focus {
+        color: #e90909;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    
+    .project_service_selection_box  {
+        margin-left: 30%;    
+    }
+    
+    
+    
+    .selection_window_project_service .Submit_buttons {
+        background-color: rgb(161, 155, 155);
+        color: white;
+        border-radius: 3px;
+        border: none;
+        padding: 10px 15px;
+        text-decoration: none;
+    }
+    
+    .selection_window_project_service .Submit_buttons:hover{
+        background-color: rgb(128, 125, 125);
+    }
+    
+    .selection_window_project_service .Submit_buttons_box {
+        text-align: right;
+    }
+        
+</style>
+
+
+<script>
+    // project service selection window
+
+function openPopup_project_service() {
+    document.getElementById("selection_window_project_service").style.display = "block";
+    document.getElementById("selection_window_project_service_overlay").style.display = "block";
+}
+
+function closePopup_project_service() {
+    document.getElementById("selection_window_project_service").style.display = "none";
+    document.getElementById("selection_window_project_service_overlay").style.display = "none";
+}
+
+//  Dispatch service popou form
+
+function openPopup_account() {
+    document.getElementById("popup").style.display = "block";
+    document.getElementById("overlay2").style.display = "block";
+}
+
+function closePopup_account() {
+    document.getElementById("dispatch_service_popup_form").style.display = "none";
+    document.getElementById("dispatch_service_popup_form_overlay").style.display = "none";
+}
+
+</script>
+
+
+  {% endblock %} 

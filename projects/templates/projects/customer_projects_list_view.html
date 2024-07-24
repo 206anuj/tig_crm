@@ -81,7 +81,7 @@
   color: rgb(3, 0, 187);
   font-size: medium;
 }
-.a-tag-style-remove: hover{
+.a-tag-style-remove:hover{
   text-decoration: underline;
  
 }
@@ -124,7 +124,7 @@
              
           <td class="body-row-col-style">{{ forloop.counter }}</td>
           <td class="body-row-col-style">
-            <a class="a-tag-style-remove" href="#">
+            <a class="a-tag-style-remove" href="{% url 'projects:vendor_project_detail_view' project.pk %}">
               {{ project.vp_name }}
             </a>
           </td>
@@ -155,7 +155,7 @@
         <div class="account_information_box_input">
           <ul>
             <input  type="radio"  name="project_type" value="customer" checked>
-            <label for="">Customer</label><br>
+            <label for="">Customer</label><br><br>
  
             {% comment %} <input type="radio" id="name" name="name">
             <label for="">Indirect Expense</label><br><br> {% endcomment %}

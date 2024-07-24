@@ -16,8 +16,11 @@
       <label for="">Accounts</label><br>
       <label style="font-size: larger;" for=""><b>Recently Viewed</b></label>
       <!-- <a  href="selection_window.html" class="new_project_button" ><b>New</b></a> -->
- 
+
+      {% if perms.accounts.add_customeraccount  %}
       <button class="new_project_button" onclick="openPopup_selection_account()"><b>New </b></button>
+      {% endif %}
+      
  
       <!-- <button href="selection_window.html" class="new_project_button" onclick="openPopup_selection()" ><b>New</b></button> -->
  

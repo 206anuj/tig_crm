@@ -1,0 +1,573 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{% static 'accounts/css/customer_accounts_list_view.css' %}">
+{% endblock %}
+
+{% block title %}Vendor Project Detail Page{% endblock %}
+
+{% block content %}
+
+  <div class="background-image_SF">
+
+    <div class="this-page-header">
+      <div class="sub_header_box">
+        <div >
+          <img class="header_logo" src="{% static 'projects/images/project_icon.png' %}" alt="project-logo" />
+          <div>
+            <p class="sub-header-heading">Project</p>
+            <p class="object-name-style">{{vendor_project.vp_name}}</p>
+          </div>
+        </div>
+
+        <div class="edit-button-style">
+          <a href="{% url 'projects:vendor_project_edit_form' vendor_project.pk %}" class="edit_button_text"
+            ><b>Edit </b></a>
+        </div>
+      </div>
+      <div class="title-body">
+        <div class="title-body-sub">
+          <div class="sub-sub-block">
+            <span class="f-size">Vendor</span>
+            <a href="#" class="a-tag-style-remove"><span>{{vendor_project.vp_vendor_account}}</span></a>
+          </div>
+          <div class="sub-sub-block">
+            <span class="f-size">Owner</span>
+            <a href="#" class="a-tag-style-remove"><span>{{vendor_project.vp_owner}}</span></a>
+          </div>
+          <div class="sub-sub-block">
+            <span class="f-size">Project Start Date</span>
+            <span class="f-size">{{vendor_project.vp_project_start_date}}</span>
+          </div>
+          <div class="sub-sub-block">
+            <span class="f-size">Project End Date</span>
+            <span class="f-size">{{vendor_project.vp_project_end_date}}</span>
+          </div>
+          <div class="sub-sub-block">
+            <span class="f-size">Total billed value</span>
+            <span class="f-size"><span></span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------information block---------- -->
+
+    <div class="saved_form">
+
+        <div class="accordian">
+            <div class="block-header-style"><ion-icon class="accordion_icon" name="chevron-down-outline"></ion-icon>Information</div><br>
+            <div class="detail_block accordian_sub">
+ 
+                <div class="sub-block">
+                    <label for="project-Name" class="width-100 disable-label">Project Name</label>
+                    <input
+                      type="text"
+                      id="project-Name"
+                      class="input-height disable-input"
+                      aria-label="project-Name"
+                      value="{{vendor_project.vp_name}}"
+                    />
+                  </div>
+          
+                  <div class="sub-block">
+                    <label for="status" class="width-100 disable-label">Status</label>
+                    <input
+                      type="text"
+                      id="status"
+                      class="input-height disable-input"
+                      aria-label="status"
+                      value="{{vendor_project.vp_status}}"
+                    />
+                  </div>
+          
+                  <div class="sub-block">
+                    <label for="Vendor Account" class="width-100 disable-label"
+                      >Vendor Account</label
+                    >
+                    <input
+                      type="text"
+                      id="Vendor Account"
+                      class="input-height disable-input"
+                      aria-label="Vendor Account"
+                      value="{{vendor_project.vp_vendor_account}}"
+                    />
+                  </div>
+          
+                  <div class="sub-block">
+                    <label for="Customer Project" class="width-100 disable-label"
+                      >Customer Project</label
+                    >
+                    <input
+                      type="text"
+                      id="Customer Project"
+                      class="input-height disable-input"
+                      aria-label="Customer Project"
+                      value="{{vendor_project.vp_customer_project}}"
+                    />
+                  </div>
+          
+                  <div class="sub-block">
+                    <label for="Project Start Date" class="width-100 disable-label"
+                      >Project Start Date</label
+                    >
+                    <input
+                      type="text"
+                      id="Project Start Date"
+                      class="input-height disable-input"
+                      value="{{vendor_project.vp_project_start_date}}"
+                      aria-label="Project Start Date"
+                    />
+                  </div>
+          
+                  <div class="sub-block">
+                      <label for="Project End Date" class="width-100 disable-label"
+                        >Project End Date</label
+                      >
+                      <input
+                        type="text"
+                        id="Project End Date"
+                        class="input-height disable-input"
+                        value="{{vendor_project.vp_project_end_date}}"
+                        aria-label="Project End Date"
+                      />
+                  </div>
+          
+                  <div class="sub-block">
+                      <label for="TIG Entity Name" class="width-100 disable-label"
+                        >TIG Entity Name</label
+                      >
+                      <input
+                        type="text"
+                        id="TIG Entity Name"
+                        class="input-height disable-input"
+                        value="{{vendor_project.vp_tig_entity_name}}"
+                        aria-label="TIG Entity Name"
+                      />
+                  </div>
+          
+                  <div class="sub-block">
+                      <label for="Type of Project" class="width-100 disable-label"
+                        >Type of Project</label
+                      >
+                      <input
+                        type="text"
+                        id="Type of Project"
+                        class="input-height disable-input"
+                        value="{{vendor_project.vp_type_of_project}}"
+                        aria-label="Type of Project"
+                      />
+                  </div>
+          
+                  <div class="sub-block">
+                      <label for="Region" class="width-100 disable-label"
+                        >Region</label
+                      >
+                      <input
+                        type="text"
+                        id="Region"
+                        class="input-height disable-input"
+                        value="{{vendor_project.vp_region}}"
+                        aria-label="Region"
+                      />
+                  </div>
+          
+                  <div class="sub-block">
+                      <label for="Project Owner Email ID" class="width-100 disable-label"
+                        >Project Owner Email ID</label
+                      >
+                      <a
+                        href="#"
+                        id="Project Owner Email ID"
+                        class="input-height a-tag-style-remove"
+                      ></a>
+                  </div>
+          
+                  <div class="sub-block">
+                      <label for="Total Project Value" class="width-100 disable-label"
+                        >Total Project Value</label
+                      >
+                      <span
+                        id="Total Project Value"
+                        class="input-height hidden-field-value"
+                      ></span>
+                  </div>
+          
+                  <div class="sub-block">
+                      <label for="Total Billed Value" class="width-100 disable-label"
+                        >Total Billed Value</label
+                      >
+                      <span
+                        id="Total Billed Value"
+                        class="input-height hidden-field-value"
+                      ></span>
+                  </div>
+                  <div class="sub-block">
+                      <label for="Owner ID" class="width-100 disable-label"
+                        >Owner ID</label
+                      >
+                      <span
+                        id="Owner ID"
+                        class="input-height hidden-field-value"
+                      ></span>
+                  </div>
+ 
+        </div><br>
+
+
+        <div class="accordian">
+            <div class="block-header-style"> <ion-icon class="accordion_icon" name="chevron-down-outline"></ion-icon>Other Account Information</div><br>
+            <div class="detail_block accordian_sub">
+                <div class="sub-block">
+                    <label for="Payment Terms" class="width-100 disable-label"
+                      >Payment Terms</label
+                    >
+                    <input
+                      type="text"
+                      id="Payment Terms"
+                      class="input-height disable-input"
+                      aria-label="Payment Terms"
+                      value="{{vendor_project.vp_payment_terms}}"
+                    />
+                  </div>
+          
+                  <div class="sub-block">
+                    <label for="Billing Frequency" class="width-100 disable-label">Billing Frequency</label>
+                    <input
+                      type="text"
+                      id="Billing Frequency"
+                      class="input-height disable-input"
+                      aria-label="Billing Frequency"
+                      value="{{vendor_project.vp_billing_frequency}}"
+                    />
+                  </div>
+                  
+                  <div class="sub-block">
+                    <label for="Terms and Conditions" class="width-100 disable-label">Terms and Conditions</label>
+                    <input
+                      type="text"
+                      id="Terms and Conditions"
+                      class="input-height disable-input"
+                      aria-label="Terms and Conditions"
+                      value="{{vendor_project.vp_terms_and_condition}}"
+                    />
+                  </div>
+            </div>
+        </div><br>
+
+      <div class="accordian">
+        <div class="block-header-style"> <ion-icon class="accordion_icon" name="chevron-down-outline"></ion-icon>Other Account Information</div><br>
+        <div class="detail_block accordian_sub">
+            <div class="sub-block">
+                <label for="created-by" class="width-100 disable-label"
+                  >Created by :</label
+                >
+                <input
+                  type="text"
+                  id="created-by"
+                  class="input-height disable-input"
+                  value="{{vendor_project.vp_owner}}"
+                />
+              </div>
+              <div class="sub-block">
+                <label for="last-modified-by" class="width-100 disable-label"
+                  >Last Modified by :</label
+                >
+                <input
+                  type="text"
+                  id="last-modified-by"
+                  class="input-height disable-input"
+                  value=""
+                />
+              </div>
+              <div class="sub-block">
+                  <label for="Owner" class="width-100 disable-label"
+                  >Owner :</label
+                >
+                <a
+                href="#"
+                id="Project Owner Email ID"
+                class="input-height a-tag-style-remove"
+              >{{vendor_project.vp_owner}}</a>
+              </div>
+              <div class="sub-block">
+                  <label for="Record Type" class="width-100 disable-label"
+                    >Record Type</label
+                  >
+                  <span
+                    id="Record Type"
+                    class="input-height hidden-field-value disable-input"
+                  >{{vendor_project.record_type}}</span>
+              </div>
+              <div class="sub-block">
+                  <label for="Record ID" class="width-100 disable-label"
+                    >Record ID</label
+                  >
+                  <span
+                    id="Record ID"
+                    class="input-height hidden-field-value"
+                  ></span>
+              </div>
+        </div>
+    </div><br>
+
+      
+    </div>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
+ 
+
+  <style>
+ 
+    *{
+        font-family: Arial, Helvetica, sans-serif;
+        margin:0%;
+        padding:0%;
+        box-sizing: border-box;
+        scroll-behaviour: smooth;
+    }
+ 
+    .background-image_SF {
+        background-image: url({% static 'projects/images/SF_bg.png' %});
+        width: 100%;
+        height: 100vh;
+        background-size:cover;
+        background-position: center;
+        background-clip: border-box;
+        background-repeat: repeat-x;
+        overflow-x: hidden;
+        margin:0%;
+        pdding:0%;
+        box-sizeing : border-box;
+        }
+    body::-webkit-scrollbar{
+        display: none;
+    }
+   
+    .edit_button_text{
+        /* float: right; */
+        background-color: white;
+        color: #d12222;
+        border-radius: 5px;
+        padding: 5px 15px;
+        text-decoration: none;
+        border:1px solid #d12222;
+        height: 60%;
+        margin-right:0.5rem;
+   
+    }
+ 
+    .edit_button_text:hover{
+    background-color: #d12222;
+    color: white;
+    }
+ 
+    .sub_header_box {
+       
+        height: auto;
+        background-color: #e8eaec;
+        padding: 5px;
+        margin: 0.5rem;
+        display: grid;
+        grid-template-columns: 1.5fr 0.2fr;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+       margin-bottom:0%;
+      }
+   
+      .header_logo {
+        background-color: #d12222;
+        border-radius: 2px;
+        width: auto;
+        height: 40px;
+        float: left;
+        margin: 5px;
+        margin-right: 10px;
+      }
+   
+      .sub-header-heading{
+        font-weight: 100;
+        font-size: small;
+        padding-top: 0.2rem;
+        margin:0px;
+      }
+   
+      .object-name-style{
+        font-weight: 600;
+        font-size: larger;
+        padding-top: 0.2rem;
+        margin:0px;
+    }
+   
+      .edit-button-style{
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        margin-right: 5%;
+      }
+   
+      /* form data */
+      .saved_form {
+        height: auto;
+        width: 99%;
+        background-color: white;
+        margin-top: 0.5%;
+        margin-bottom: 0.5%;
+        overflow-x: auto;
+        padding: 10px;
+        margin-left: 0.5%;
+        border-radius: 0.2rem;
+        -webkit-border-radius: 0.2rem;
+        -moz-border-radius: 0.2rem;
+        -ms-border-radius: 0.2rem;
+        -o-border-radius: 0.2rem;
+      }
+   
+      /* block header */
+   
+      .block-header-style{
+          background-color: #e8eaec;
+          padding: 6px;
+          border-radius: 7px;
+          font-size: larger;
+          width: 100%;
+   
+      }
+   
+      .detail_block {
+          display: grid;
+          {% comment %} grid-template-columns: 1fr 1fr; {% endcomment %}
+          row-gap: 1rem;
+          column-gap: 1rem;
+          color: black;
+      }
+   
+   
+      .sub-block{
+        display: grid;
+        border-bottom: 1px solid grey;
+      }
+   
+      .disable-input {
+        border: none;
+        pointer-events: none;
+        color:#6c757d
+      }
+   
+   
+      .disable-label{
+        pointer-events: none;
+        padding-top: 0.5rem;
+      }
+   
+      @media( min-width: 906px ){
+        .detail_block {
+          grid-template-columns: 1fr 1fr;
+      }
+      .sub-block{
+        grid-template-columns: 0.4fr 1fr;
+      }
+    }
+      {% comment %} collapse classes {% endcomment %}
+   
+      .accordian_sub{
+        max-height: fit-content;
+        transition: max-height 0.2s;
+        overflow: hidden;
+      }
+   
+      .accordion_icon {
+        margin-right: 16px;
+        transition: transform 0.2s;
+        z-index: -100000000;
+      }
+   
+      .accordion_icon.active_accordian {
+        transform: rotate(-90deg);
+        -webkit-transform: rotate(-90deg);
+        -moz-transform: rotate(-90deg);
+        -ms-transform: rotate(-90deg);
+        -o-transform: rotate(-90deg);
+      }
+   
+      .accordian_sub.active_accordian {
+        max-height: 0;
+      }
+   
+      .div_as_ip_style{
+      padding-top:0.4rem;
+      }  
+ 
+      .title-body{
+        background-color: #fff;
+        /* this page addon css */
+        border-bottom-left-radius: 0.4rem;
+        border-bottom-right-radius: 0.4rem;
+        height: auto;
+        margin: 0.5rem;
+        margin-top: 0rem;
+        }
+   
+    .title-body-sub{
+        display: flex;
+        flex-direction:row;
+        align-items: flex-start;
+        min-width: none;
+        overflow-x: hidden;
+        flex-wrap: nowrap;
+        padding-block: 0.8rem;
+        gap: 1rem;
+    }
+ 
+    .sub-sub-block{
+        display: grid;
+        grid-template-rows: repeat(2,0.5fr);
+        row-gap: 0.4rem;
+        min-width: none;
+        padding-left: 1rem;
+    }
+    .a-tag-style-remove{
+        text-decoration: none;
+    }
+    .a-tag-style-remove:hover{
+        text-decoration:underline;
+    }
+ 
+    .disable-textarea{
+        border: none;
+        pointer-events: none;
+        color: rgb(92, 90, 90);
+        padding-top:0.3rem;
+    }
+ 
+</style>
+     
+     
+    <script>
+     
+        const accordians = document.querySelectorAll('.accordian');
+     
+        accordians.forEach((accordian) => {
+           
+            const accordion_icon = accordian.querySelector('.accordion_icon');
+            const accordian_sub = accordian.querySelector('.accordian_sub')
+            const header_block = accordian.querySelector('.block-header-style')
+           
+            header_block.addEventListener('click', () => {
+               
+                accordion_icon.classList.toggle('active_accordian')
+                accordian_sub.classList.toggle('active_accordian')
+               
+            })
+        })
+    </script>
+  
+</div>
+
+{% endblock %}
+

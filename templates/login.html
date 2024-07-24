@@ -1,0 +1,140 @@
+<!-- Login 4 - Bootstrap Brain Component -->
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.3/components/logins/login-4/assets/css/login-4.css">
+    <title>Login</title>
+
+    <style>
+        /* Custom styles for the header */
+        .navbar {
+            background-color: #f8f9fa; /* Light background color */
+            padding-top: 10px;
+            padding-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+        }
+
+        .navbar-brand img {
+            width: 120px; /* Adjust logo width */
+            height: auto;
+        }
+
+        .search-box {
+            flex-grow: 1; /* Allow search box to grow and fill remaining space */
+            max-width: 600px; /* Set maximum width for search box */
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            flex-grow: 1;
+            min-width: 250px; /* Adjust minimum width of the search input */
+            padding: 8px;
+            font-size: 16px;
+        }
+
+        .search-btn {
+            min-width: 100px; /* Adjust minimum width of the search button */
+        }
+
+        .navbar-nav {
+            margin: auto; /* Center-align the navigation links */
+            text-align: center; /* Center the text within the links */
+        }
+
+        .nav-link {
+            color: #343a40; /* Text color */
+            font-weight: bold; /* Bold font weight */
+            margin-left: 15px; /* Add space between links */
+        }
+
+        .nav-link:hover {
+            color: #007bff; /* Change color on hover */
+        }
+
+        /* Adjust active link styles */
+        .nav-link.active {
+            color: #007bff;
+        }
+    </style>
+
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <!-- Logo and brand -->
+            <a class="navbar-brand" href="{% url 'accounts:customer_accounts_list_view' %}">
+                <img src="{% static 'images/logo.png' %}" alt="Logo">
+            </a>
+        </div>
+    </nav>
+
+    <section class="p-3 p-md-4 p-xl-5">
+        <div class="container">
+          <div class="card border-light-subtle shadow-sm">
+            <div class="row g-0">
+              <div class="col-12 col-md-6">
+                <img class="img-fluid rounded-start w-100 h-100 object-fit-cover" loading="lazy" src="{% static 'images/crm.jpg' %}" alt="Crm Logo">
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="card-body p-3 p-md-4 p-xl-5">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="mb-5">
+                        <h3>Login</h3>
+                      </div>
+                    </div>
+                  </div>
+                  <form method="post" action="{% url 'accounts:customer_accounts_list_view' %}">
+                    {% csrf_token %}
+                    <div class="row gy-3 gy-md-4 overflow-hidden">
+                      <div class="col-12">
+                        <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required>
+                      </div>
+                      <div class="col-12">
+                        <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+                        <input type="password" class="form-control" name="password" id="password" value="" required>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" name="remember_me" id="remember_me">
+                          <label class="form-check-label text-secondary" for="remember_me">
+                            Keep me logged in
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="d-grid">
+                          <button class="btn bsb-btn-xl btn-primary" type="submit">Login</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <div class="row">
+                    <div class="col-12">
+                      <hr class="mt-5 mb-4 border-secondary-subtle">
+                      <div class="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-end">
+                        <a href="#!" class="link-secondary text-decoration-none">Forgot password</a>
+                      </div>
+                    </div>
+                  </div>                      
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>   
+</body>
+</html>
+
+

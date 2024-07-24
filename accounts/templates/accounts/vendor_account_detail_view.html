@@ -198,7 +198,7 @@
             </div>
         </div><br>
  
- 
+{% comment %}  
         <div class="accordian">
             <div class="block-header-style"> <ion-icon class="accordion_icon" name="chevron-down-outline"></ion-icon>Company Overview</div><br>
             <div class="detail_block accordian_sub">
@@ -215,9 +215,9 @@
                     <input type="text" class=" disable-input" id="no-of-emp" name="" value="{{ vendor_account.va_nunmber_of_direct_employee }}">
                 </div>
             </div>
-        </div><br>
+        </div><br> {% endcomment %}
  
-        <div class="accordian">
+        {% comment %} <div class="accordian">
             <div class="block-header-style"> <ion-icon class="accordion_icon" name="chevron-down-outline"></ion-icon>Company Registration Details</div><br>
             <div class="detail_block accordian_sub">
                 <div class="sub-block">
@@ -249,10 +249,10 @@
                     <input type="text" class="disable-input" id="payment-euro"  name="" value="{{ vendor_account.va_bank_accept_euro }}">
                 </div>
             </div>
-        </div><br>
+        </div><br> {% endcomment %}
  
  
-        <div class="accordian">
+        {% comment %} <div class="accordian">
             <div class="block-header-style"> <ion-icon class="accordion_icon" name="chevron-down-outline"></ion-icon>Employees & Call Support Activity</div><br>
             <div class="detail_block accordian_sub">
                 <div class="sub-block">
@@ -285,7 +285,7 @@
                 </div>
             </div>
         </div><br>
- 
+  {% endcomment %}
  
  
  
@@ -371,7 +371,7 @@
     }
  
     .background-image_SF {
-        background-image: url({% static 'orders/images/SF_bg.png' %});
+        background-image: url({% static 'accounts/images/SF_bg.png' %});
         width: 100%;
         height: 100vh;
         background-size:cover;
@@ -453,7 +453,7 @@
       .saved_form {
         height: auto;
         width: 99%;
-        background-color: rgb(252, 249, 249);
+        background:white;
         margin-top: 0.5%;
         margin-bottom: 0.5%;
         overflow-x: auto;

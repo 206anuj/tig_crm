@@ -72,7 +72,7 @@
                 <div class="sub-block">
                     <label for="id_record_type" class="disable">Account Record Type</label>
                     <div class="txt-align">
-                    <input type="text" class="disable" id="id_record_type" name="record_type" value="Vendor">
+                    <input type="text" class="width-100 input-height" id="id_record_type" name="record_type" value="Vendor">
                     </div>
  
                 </div>  
@@ -463,9 +463,10 @@
          
  
           <div class="Submit_buttons_box">
-            <button class="Submit_buttons">Save</button>
+           
             <!-- <button class="Submit_buttons" onclick="closePopup_selection_account()">Cancel</button> -->
             <a href="{% url 'accounts:customer_accounts_list_view' %}" class="Submit_buttons">Cancel</a>
+            <button class="Submit_buttons">Save</button>
         </div>
          
         </form>
@@ -560,21 +561,20 @@
  
     .Submit_buttons {
         background-color: rgb(10, 91, 138);
-        color: red;
+        color: #d12222;
         border-radius: 5px;
         border: none;
         padding: 0.4rem 0.8rem;
         text-decoration: none;
-        border:1px solid red;
+        border:1px solid #d12222;
         background:white;
         position:sticky;
         bottom:-1;
-       
     }
  
  
     .Submit_buttons:hover{
-        background: red;
+        background: #d12222;
         color:white;
         border: 1px solid white;
     }

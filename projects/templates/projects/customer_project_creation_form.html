@@ -58,7 +58,7 @@
                 </div>
                 <div class="sub-block">
                     <label class="" for="id_cp_start_date"><span class="text-danger">*</span>Project Start Date</label>
-                    <input  class="input-height" type="date" id="id_cp_start_date" name="cp_start_date" />
+                    <input class="input-height" type="date" id="id_cp_start_date" name="cp_start_date" />
                 </div>
  
                 <div class="sub-block">
@@ -110,7 +110,7 @@
  
                 <div class="sub-block">
                     <label class="" for="id_cp_type">Type of Project</label>
-                    <select class="form-select-style" type="text" name="cp_type" id="id_cp_type" required>
+                    <select class="form-select-style" type="text" name="cp_type" id="id_cp_type">
                         {% for choice in form.cp_type.field.choices %}
                         <option value="{{ choice.0 }}" {% if choice.0 == form.cp_type.value %} selected {% endif %}>{{ choice.1 }}</option>
                         {% endfor %}
@@ -131,7 +131,7 @@
                     {% endfor %}
                     </select>
             </div>
-            <div class="sub-block">
+            {% comment %} <div class="sub-block">
                 <label class="" for="id_cp_cancelled_ticket_billable">Cancelled Ticket Billable ?</label>
                 <select class="form-select-style" type="text" name="cp_cancelled_ticket_billable" id="id_cp_cancelled_ticket_billable" required>
                     {% for choice in form.cp_cancelled_ticket_billable.field.choices %}
@@ -157,7 +157,7 @@
             <div class="sub-block">
                 <label for="id_cp_cancellation_window_2">Cancellation Window 2</label>
                 <input class="input-height" type="text" name="cp_cancellation_window_2" id="id_cp_cancellation_window_2">
-            </div>
+            </div> {% endcomment %}
            
             <div class="sub-block">
                 <label for="id_cp_billing_frequency"><span class="text-danger">*</span>Billing Frequency</label>
@@ -167,10 +167,10 @@
                     {% endfor %}
                     </select>
             </div>
-            <div class="sub-block">
+            {% comment %} <div class="sub-block">
                 <label for="id_cp_terms_and_conditions">Terms And Conditions </label>
                 <input class="input-height" type="text" name="cp_terms_and_conditions" id="id_cp_terms_and_conditions">
-              </div> <br>
+              </div>  {% endcomment %}
            
           </div>
           <br />
@@ -180,6 +180,10 @@
               <label for="id_cp_owner">Owner</label>
               <input class="input-height" type="text" name="cp_owner" id="id_cp_owner">
             </div>
+            <div class="sub-block">
+                <label class="disable" for="id_record_type">Record Type</label>
+                <input type="text" id="id_cp_record_type" name="record_type" value="Customer"/>
+              </div>
           </div>
           <br />
  
@@ -187,12 +191,9 @@
           <div class="block">
             <div class="sub-block">
               <label class="disable" for="id_cp_last_billing_date">Last Billing Date</label>
-              <input class="disable" type="text" id="id_cp_last_billing_date" name="cp_last_billing_date" />
+              <input class="input-height" type="date" id="id_cp_last_billing_date" name="cp_last_billing_date" />
             </div>
-            <div class="sub-block">
-              <label class="disable" for="id_record_type">Record Type</label>
-              <input class="disable" type="text" id="id_cp_record_type" name="record_type" value="Customer"/>
-            </div>
+
           </div><br/>
          
  
